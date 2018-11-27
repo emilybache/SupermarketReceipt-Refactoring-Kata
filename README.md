@@ -15,7 +15,7 @@ These are just examples: the actual special deals change each week.
 
 Create some test cases and aim to get good enough code coverage that you feel confident to do some refactoring.
 
-When you have good test cases, identify code smells such as Long Method, Innappropriate Intimacy. Apply relevant refactorings.
+When you have good test cases, identify code smells such as Long Method, Feature Envy. Apply relevant refactorings.
 
 When you're confident you can handle this code, implement the new feature described below
 
