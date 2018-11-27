@@ -1,31 +1,26 @@
-# The Supermarket Checkout exercise
+# The Supermarket Receipt Refactoring Kata
 
-This is a variation of a popular kata described in http://codekata.com/kata/kata01-supermarket-pricing/. The aim of the exercise is to build an automated teller that can check out articles from a shopping cart. 
+This is a variation of a popular kata described in http://codekata.com/kata/kata01-supermarket-pricing/. The aim of the exercise is to build automated tests for this code, refactor it, and add a new feature. 
 
-The supermarket has a catalog with different types of products (rice, apples, milk, toothbrushes,...). Each product has a price, and the total price of the shopping cart is the total of all the prices.
+The supermarket has a catalog with different types of products (rice, apples, milk, toothbrushes,...). Each product has a price, and the total price of the shopping cart is the total of all the prices of the items. You get a receipt that details the items you've bought, the total price and any discounts that were applied.
 
-But the supermarket also runs special deals, e.g.
- - Buy two toothbrushes, get one free
- - 10% discount on rice
- - 20% discount on apples if you buy more than 10
- - Bags of 1 kg of oranges $4 instead of $5.
+The supermarket runs special deals, e.g.
+ - Buy two toothbrushes, get one free. Normal toothbrush price is €0.99
+ - 20% discount on apples, normal price €1.99 per kilo.
+ - 10% discount on rice, normal price €2.49 per bag
+ - Five tubes of toothpaste for €7.49, normal price €1.79
+ - Two boxes of cherry tomatoes for €0.99, normal price €0.69 per box.
 
-These are just examples: the actual special deals changes each week, so needs to be easily configurable.
+These are just examples: the actual special deals change each week.
 
-## Goal
+Create some test cases and aim to get good enough code coverage that you feel confident to do some refactoring.
 
-The goal of the exercise is to implement a teller that can handle the following scenarios (and more - use your imagination!)
+When you have good test cases, identify code smells such as Long Method, Innappropriate Intimacy. Apply relevant refactorings.
 
- - The teller should be able to handle a shopping cart with no special deals
- - The client should get a receipt with the list of purchases and the total price.
- - The teller should be able to handle the following scenarios
-    - Buy 2 get one free
-    - Buy 4 get one free
-    - 10% discount on a certain product (e.g. 10% discount on 1kg packets of rice)
-    - 20% discount on a certain product if you buy more than 10 (e.g 20% discount on apples for 11 or more apples)
-    - Fixed discounts (e.g. bag of 1kg of oranges costs $4 instead of $5).
- 
- - The teller should be able to handle combinations of the above scenarios, when there is more than one special deal in the shopping cart items.
+When you're confident you can handle this code, implement the new feature described below
 
-There is a simple failing test in `WhenCheckingOutArticlesAtTheSupermarket` to get you started.
+## New feature: discounted bundles
+
+The owner of the system has a new feature request. They want to introduce a new kind of special offer - bundles. When you buy all the items in a product bundle
+you get 10% off the total for those items. For example you could make a bundle offer of one toothbrush and one toothpaste. If you then you buy one toothbrush and one toothpaste, the discount will be 10% of €0.99 + €1.79. If you instead buy two toothbrushes and one toothpaste, you get the same discount as if you'd bought only one of each - ie only complete bundles are discounted.
 
