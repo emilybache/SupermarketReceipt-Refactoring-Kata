@@ -14,22 +14,7 @@ public class Teller {
     }
 
     public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-        Offer offer = createSpecialOffer(offerType, product, argument);
-        this.offers.put(product, offer);
-    }
-
-    private Offer createSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-        switch (offerType) {
-            case ThreeForTwo:
-                return new Offer(SpecialOfferType.ThreeForTwo, product, argument);
-            case TenPercentDiscount:
-                return new Offer(SpecialOfferType.TenPercentDiscount, product, argument);
-            case TwoForAmount:
-                return new Offer(SpecialOfferType.TwoForAmount, product, argument);
-            case FiveForAmount:
-                return new Offer(SpecialOfferType.FiveForAmount, product, argument);
-        }
-        throw new IllegalArgumentException("unreachable");
+        this.offers.put(product, new Offer(offerType, product, argument));
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
