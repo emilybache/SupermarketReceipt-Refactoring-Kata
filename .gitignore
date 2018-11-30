@@ -4,3 +4,7 @@ target
 **/__pycache__
 **/*.pyc
 .cache
+.vs
+CSharp/bin
+CSharp/obj
+csharp/packages
