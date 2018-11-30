@@ -63,12 +63,8 @@
     <Compile Include="Discount.cs" />
     <Compile Include="Offer.cs" />
     <Compile Include="Product.cs" />
-    <Compile Include="ProductQuantity.cs" />
-    <Compile Include="ProductUnit.cs" />
     <Compile Include="Receipt.cs" />
-    <Compile Include="ReceiptItem.cs" />
     <Compile Include="ShoppingCart.cs" />
-    <Compile Include="SpecialOfferType.cs" />
     <Compile Include="SupermarketCatalog.cs" />
     <Compile Include="Teller.cs" />
     <Compile Include="ReceiptPrinterTest.cs" />

@@ -1,16 +1,21 @@
 namespace supermarket
 {
+    public enum SpecialOfferType
+    {
+        ThreeForTwo, TenPercentDiscount, TwoForAmount, FiveForAmount
+    }
+
     public class Offer
     {
-        public SpecialOfferType offerType { get; }
-        private Product product;
-        public double argument { get; }
+        public SpecialOfferType OfferType { get; }
+        private Product _product;
+        public double Argument { get; }
 
         public Offer(SpecialOfferType offerType, Product product, double argument)
         {
-            this.offerType = offerType;
-            this.argument = argument;
-            this.product = product;
+            this.OfferType = offerType;
+            this.Argument = argument;
+            this._product = product;
         }
 
     }
