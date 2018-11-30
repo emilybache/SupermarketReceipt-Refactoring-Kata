@@ -1,28 +1,50 @@
+using System.Collections.Generic;
+
 namespace supermarket
 {
+    public class ProductQuantity
+    {
+        public Product Product { get; }
+        public double Quantity { get; }
+
+        public ProductQuantity(Product product, double weight)
+        {
+            this.Product = product;
+            this.Quantity = weight;
+        }
+
+    }
+
+    public enum ProductUnit
+    {
+        Kilo, Each
+    }
 
     public class Product
     {
-        private  string name;
-        private ProductUnit unit;
+        public  string Name { get; }
+        public ProductUnit Unit { get; }
 
         public Product(string name, ProductUnit unit)
         {
-            this.name = name;
-            this.unit = unit;
+            this.Name = name;
+            this.Unit = unit;
         }
 
-        public string getName()
+        public override bool Equals(object obj)
         {
-            return name;
+            var product = obj as Product;
+            return product != null &&
+                   Name == product.Name &&
+                   Unit == product.Unit;
         }
 
-
-        public ProductUnit getUnit()
+        public override int GetHashCode()
         {
-            return unit;
+            var hashCode = -1996304355;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + Unit.GetHashCode();
+            return hashCode;
         }
-
-       
     }
 }

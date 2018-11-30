@@ -10,23 +10,24 @@ namespace supermarket
         Dictionary<Product, double> productQuantities = new Dictionary<Product, double>();
 
 
-        public List<ProductQuantity> getItems()
+        public List<ProductQuantity> GetItems()
         {
             return new List<ProductQuantity>(items);
         }
 
-        public void addItem(Product product)
+        public void AddItem(Product product)
         {
-            this.addItemQuantity(product, 1.0);
+            this.AddItemQuantity(product, 1.0);
         }
 
 
-        public void addItemQuantity(Product product, double quantity)
+        public void AddItemQuantity(Product product, double quantity)
         {
             items.Add(new ProductQuantity(product, quantity));
             if (productQuantities.ContainsKey(product))
             {
-                productQuantities.Add(product, productQuantities[product] + quantity);
+                var newAmount = productQuantities[product] + quantity;
+                productQuantities[product] = newAmount;
             }
             else
             {
@@ -34,7 +35,7 @@ namespace supermarket
             }
         }
 
-        public void handleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog)
+        public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog)
         {
             foreach (Product p in productQuantities.Keys)
             {
@@ -42,44 +43,44 @@ namespace supermarket
                 if (offers.ContainsKey(p))
                 {
                     Offer offer = offers[p];
-                    double unitPrice = catalog.getUnitPrice(p);
+                    double unitPrice = catalog.GetUnitPrice(p);
                     int quantityAsInt = (int)quantity;
                     Discount discount = null;
                     int x = 1;
-                    if (offer.offerType == SpecialOfferType.ThreeForTwo)
+                    if (offer.OfferType == SpecialOfferType.ThreeForTwo)
                     {
                         x = 3;
 
                     }
-                    else if (offer.offerType == SpecialOfferType.TwoForAmount)
+                    else if (offer.OfferType == SpecialOfferType.TwoForAmount)
                     {
                         x = 2;
                         if (quantityAsInt >= 2)
                         {
-                            double total = offer.argument * quantityAsInt / x + quantityAsInt % 2 * unitPrice;
+                            double total = offer.Argument * quantityAsInt / x + quantityAsInt % 2 * unitPrice;
                             double discountN = unitPrice * quantity - total;
-                            discount = new Discount(p, "2 for " + offer.argument, discountN);
+                            discount = new Discount(p, "2 for " + offer.Argument, discountN);
                         }
 
                     }
-                    if (offer.offerType == SpecialOfferType.FiveForAmount)
+                    if (offer.OfferType == SpecialOfferType.FiveForAmount)
                     {
                         x = 5;
                     }
                     int numberOfXs = quantityAsInt / x;
-                    if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
+                    if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
                     {
                         double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
                         discount = new Discount(p, "3 for 2", discountAmount);
                     }
-                    if (offer.offerType == SpecialOfferType.TenPercentDiscount)
+                    if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
                     {
-                        discount = new Discount(p, offer.argument + "% off", quantity * unitPrice * offer.argument / 100.0);
+                        discount = new Discount(p, offer.Argument + "% off", quantity * unitPrice * offer.Argument / 100.0);
                     }
-                    if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
+                    if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                     {
-                        double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-                        discount = new Discount(p, x + " for " + offer.argument, discountTotal);
+                        double discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
+                        discount = new Discount(p, x + " for " + offer.Argument, discountTotal);
                     }
                     if (discount != null)
                         receipt.addDiscount(discount);

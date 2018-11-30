@@ -6,32 +6,32 @@ namespace supermarket
     public class Teller
     {
 
-        private SupermarketCatalog catalog;
-        private Dictionary<Product, Offer> offers = new Dictionary<Product, Offer>();
+        private readonly SupermarketCatalog _catalog;
+        private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
 
         public Teller(SupermarketCatalog catalog)
         {
-            this.catalog = catalog;
+            this._catalog = catalog;
         }
 
-        public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument)
+        public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
         {
-            this.offers.Add(product, new Offer(offerType, product, argument));
+            this._offers.Add(product, new Offer(offerType, product, argument));
         }
 
-        public Receipt checksOutArticlesFrom(ShoppingCart theCart)
+        public Receipt ChecksOutArticlesFrom(ShoppingCart theCart)
         {
             Receipt receipt = new Receipt();
-            List<ProductQuantity> productQuantities = theCart.getItems();
+            List<ProductQuantity> productQuantities = theCart.GetItems();
             foreach (ProductQuantity pq in
             productQuantities) {
-                Product p = pq.getProduct();
-                double quantity = pq.getQuantity();
-                double unitPrice = this.catalog.getUnitPrice(p);
+                Product p = pq.Product;
+                double quantity = pq.Quantity;
+                double unitPrice = this._catalog.GetUnitPrice(p);
                 double price = quantity * unitPrice;
                 receipt.addProduct(p, quantity, unitPrice, price);
             }
-            theCart.handleOffers(receipt, this.offers, this.catalog);
+            theCart.HandleOffers(receipt, this._offers, this._catalog);
 
             return receipt;
         }

@@ -12,11 +12,11 @@ namespace supermarket
             double total = 0.0;
             foreach (ReceiptItem item in this.items)
             {
-                total += item.getTotalPrice();
+                total += item.TotalPrice;
             }
             foreach (Discount discount in this.discounts)
             {
-                total -= discount.getDiscountAmount();
+                total -= discount.DiscountAmount;
             }
             return total;
         }
@@ -42,5 +42,19 @@ namespace supermarket
         }
     }
 
+    public class ReceiptItem
+    {
+        public Product Product { get; }
+        public double Price { get; }
+        public double TotalPrice { get; }
+        public double Quantity { get; }
 
+        public ReceiptItem(Product p, double quantity, double price, double totalPrice)
+        {
+            this.Product = p;
+            this.Quantity = quantity;
+            this.Price = price;
+            this.TotalPrice = totalPrice;
+        }
+    }
 }

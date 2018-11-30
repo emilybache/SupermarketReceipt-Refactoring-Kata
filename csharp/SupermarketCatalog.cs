@@ -1,10 +1,11 @@
 
-namespace supermarket {
-public interface SupermarketCatalog
+namespace supermarket
 {
-void addProduct(Product product, double price);
+    public interface SupermarketCatalog
+    {
+        void AddProduct(Product product, double price);
 
-double getUnitPrice(Product product);
+        double GetUnitPrice(Product product);
 
+    }
 }
- }

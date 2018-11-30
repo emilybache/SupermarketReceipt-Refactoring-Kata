@@ -5,16 +5,16 @@ using System.Reflection;
 
 namespace supermarket {
 	public class FakeCatalog : SupermarketCatalog {
-    private IDictionary<string, Product> products = new Dictionary<string, Product>();
-    private IDictionary<string, double> prices = new Dictionary<string, double>();
+    private readonly IDictionary<string, Product> _products = new Dictionary<string, Product>();
+    private readonly IDictionary<string, double> _prices = new Dictionary<string, double>();
 
-    public void addProduct(Product product, double price) {
-        this.products.Add(product.getName(), product);
-        this.prices.Add(product.getName(), price);
+    public void AddProduct(Product product, double price) {
+        this._products.Add(product.Name, product);
+        this._prices.Add(product.Name, price);
     }
 
-    public double getUnitPrice(Product p) {
-        return this.prices[p.getName()];
+    public double GetUnitPrice(Product p) {
+        return this._prices[p.Name];
     }
 }
 }
