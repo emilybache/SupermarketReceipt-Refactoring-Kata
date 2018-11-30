@@ -67,7 +67,6 @@
     <Compile Include="ShoppingCart.cs" />
     <Compile Include="SupermarketCatalog.cs" />
     <Compile Include="Teller.cs" />
-    <Compile Include="ReceiptPrinterTest.cs" />
     <Compile Include="SupermarketTest.cs" />
     <Compile Include="FakeCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
