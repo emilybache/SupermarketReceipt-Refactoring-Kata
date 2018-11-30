@@ -4,41 +4,41 @@ namespace supermarket
 {
     public class Receipt
     {
-        private List<ReceiptItem> items = new List<ReceiptItem>();
-        private List<Discount> discounts = new List<Discount>();
+        private readonly List<ReceiptItem> _items = new List<ReceiptItem>();
+        private readonly List<Discount> _discounts = new List<Discount>();
 
-        public double getTotalPrice()
+        public double GetTotalPrice()
         {
             double total = 0.0;
-            foreach (ReceiptItem item in this.items)
+            foreach (var item in this._items)
             {
                 total += item.TotalPrice;
             }
-            foreach (Discount discount in this.discounts)
+            foreach (var discount in this._discounts)
             {
                 total -= discount.DiscountAmount;
             }
             return total;
         }
 
-        public void addProduct(Product p, double quantity, double price, double totalPrice)
+        public void AddProduct(Product p, double quantity, double price, double totalPrice)
         {
-            this.items.Add(new ReceiptItem(p, quantity, price, totalPrice));
+            this._items.Add(new ReceiptItem(p, quantity, price, totalPrice));
         }
 
-        public List<ReceiptItem> getItems()
+        public List<ReceiptItem> GetItems()
         {
-            return new List<ReceiptItem>(this.items);
+            return new List<ReceiptItem>(this._items);
         }
 
-        public void addDiscount(Discount discount)
+        public void AddDiscount(Discount discount)
         {
-            this.discounts.Add(discount);
+            this._discounts.Add(discount);
         }
 
-        public List<Discount> getDiscounts()
+        public List<Discount> GetDiscounts()
         {
-            return discounts;
+            return _discounts;
         }
     }
 

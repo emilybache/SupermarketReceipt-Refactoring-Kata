@@ -2,24 +2,6 @@ using System.Collections.Generic;
 
 namespace supermarket
 {
-    public class ProductQuantity
-    {
-        public Product Product { get; }
-        public double Quantity { get; }
-
-        public ProductQuantity(Product product, double weight)
-        {
-            this.Product = product;
-            this.Quantity = weight;
-        }
-
-    }
-
-    public enum ProductUnit
-    {
-        Kilo, Each
-    }
-
     public class Product
     {
         public  string Name { get; }
@@ -46,5 +28,23 @@ namespace supermarket
             hashCode = hashCode * -1521134295 + Unit.GetHashCode();
             return hashCode;
         }
+    }
+
+    public class ProductQuantity
+    {
+        public Product Product { get; }
+        public double Quantity { get; }
+
+        public ProductQuantity(Product product, double weight)
+        {
+            this.Product = product;
+            this.Quantity = weight;
+        }
+
+    }
+
+    public enum ProductUnit
+    {
+        Kilo, Each
     }
 }
