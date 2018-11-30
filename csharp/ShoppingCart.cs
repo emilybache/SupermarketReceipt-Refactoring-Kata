@@ -6,13 +6,13 @@ namespace supermarket
     public class ShoppingCart
     {
 
-        private List<ProductQuantity> items = new List<ProductQuantity>();
-        Dictionary<Product, double> productQuantities = new Dictionary<Product, double>();
+        private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
+        private readonly Dictionary<Product, double> _productQuantities = new Dictionary<Product, double>();
 
 
         public List<ProductQuantity> GetItems()
         {
-            return new List<ProductQuantity>(items);
+            return new List<ProductQuantity>(_items);
         }
 
         public void AddItem(Product product)
@@ -23,30 +23,30 @@ namespace supermarket
 
         public void AddItemQuantity(Product product, double quantity)
         {
-            items.Add(new ProductQuantity(product, quantity));
-            if (productQuantities.ContainsKey(product))
+            _items.Add(new ProductQuantity(product, quantity));
+            if (_productQuantities.ContainsKey(product))
             {
-                var newAmount = productQuantities[product] + quantity;
-                productQuantities[product] = newAmount;
+                var newAmount = _productQuantities[product] + quantity;
+                _productQuantities[product] = newAmount;
             }
             else
             {
-                productQuantities.Add(product, quantity);
+                _productQuantities.Add(product, quantity);
             }
         }
 
         public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog)
         {
-            foreach (Product p in productQuantities.Keys)
+            foreach (var p in _productQuantities.Keys)
             {
-                double quantity = productQuantities[p];
+                var quantity = _productQuantities[p];
+                var quantityAsInt = (int)quantity;
                 if (offers.ContainsKey(p))
                 {
-                    Offer offer = offers[p];
-                    double unitPrice = catalog.GetUnitPrice(p);
-                    int quantityAsInt = (int)quantity;
+                    var offer = offers[p];
+                    var unitPrice = catalog.GetUnitPrice(p);
                     Discount discount = null;
-                    int x = 1;
+                    var x = 1;
                     if (offer.OfferType == SpecialOfferType.ThreeForTwo)
                     {
                         x = 3;
@@ -67,10 +67,10 @@ namespace supermarket
                     {
                         x = 5;
                     }
-                    int numberOfXs = quantityAsInt / x;
+                    var numberOfXs = quantityAsInt / x;
                     if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
                     {
-                        double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+                        var discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
                         discount = new Discount(p, "3 for 2", discountAmount);
                     }
                     if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
@@ -79,11 +79,11 @@ namespace supermarket
                     }
                     if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                     {
-                        double discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
+                        var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
                         discount = new Discount(p, x + " for " + offer.Argument, discountTotal);
                     }
                     if (discount != null)
-                        receipt.addDiscount(discount);
+                        receipt.AddDiscount(discount);
                 }
 
             }

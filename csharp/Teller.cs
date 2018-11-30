@@ -16,20 +16,19 @@ namespace supermarket
 
         public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
         {
-            this._offers.Add(product, new Offer(offerType, product, argument));
+            this._offers[product] = new Offer(offerType, product, argument);
         }
 
         public Receipt ChecksOutArticlesFrom(ShoppingCart theCart)
         {
-            Receipt receipt = new Receipt();
-            List<ProductQuantity> productQuantities = theCart.GetItems();
-            foreach (ProductQuantity pq in
-            productQuantities) {
-                Product p = pq.Product;
-                double quantity = pq.Quantity;
-                double unitPrice = this._catalog.GetUnitPrice(p);
-                double price = quantity * unitPrice;
-                receipt.addProduct(p, quantity, unitPrice, price);
+            var receipt = new Receipt();
+            var productQuantities = theCart.GetItems();
+            foreach (ProductQuantity pq in productQuantities) {
+                var p = pq.Product;
+                var quantity = pq.Quantity;
+                var unitPrice = this._catalog.GetUnitPrice(p);
+                var price = quantity * unitPrice;
+                receipt.AddProduct(p, quantity, unitPrice, price);
             }
             theCart.HandleOffers(receipt, this._offers, this._catalog);
 
