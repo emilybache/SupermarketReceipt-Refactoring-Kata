@@ -8,6 +8,10 @@ public class ReceiptPrinter {
 
     private final int columns;
 
+    public ReceiptPrinter() {
+        this(40);
+    }
+
     public ReceiptPrinter(int columns) {
         this.columns = columns;
     }
