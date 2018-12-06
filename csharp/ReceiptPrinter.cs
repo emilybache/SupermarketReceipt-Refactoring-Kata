@@ -12,9 +12,14 @@ namespace supermarket
         private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
 
 
+
         public ReceiptPrinter(int columns)
         {
             this._columns = columns;
+        }
+
+        public ReceiptPrinter() : this(40)
+        {
         }
 
         public string PrintReceipt(Receipt receipt)
