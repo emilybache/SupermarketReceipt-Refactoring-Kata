@@ -6,11 +6,11 @@ export class FakeCatalog implements SupermarketCatalog {
     private prices: {[key: string]: number} = {};
 
     public addProduct(product: Product, price: number): void {
-        this.products[product.getName()] = product;
-        this.prices[product.getName()] = price;
+        this.products[product.name] = product;
+        this.prices[product.name] = price;
     }
 
     public getUnitPrice(p: Product): number {
-        return this.prices[p.getName()];
+        return this.prices[p.name];
     }
 }

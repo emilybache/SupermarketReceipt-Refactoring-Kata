@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require ts-node/register --recursive 'test/**/*.test.ts'",
-    "watch:test": "npm run test -- --watch-extensions ts  --watch"
+    "watch:test": "npm run test -- --watch-extensions ts  --watch",
+    "compile": "tsc"
   },
   "author": "Johan Martinsson",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/jest": "^23.3.11",
     "@types/mocha": "^5.2.5",
     "approvals": "^3.0.2",
     "chai": "^4.2.0",

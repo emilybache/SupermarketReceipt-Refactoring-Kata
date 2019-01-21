@@ -15,7 +15,7 @@ type Approvals = {
 describe('Supermarket', function () {
 
     approvals.mocha()
-    it('TODO decide what to specify', function (this: Approvals) {
+    it('TODO decide what to specify', function (this: any) {
 
         const catalog: SupermarketCatalog = new FakeCatalog();
         const toothbrush: Product = new Product("toothbrush", ProductUnit.Each);
