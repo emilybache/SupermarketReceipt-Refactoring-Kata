@@ -3,9 +3,9 @@ import {SpecialOfferType} from "./SpecialOfferType"
 
 export class Offer {
 
-    public constructor(public offerType: SpecialOfferType,
-                       private readonly product: Product ,
-                       public argument: number) {
+    public constructor(public readonly offerType: SpecialOfferType,
+                       public readonly product: Product,
+                       public readonly argument: number) {
     }
 
     getProduct(): Product {
