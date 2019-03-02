@@ -14,7 +14,7 @@ public class Teller {
     }
 
     public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-        this.offers.put(product, new Offer(offerType, product, argument));
+        this.offers.put(product, Offer.createOffer(offerType, product, argument));
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
