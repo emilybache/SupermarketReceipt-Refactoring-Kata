@@ -1,32 +1,27 @@
 package dojo.supermarket.model;
 
-public abstract class Offer {
-    SpecialOfferType offerType;
-    double argument;
+import java.util.Optional;
 
-    Offer(SpecialOfferType offerType, double argument) {
-        this.offerType = offerType;
-        this.argument = argument;
-    }
+public interface  Offer {
 
-    public static Offer createOffer(SpecialOfferType offerType, Product product, double argument) {
+    static Offer createOffer(SpecialOfferType offerType, double argument) {
         switch (offerType) {
             case ThreeForTwo: {
-                return new ThreeForTwo(product, argument);
+                return new ThreeForTwo();
             }
             case TwoForAmount: {
-                return new TwoForAmount(product, argument);
+                return new TwoForAmount(argument);
             }
             case FiveForAmount: {
-                return new FiveForAmount(product, argument);
+                return new FiveForAmount(argument);
             }
-            case TenPercentDiscount: {
-                return new TenPercentDiscount(product, argument);
+            case PercentDiscount: {
+                return new PercentDiscount(argument);
             }
             default:
                 throw new IllegalArgumentException("Invalid offerType: " + offerType.name());
         }
     }
 
-    protected abstract void doHandleOffers(final Receipt receipt, final SupermarketCatalog catalog, final Product p, final ShoppingCart shoppingCart);
+    Optional<Discount> calculateDiscount(final double unitPrice, final Product p, final double quantity);
 }

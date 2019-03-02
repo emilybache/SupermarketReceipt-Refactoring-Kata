@@ -1,9 +1,6 @@
 package dojo.supermarket.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShoppingCart {
 
@@ -38,7 +35,9 @@ public class ShoppingCart {
             if (!offers.containsKey(p)) {
                 continue;
             }
-            offers.get(p).doHandleOffers(receipt, catalog, p, this);
+            final double quantity = productQuantities.get(p);
+            final Optional<Discount> discount = offers.get(p).calculateDiscount(catalog.getUnitPrice(p), p, quantity);
+            discount.ifPresent(receipt::addDiscount);
         }
     }
 

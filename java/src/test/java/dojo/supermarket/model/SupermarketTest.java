@@ -84,7 +84,7 @@ public class SupermarketTest {
     @Test
     public void percent_discount() {
         theCart.addItem(rice);
-        teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, rice, 10.0);
+        teller.addSpecialOffer(SpecialOfferType.PercentDiscount, rice, 10.0);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }

@@ -1,21 +1,24 @@
 package dojo.supermarket.model;
 
-public class TwoForAmount extends Offer {
-    public TwoForAmount(final Product product, final double argument) {
-        super(SpecialOfferType.TwoForAmount, argument);
+import java.util.Optional;
+
+public class TwoForAmount implements Offer {
+    public static final int TWO_ITEMS = 2;
+    private final double amount;
+
+    public TwoForAmount(final double amount) {
+        this.amount = amount;
     }
 
     @Override
-    protected void doHandleOffers(final Receipt receipt, final SupermarketCatalog catalog, final Product p, final ShoppingCart shoppingCart) {
-        double quantity = shoppingCart.productQuantities.get(p);
+    public Optional<Discount> calculateDiscount(final double unitPrice, final Product p, final double quantity) {
         int quantityAsInt = (int) quantity;
-        int x = 2;
-        if (quantityAsInt >= 2) {
-            double unitPrice = catalog.getUnitPrice(p);
-            double total = argument * quantityAsInt / x + quantityAsInt % 2 * unitPrice;
-            double discountN = unitPrice * quantity - total;
-            Discount discount = new Discount(p, "2 for " + argument, discountN);
-            receipt.addDiscount(discount);
+        if (quantityAsInt < TWO_ITEMS) {
+            return Optional.empty();
         }
+
+        double total = amount * quantityAsInt / TWO_ITEMS + quantityAsInt % TWO_ITEMS * unitPrice;
+        double discountN = unitPrice * quantity - total;
+        return Optional.of(new Discount(p, TWO_ITEMS + " for " + amount, discountN));
     }
 }

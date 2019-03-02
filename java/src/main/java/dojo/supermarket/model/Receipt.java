@@ -2,6 +2,7 @@ package dojo.supermarket.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Receipt {
     private List<ReceiptItem> items = new ArrayList<>();
