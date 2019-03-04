@@ -1,5 +1,5 @@
-import {Product} from "../src/model/Product"
-import {SupermarketCatalog} from "../src/model/SupermarketCatalog"
+import {Product} from "../../src/model/Product"
+import {SupermarketCatalog} from "../../src/model/SupermarketCatalog"
 
 export class FakeCatalog implements SupermarketCatalog {
     private products: {[key: string]: Product} = {};
