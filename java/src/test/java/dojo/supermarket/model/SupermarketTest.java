@@ -9,7 +9,7 @@ public class SupermarketTest {
     // Todo: test all kinds of discounts are applied properly
 
     @Test
-    public void testSomething() {
+    public void tenPercentDiscount() {
         SupermarketCatalog catalog = new FakeCatalog();
         Product toothbrush = new Product("toothbrush", ProductUnit.Each);
         catalog.addProduct(toothbrush, 0.99);
