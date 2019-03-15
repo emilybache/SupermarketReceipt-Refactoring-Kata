@@ -32,3 +32,7 @@ and number formatting should be the same. However the layout should be html.
 You don't have to worry about the HTML template - a designer will care of that - but 
 we do need someone to keep duplication between the reports to a bare minimum.
 
+## Start with the refactoring
+
+If you would like to just do the refactoring part of this exercise, you can instead check out the 'with_tests' branch. 
+Those tests have reasonably good coverage and should support most kinds of refactorings you'd like to do.
