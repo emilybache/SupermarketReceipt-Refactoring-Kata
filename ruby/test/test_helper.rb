@@ -4,6 +4,7 @@ if ENV["COVERAGE"] == "yes"
 end
 
 require 'minitest/autorun'
+require 'mutant/minitest/coverage'
 
 require_relative File.join(File.dirname(__FILE__), '..', 'lib', 'kata.rb')
 
