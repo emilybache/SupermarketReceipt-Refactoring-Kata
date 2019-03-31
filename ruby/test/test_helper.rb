@@ -1,3 +1,8 @@
+if ENV["COVERAGE"] == "yes"
+  require 'simplecov'
+  SimpleCov.start
+end
+
 require 'minitest/autorun'
 
 pattern = File.join(File.dirname(__FILE__), '..', 'lib', '**', '*.rb')
