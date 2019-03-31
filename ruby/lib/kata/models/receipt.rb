@@ -1,4 +1,4 @@
-class Receipt
+class Kata::Receipt
 
   def initialize
     @items = []
@@ -17,7 +17,7 @@ class Receipt
   end
 
   def add_product(product, quantity, price, total_price)
-    @items << ReceiptItem.new(product, quantity, price, total_price)
+    @items << Kata::ReceiptItem.new(product, quantity, price, total_price)
     nil
   end
 

@@ -5,8 +5,7 @@ end
 
 require 'minitest/autorun'
 
-pattern = File.join(File.dirname(__FILE__), '..', 'lib', '**', '*.rb')
-Dir[pattern].each { |filepath| require_relative filepath }
+require_relative File.join(File.dirname(__FILE__), '..', 'lib', 'kata.rb')
 
 pattern = File.join(File.dirname(__FILE__), 'support', '**', '*.rb')
 Dir[pattern].each { |filepath| require_relative filepath }

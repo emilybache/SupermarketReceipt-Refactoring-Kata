@@ -1,4 +1,4 @@
-class FakeCatalog < SupermarketCatalog
+class FakeCatalog < Kata::SupermarketCatalog
 
   def initialize
     @products = {}

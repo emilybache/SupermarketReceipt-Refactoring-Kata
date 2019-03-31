@@ -1,4 +1,4 @@
-class Offer
+class Kata::Offer
 
   attr_reader :product, :offer_type, :argument
 
