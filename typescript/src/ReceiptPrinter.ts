@@ -10,23 +10,23 @@ export class ReceiptPrinter {
     public printReceipt( receipt: Receipt): string {
         let result = "";
         for (const item of receipt.getItems()) {
-            let price = this.format2Decimals(item.getTotalPrice());
+            let price = this.format2Decimals(item.totalPrice);
             let quantity = ReceiptPrinter.presentQuantity(item);
-            let name = item.getProduct().getName();
-            let unitPrice = this.format2Decimals(item.getPrice());
+            let name = item.product.name;
+            let unitPrice = this.format2Decimals(item.price);
 
             let whitespaceSize = this.columns - name.length - price.length;
             let line = name + ReceiptPrinter.getWhitespace(whitespaceSize) + price + "\n";
 
-            if (item.getQuantity() != 1) {
+            if (item.quantity != 1) {
                 line += "  " + unitPrice + " * " + quantity + "\n";
             }
             result += line;
         }
         for (const discount of receipt.getDiscounts()) {
-            let productPresentation = discount.getProduct().getName();
-            let pricePresentation = this.format2Decimals(discount.getDiscountAmount());
-            let description = discount.getDescription();
+            let productPresentation = discount.product.name;
+            let pricePresentation = this.format2Decimals(discount.discountAmount);
+            let description = discount.description;
             result += description;
             result += "(";
             result += productPresentation;
@@ -55,10 +55,10 @@ export class ReceiptPrinter {
     }
 
     private static presentQuantity( item: ReceiptItem): string  {
-        return ProductUnit.Each == item.getProduct().getUnit()
+        return ProductUnit.Each == item.product.unit
             // TODO make sure this is the simplest way to make something similar to the java version
-                ? new Intl.NumberFormat('en-UK', {maximumFractionDigits: 0}).format(item.getQuantity())
-                : new Intl.NumberFormat('en-UK', {minimumFractionDigits: 3}).format(item.getQuantity());
+                ? new Intl.NumberFormat('en-UK', {maximumFractionDigits: 0}).format(item.quantity)
+                : new Intl.NumberFormat('en-UK', {minimumFractionDigits: 3}).format(item.quantity);
     }
 
     private static getWhitespace(whitespaceSize: number): string {

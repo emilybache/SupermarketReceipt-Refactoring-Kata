@@ -10,10 +10,10 @@ export class Receipt {
     public getTotalPrice(): number {
         let total = 0.0;
         for (let item of this.items) {
-            total += item.getTotalPrice();
+            total += item.totalPrice;
         }
         for ( let discount of this.discounts) {
-            total -= discount.getDiscountAmount();
+            total -= discount.discountAmount;
         }
         return total;
     }

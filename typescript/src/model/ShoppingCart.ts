@@ -32,24 +32,24 @@ export class ShoppingCart {
     public addItemQuantity(product: Product, quantity: number): void {
         let productQuantity = new ProductQuantity(product, quantity)
         this.items.push(productQuantity);
-        let currentQuantity = this._productQuantities[product.getName()]
+        let currentQuantity = this._productQuantities[product.name]
         if (currentQuantity) {
-            this._productQuantities[product.getName()] = this.increaseQuantity(product, currentQuantity, quantity);
+            this._productQuantities[product.name] = this.increaseQuantity(product, currentQuantity, quantity);
         } else {
-            this._productQuantities[product.getName()] = productQuantity;
+            this._productQuantities[product.name] = productQuantity;
         }
 
     }
 
     private increaseQuantity(product: Product, productQuantity: ProductQuantity, quantity: number) {
-        return new ProductQuantity(product, productQuantity.getQuantity() + quantity)
+        return new ProductQuantity(product, productQuantity.quantity + quantity)
     }
 
     handleOffers(receipt: Receipt,  offers: OffersByProduct, catalog: SupermarketCatalog ):void {
         for (const productName in this.productQuantities()) {
             const productQuantity = this._productQuantities[productName]
-            const product = productQuantity.getProduct();
-            const quantity: number = this._productQuantities[productName].getQuantity();
+            const product = productQuantity.product;
+            const quantity: number = this._productQuantities[productName].quantity;
             if (offers[productName]) {
                 const offer : Offer = offers[productName];
                 const unitPrice: number= catalog.getUnitPrice(product);
