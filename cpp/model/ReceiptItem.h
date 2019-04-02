@@ -6,8 +6,7 @@
 
 class ReceiptItem {
 public:
-    ReceiptItem(const Product& product, double price, double totalPrice, double quantity);
-
+    ReceiptItem(const Product& product, double quantity, double price, double totalPrice);
     Product getProduct() const;
 
     double getPrice() const;
