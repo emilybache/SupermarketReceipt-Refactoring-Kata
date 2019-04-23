@@ -1,4 +1,4 @@
-namespace supermarket
+namespace SupermarketReceipt
 {
 
     public class Discount

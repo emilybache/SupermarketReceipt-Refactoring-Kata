@@ -1,11 +1,11 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace supermarket
+namespace SupermarketReceipt
 {
-    [TestClass]
     public class SupermarketTest
     {
-       [TestMethod]
+        
+       [Fact]
        public void TestSomething()
        {
            SupermarketCatalog catalog = new FakeCatalog();
@@ -22,7 +22,7 @@ namespace supermarket
 
            var receipt = teller.ChecksOutArticlesFrom(cart);
 
-           // Todo: complete this test
+           Assert.Equal(4.975, receipt.GetTotalPrice());
        }
     }
 }

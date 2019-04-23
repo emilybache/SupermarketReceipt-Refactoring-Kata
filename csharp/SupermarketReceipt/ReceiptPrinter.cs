@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace supermarket
+namespace SupermarketReceipt
 {
     public class ReceiptPrinter
     {

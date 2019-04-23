@@ -1,9 +1,6 @@
-
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
-namespace supermarket {
+namespace SupermarketReceipt {
 	public class FakeCatalog : SupermarketCatalog {
     private readonly IDictionary<string, Product> _products = new Dictionary<string, Product>();
     private readonly IDictionary<string, double> _prices = new Dictionary<string, double>();
