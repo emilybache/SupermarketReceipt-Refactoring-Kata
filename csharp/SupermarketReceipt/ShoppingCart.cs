@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace supermarket
+namespace SupermarketReceipt
 {
     public class ShoppingCart
     {

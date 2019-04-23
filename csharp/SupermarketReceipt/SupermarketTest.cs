@@ -1,11 +1,10 @@
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace supermarket
+namespace SupermarketReceipt
 {
     [UseReporter(typeof(DiffReporter))]
-    [TestClass]
     public class SupermarketTest
     {
         private SupermarketCatalog _catalog;
@@ -15,9 +14,8 @@ namespace supermarket
         private Product _rice;
         private Product _apples;
         private Product _cherryTomatoes;
-
-        [TestInitialize]
-        public void SetUp()
+        
+        public SupermarketTest()
         {
             _catalog = new FakeCatalog();
             _teller = new Teller(_catalog);
@@ -34,14 +32,14 @@ namespace supermarket
 
         }
 
-        [TestMethod]
+        [Fact]
         public void an_empty_shopping_cart_should_cost_nothing()
         {
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void one_normal_item()
         {
             _theCart.AddItem(_toothbrush);
@@ -49,7 +47,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void two_normal_items()
         {
             _theCart.AddItem(_toothbrush);
@@ -58,7 +56,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void buy_two_get_one_free()
         {
             _theCart.AddItem(_toothbrush);
@@ -69,7 +67,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void buy_five_get_one_free()
         {
             _theCart.AddItem(_toothbrush);
@@ -82,7 +80,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void loose_weight_product()
         {
             _theCart.AddItemQuantity(_apples, .5);
@@ -90,7 +88,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void percent_discount()
         {
             _theCart.AddItem(_rice);
@@ -99,7 +97,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void xForY_discount()
         {
             _theCart.AddItem(_cherryTomatoes);
@@ -109,7 +107,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void FiveForY_discount()
         {
             _theCart.AddItemQuantity(_apples, 5);
@@ -118,7 +116,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void FiveForY_discount_withSix()
         {
             _theCart.AddItemQuantity(_apples, 6);
@@ -127,7 +125,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void FiveForY_discount_withSixteen()
         {
             _theCart.AddItemQuantity(_apples, 16);
@@ -136,7 +134,7 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void FiveForY_discount_withFour()
         {
             _theCart.AddItemQuantity(_apples, 4);
@@ -144,5 +142,6 @@ namespace supermarket
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
+
     }
 }

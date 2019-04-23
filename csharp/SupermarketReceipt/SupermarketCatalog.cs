@@ -1,5 +1,5 @@
 
-namespace supermarket
+namespace SupermarketReceipt
 {
     public interface SupermarketCatalog
     {
