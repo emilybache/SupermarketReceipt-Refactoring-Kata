@@ -1,0 +1,27 @@
+{
+  "name": "supermarket-receipt-refactoring-kata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --require ts-node/register --recursive 'test/**/*.test.ts'",
+    "watch:test": "npm run test -- --watch-extensions ts  --watch",
+    "compile": "tsc"
+  },
+  "author": "Johan Martinsson",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "approvals": "^3.0.2",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.119",
+    "@types/node": "^10.12.18",
+    "lodash": "^4.17.11",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  }
+}

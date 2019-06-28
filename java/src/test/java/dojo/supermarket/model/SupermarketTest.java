@@ -2,10 +2,14 @@ package dojo.supermarket.model;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class SupermarketTest {
 
+    // Todo: test all kinds of discounts are applied properly
+
     @Test
-    public void testSomething() {
+    public void tenPercentDiscount() {
         SupermarketCatalog catalog = new FakeCatalog();
         Product toothbrush = new Product("toothbrush", ProductUnit.Each);
         catalog.addProduct(toothbrush, 0.99);
@@ -20,6 +24,7 @@ public class SupermarketTest {
 
         Receipt receipt = teller.checksOutArticlesFrom(cart);
 
-        // Todo: complete this test
+        assertEquals(4.975, receipt.getTotalPrice(), 0.01);
+
     }
 }

@@ -4,3 +4,6 @@ target
 **/__pycache__
 **/*.pyc
 .cache
+out/
+build/
+.gradle/
