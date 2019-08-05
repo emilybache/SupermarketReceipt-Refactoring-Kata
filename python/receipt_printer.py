@@ -29,7 +29,7 @@ class ReceiptPrinter:
             name = item.product.name
             unit_price = "%.2f" % item.price
 
-            whitespace_size = self.columns - name.size - price.size
+            whitespace_size = self.columns - len(name) - len(price)
             line = name + whitespace(whitespace_size) + price + "\n"
 
             if item.quantity != 1:
@@ -45,14 +45,14 @@ class ReceiptPrinter:
             result += "("
             result += product_presentation
             result += ")"
-            result += whitespace(self.columns - 3 - product_presentation.size - description.size - price_presentation.size)
+            result += whitespace(self.columns - 3 - len(product_presentation) - len(description) - len(price_presentation))
             result += "-"
             result += price_presentation
             result += "\n"
 
         result += "\n"
-        price_presentation = "%.2f" % receipt.total_price
+        price_presentation = "%.2f" % receipt.total_price()
         total = "Total: "
-        space = whitespace(self.columns - total.size - price_presentation.size)
-        result += total, space, price_presentation
+        space = whitespace(self.columns - len(total) - len(price_presentation))
+        result += total + space + price_presentation
         return str(result)
