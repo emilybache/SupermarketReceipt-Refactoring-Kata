@@ -1,6 +1,10 @@
 package dojo.supermarket.model;
 
+import dojo.supermarket.ReceiptPrinter;
+import org.approvaltests.Approvals;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,9 +26,20 @@ public class SupermarketTest {
         Teller teller = new Teller(catalog);
         teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
 
+        // ACT
         Receipt receipt = teller.checksOutArticlesFrom(cart);
 
+        // ASSERT
         assertEquals(4.975, receipt.getTotalPrice(), 0.01);
+        assertEquals(Collections.emptyList(), receipt.getDiscounts());
+        assertEquals(1, receipt.getItems().size());
+        ReceiptItem receiptItem = receipt.getItems().get(0);
+        assertEquals(apples, receiptItem.getProduct());
+        assertEquals(1.99, receiptItem.getPrice());
+        assertEquals(2.5*1.99, receiptItem.getTotalPrice());
+        assertEquals(2.5, receiptItem.getQuantity());
 
     }
+
+
 }
