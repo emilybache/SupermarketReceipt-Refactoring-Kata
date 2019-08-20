@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Xunit;
 
 namespace SupermarketReceipt
@@ -6,8 +7,9 @@ namespace SupermarketReceipt
     {
         
        [Fact]
-       public void TestSomething()
+       public void TenPercentDiscount()
        {
+           // ARRANGE
            SupermarketCatalog catalog = new FakeCatalog();
            var toothbrush = new Product("toothbrush", ProductUnit.Each);
            catalog.AddProduct(toothbrush, 0.99);
@@ -20,9 +22,18 @@ namespace SupermarketReceipt
            var teller = new Teller(catalog);
            teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
 
+           // ACT
            var receipt = teller.ChecksOutArticlesFrom(cart);
 
+           // ASSERT
            Assert.Equal(4.975, receipt.GetTotalPrice());
+           Assert.Equal(new List<Discount>(), receipt.GetDiscounts());
+           Assert.Single(receipt.GetItems());
+           var receiptItem = receipt.GetItems()[0];
+           Assert.Equal(apples, receiptItem.Product);
+           Assert.Equal(1.99, receiptItem.Price);
+           Assert.Equal(2.5*1.99, receiptItem.TotalPrice);
+           Assert.Equal(2.5, receiptItem.Quantity);
        }
     }
 }
