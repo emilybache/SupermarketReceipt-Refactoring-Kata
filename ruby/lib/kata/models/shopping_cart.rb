@@ -42,7 +42,7 @@ class Kata::ShoppingCart
         elsif offer.offer_type == Kata::SpecialOfferType::TWO_FOR_AMOUNT
           x = 2
           if quantity_as_int >= 2
-            total = offer.argument * quantity_as_int / x + quantity_as_int % 2 * unit_price
+            total = offer.argument * (quantity_as_int / x) + quantity_as_int % 2 * unit_price
             discount_n = unit_price * quantity - total
             discount = Kata::Discount.new(p, "2 for " + offer.argument.to_s, discount_n)
           end

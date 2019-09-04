@@ -48,7 +48,7 @@ public class ShoppingCart {
                 } else if (offer.offerType == SpecialOfferType.TwoForAmount) {
                     x = 2;
                     if (quantityAsInt >= 2) {
-                        double total = offer.argument * quantityAsInt / x + quantityAsInt % 2 * unitPrice;
+                        double total = offer.argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
                         double discountN = unitPrice * quantity - total;
                         discount = new Discount(p, "2 for " + offer.argument, discountN);
                     }
