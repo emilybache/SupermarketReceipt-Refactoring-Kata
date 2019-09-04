@@ -46,7 +46,7 @@ class ShoppingCart {
                 } else if (offer.offerType === SpecialOfferType.TwoForAmount) {
                     x = 2
                     if (quantityAsInt >= 2) {
-                        val total = offer.argument * quantityAsInt / x + quantityAsInt % 2 * unitPrice
+                        val total = offer.argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice
                         val discountN = unitPrice * quantity - total
                         discount = Discount(p, "2 for " + offer.argument, discountN)
                     }

@@ -39,7 +39,7 @@ void ShoppingCart::handleOffers(Receipt& receipt, std::map<Product, Offer> offer
             } else if (offer.getOfferType() == SpecialOfferType::TwoForAmount) {
                 x = 2;
                 if (quantityAsInt >= 2) {
-                    double total = offer.getArgument() * quantityAsInt / x + quantityAsInt % 2 * unitPrice;
+                    double total = offer.getArgument() * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
                     double discountN = unitPrice * quantity - total;
                     discount = new Discount("2 for " + std::to_string(offer.getArgument()), discountN, product);
                 }
