@@ -30,7 +30,13 @@ class SupermarketReceiptTests: XCTestCase {
     
     func test_an_empty_shopping_cart_should_cost_nothing() {
         let receipt = teller.checksOutArticlesFrom(theCart: theCart)
-//        Approvals.verify(ReceiptPrinter(40).printReceipt(receipt))
+
+//        ReceiptPrinter(40)
+            
+//            .printReceipt(receipt)
+
+        let expected = "\nTotal:                              0.00"
+//        XCTAssertEqual(expected, receipt.)
     }
 
     
