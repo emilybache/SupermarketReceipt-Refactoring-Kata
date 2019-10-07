@@ -14,7 +14,7 @@ public class Receipt {
     }
 
     public func addProduct(p: Product, quantity: Double, price: Double, totalPrice: Double) {
-        self.items.append(ReceiptItem(product: p, price: quantity, totalPrice: price, quantity: totalPrice))
+        self.items.append(ReceiptItem(product: p, price: price, totalPrice: totalPrice, quantity: quantity))
     }
 
     public func addDiscount(discount: Discount) {
