@@ -7,7 +7,7 @@ public class Teller {
         self.catalog = catalog
     }
 
-    public func addSpecialOffer(offerType: SpecialOfferType, product: Product ,argument: Double) {
+    public func addSpecialOffer(offerType: SpecialOfferType, product: Product, argument: Double) {
         self.offers[product] = Offer(offerType: offerType, product: product, argument: argument)
     }
 

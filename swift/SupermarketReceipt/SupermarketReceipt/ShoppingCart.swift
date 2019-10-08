@@ -10,7 +10,7 @@ public class ShoppingCart {
     public func addItemQuantity(product: Product , quantity: Double) {
         items.append(ProductQuantity(product: product, quantity:quantity))
         if productQuantities[product] != nil {
-            productQuantities[product] = productQuantities[product] ?? 0 + quantity
+            productQuantities[product] = productQuantities[product]! + quantity
         } else {
             productQuantities[product] = quantity
         }
@@ -22,7 +22,7 @@ public class ShoppingCart {
             if offers[p] != nil {
                 var offer = offers[p]
                 var unitPrice = catalog.getUnitPrice(product: p)
-                var quantityAsInt = Int(quantity ?? 0)
+                var quantityAsInt = Int(quantity!)
                 var discount: Discount? = nil
                 var x = 1
                 if offer?.offerType == SpecialOfferType.ThreeForTwo {
@@ -31,10 +31,16 @@ public class ShoppingCart {
                 } else if offer?.offerType == SpecialOfferType.TwoForAmount {
                     x = 2
                     if (quantityAsInt >= 2) {
-                        var pricePerUnit = ((offer?.argument ?? 1) * Double(quantityAsInt / x))
-                        var total = pricePerUnit + (Double(quantityAsInt % 2) * unitPrice)
-                        var discountN = unitPrice * (quantity ?? 1) - total
-                        discount =  Discount(description:  "2 for \(offer?.argument)", discountAmount: discountN, product: p)
+                        
+                        var intDivision = quantityAsInt / x
+                        
+                        var pricePerUnit = (offer!.argument * Double(intDivision))
+                        
+                        var theTotal = Double(quantityAsInt % 2) * unitPrice
+                        
+                        var total = pricePerUnit + theTotal
+                        var discountN = unitPrice * quantity! - total
+                        discount =  Discount(description:  "2 for \(offer!.argument)", discountAmount: discountN, product: p)
                     }
 
                 } else if offer?.offerType == SpecialOfferType.FiveForAmount {
@@ -49,13 +55,13 @@ public class ShoppingCart {
                     discount =  Discount(description: "3 for 2", discountAmount: discountAmount, product: p)
                 }
                 if offer?.offerType == SpecialOfferType.TenPercentDiscount {
-                    discount =  Discount(description: "\(offer?.argument)% off", discountAmount: (quantity ?? 1) * unitPrice * (offer?.argument ?? 1) / 100.0, product: p)
+                    discount =  Discount(description: "\(offer!.argument)% off", discountAmount: (quantity ?? 1) * unitPrice * (offer?.argument ?? 1) / 100.0, product: p)
                 }
                 if offer?.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5 {
                     var left = (unitPrice * (quantity ?? 1))
                     var right = ((offer?.argument ?? 1) * Double(numberOfXs)) + (Double(quantityAsInt % 5) * unitPrice)
                     var discountTotal = left - right
-                    discount =  Discount(description: "\(x) for \(offer?.argument)", discountAmount: discountTotal,  product: p)
+                    discount =  Discount(description: "\(x) for \(offer!.argument)", discountAmount: discountTotal,  product: p)
                 }
                 if discount != nil {
                     receipt.addDiscount(discount: discount!)
