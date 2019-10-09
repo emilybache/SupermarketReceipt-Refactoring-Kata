@@ -26,7 +26,7 @@ Make the SupermarketReceipt-Refactoring-Kata:
 
     mkdir build
     cd build
-    cmake -G "Unix Makefiles" ..
+    cmake -G "Unix Makefiles" -DGTEST_LIBRARY=../gtest/lib/libgtest.a -DGTEST_MAIN_LIRARY=../gtest/lib/libgtest_main.a -DGTEST_INCLUDE_DIR=../gtest/include .. 
     make
 
 Then you should be able to run the tests:
