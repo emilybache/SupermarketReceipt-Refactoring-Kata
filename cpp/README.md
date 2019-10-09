@@ -2,6 +2,12 @@ To compile and run your tests, you you will need:
   - make, cmake and a C++ compiler (like gcc) is installed on your system and is in the PATH
   - The GTest framework in the directory gtest.
 
+The tests use the following header-only projects, which are in the `third_party` sub-directory:
+
+| Project | Licence |
+| --- | --- |
+| [ApprovalTests.cpp](https://github.com/approvals/ApprovalTests.cpp) | [Apache 2.0](https://github.com/approvals/ApprovalTests.cpp/blob/master/LICENSE) |
+
 
 More Verbose Instructions
 -------------------------

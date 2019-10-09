@@ -8,7 +8,7 @@
 #include "../model/ShoppingCart.h"
 #include "../model/Teller.h"
 
-#include "../approval/ApprovalTests.v.5.0.0.hpp"
+#include "../third_party/ApprovalTests.v.5.1.0.hpp"
 
 
 TEST(SuperMarketTest, foo) {
@@ -25,11 +25,17 @@ TEST(SuperMarketTest, foo) {
         teller.addSpecialOffer(SpecialOfferType::TenPercentDiscount, toothbrush, 10.0);
 
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ReceiptPrinter rp = ReceiptPrinter();
-        
-        ApprovalTests::Approvals::verify(rp.printReceipt(receipt));
 
-        // Todo: complete this test
+        ASSERT_EQ(4.975, receipt.getTotalPrice());
+
+        ASSERT_EQ(0, receipt.getDiscounts().size());
+        ASSERT_EQ(1, receipt.getItems().size());
+        ReceiptItem receiptItem = receipt.getItems()[0];
+        ASSERT_EQ(apples, receiptItem.getProduct());
+        ASSERT_EQ(1.99, receiptItem.getPrice());
+        ASSERT_EQ(2.5 * 1.99, receiptItem.getTotalPrice());
+        ASSERT_EQ(2.5, receiptItem.getQuantity());
+
     }
 
 
