@@ -1,12 +1,8 @@
-//
-// Created by sdargo on 2/4/19.
-//
-
 #ifndef CPP_RECEIPTPRINTER_H
 #define CPP_RECEIPTPRINTER_H
 
 
-#include "model/Receipt.h"
+#include "Receipt.h"
 
 #include <iomanip>
 #include <sstream>
