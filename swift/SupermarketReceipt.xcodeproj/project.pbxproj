@@ -8,11 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A1038187234689D200A959E4 /* SupermarketReceipt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A103817D234689D200A959E4 /* SupermarketReceipt.framework */; };
-		A103818C234689D200A959E4 /* SupermarketReceiptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A103818B234689D200A959E4 /* SupermarketReceiptTests.swift */; };
 		A103818E234689D200A959E4 /* SupermarketReceipt.h in Headers */ = {isa = PBXBuildFile; fileRef = A1038180234689D200A959E4 /* SupermarketReceipt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A175285B234A7C8800610C19 /* ReceiptPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175285A234A7C8800610C19 /* ReceiptPrinter.swift */; };
-		A175285D234A7CC200610C19 /* ReceiptPrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A175285C234A7CC200610C19 /* ReceiptPrinterTests.swift */; };
-		A1F2906A2347D532004F55F7 /* FakeCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F290692347D532004F55F7 /* FakeCatalog.swift */; };
 		A1F290772347D62A004F55F7 /* ProductQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2906B2347D629004F55F7 /* ProductQuantity.swift */; };
 		A1F290782347D62A004F55F7 /* Teller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2906C2347D629004F55F7 /* Teller.swift */; };
 		A1F290792347D62A004F55F7 /* SupermarketCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1F2906D2347D629004F55F7 /* SupermarketCatalog.swift */; };
@@ -41,11 +38,8 @@
 		A1038180234689D200A959E4 /* SupermarketReceipt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SupermarketReceipt.h; sourceTree = "<group>"; };
 		A1038181234689D200A959E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1038186234689D200A959E4 /* SupermarketReceiptTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SupermarketReceiptTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A103818B234689D200A959E4 /* SupermarketReceiptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupermarketReceiptTests.swift; sourceTree = "<group>"; };
 		A103818D234689D200A959E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A175285A234A7C8800610C19 /* ReceiptPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptPrinter.swift; sourceTree = "<group>"; };
-		A175285C234A7CC200610C19 /* ReceiptPrinterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptPrinterTests.swift; sourceTree = "<group>"; };
-		A1F290692347D532004F55F7 /* FakeCatalog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeCatalog.swift; sourceTree = "<group>"; };
 		A1F2906B2347D629004F55F7 /* ProductQuantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductQuantity.swift; sourceTree = "<group>"; };
 		A1F2906C2347D629004F55F7 /* Teller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Teller.swift; sourceTree = "<group>"; };
 		A1F2906D2347D629004F55F7 /* SupermarketCatalog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupermarketCatalog.swift; sourceTree = "<group>"; };
@@ -120,10 +114,7 @@
 		A103818A234689D200A959E4 /* SupermarketReceiptTests */ = {
 			isa = PBXGroup;
 			children = (
-				A1F290692347D532004F55F7 /* FakeCatalog.swift */,
-				A103818B234689D200A959E4 /* SupermarketReceiptTests.swift */,
 				A103818D234689D200A959E4 /* Info.plist */,
-				A175285C234A7CC200610C19 /* ReceiptPrinterTests.swift */,
 			);
 			path = SupermarketReceiptTests;
 			sourceTree = "<group>";
@@ -257,9 +248,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1F2906A2347D532004F55F7 /* FakeCatalog.swift in Sources */,
-				A175285D234A7CC200610C19 /* ReceiptPrinterTests.swift in Sources */,
-				A103818C234689D200A959E4 /* SupermarketReceiptTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
