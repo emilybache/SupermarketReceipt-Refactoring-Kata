@@ -26,7 +26,7 @@ class SupermarketReceiptTests: XCTestCase {
         cherryTomatoes = Product(name: "cherry tomato box", unit: ProductUnit.Each)
         catalog.addProduct(product: cherryTomatoes, price: 0.69)
     }
-
+    
     func test_an_empty_shopping_cart_should_cost_nothing() {
         let receipt = teller.checksOutArticlesFrom(theCart: theCart)
 
@@ -65,7 +65,6 @@ class SupermarketReceiptTests: XCTestCase {
             """
         XCTAssertEqual(expected, result)
     }
-
     
     func test_buy_two_get_one_free() {
         theCart.addItem(product: toothbrush)
@@ -87,7 +86,6 @@ class SupermarketReceiptTests: XCTestCase {
             """
         XCTAssertEqual(expected, result)
     }
-
     
     func test_buy_two_get_one_free_but_insufficient_in_basket() {
         theCart.addItem(product: toothbrush)
@@ -130,7 +128,6 @@ class SupermarketReceiptTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
-    
     func test_loose_weight_product() {
         theCart.addItemQuantity(product: apples, quantity: 0.5)
         let receipt = teller.checksOutArticlesFrom(theCart: theCart)
@@ -147,7 +144,6 @@ class SupermarketReceiptTests: XCTestCase {
         
         XCTAssertEqual(expected, result)
     }
-
     
     func test_percent_discount() {
         theCart.addItem(product: rice)
@@ -166,7 +162,6 @@ class SupermarketReceiptTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
-    
     func test_xForY_discount() {
         theCart.addItem(product: cherryTomatoes)
         theCart.addItem(product: cherryTomatoes)
@@ -186,7 +181,6 @@ class SupermarketReceiptTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
-    
     func test_xForY_discount_with_insufficient_in_basket() {
         theCart.addItem(product: cherryTomatoes)
         teller.addSpecialOffer(offerType: SpecialOfferType.TwoForAmount, product: cherryTomatoes, argument: 0.99)
@@ -203,7 +197,6 @@ class SupermarketReceiptTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
-    
     func test_FiveForY_discount() {
         theCart.addItemQuantity(product: apples, quantity: 5)
         teller.addSpecialOffer(offerType: SpecialOfferType.FiveForAmount, product: apples,argument: 6.99)
@@ -222,7 +215,6 @@ class SupermarketReceiptTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
-    
     func test_FiveForY_discount_withSix() {
         theCart.addItemQuantity(product: apples, quantity: 6)
         teller.addSpecialOffer(offerType: SpecialOfferType.FiveForAmount, product: apples,argument: 5.99)
@@ -259,7 +251,6 @@ class SupermarketReceiptTests: XCTestCase {
         XCTAssertEqual(expected, result)
     }
 
-    
     func test_FiveForY_discount_withFour() {
         theCart.addItemQuantity(product: apples, quantity: 4)
         teller.addSpecialOffer(offerType: SpecialOfferType.FiveForAmount, product: apples,argument: 8.99)

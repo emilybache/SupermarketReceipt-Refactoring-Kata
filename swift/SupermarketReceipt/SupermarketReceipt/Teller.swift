@@ -19,7 +19,8 @@ public class Teller {
             var quantity = pq.quantity
             var unitPrice = self.catalog.getUnitPrice(product: p)
             var price = quantity * unitPrice
-            receipt.addProduct(p: p, quantity: quantity, price: unitPrice, totalPrice: price)
+            var priceTo3dp = round(100 * price) / 100
+            receipt.addProduct(p: p, quantity: quantity, price: unitPrice, totalPrice: priceTo3dp)
         }
         theCart.handleOffers(receipt: receipt, offers: self.offers, catalog: self.catalog)
 
