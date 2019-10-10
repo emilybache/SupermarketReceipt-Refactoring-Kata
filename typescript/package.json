@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require ts-node/register --recursive 'test/**/*.test.ts'",
-    "watch:test": "npm run test -- --watch-extensions ts  --watch",
-    "compile": "tsc"
+    "watch:test": "npm run test -- --watch-extensions ts  --watch"
   },
   "author": "Johan Martinsson",
   "license": "ISC",
