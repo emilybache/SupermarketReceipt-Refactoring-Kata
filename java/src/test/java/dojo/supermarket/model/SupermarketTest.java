@@ -20,12 +20,12 @@ public class SupermarketTest {
         Product apples = new Product("apples", ProductUnit.Kilo);
         catalog.addProduct(apples, 1.99);
 
-        ShoppingCart cart = new ShoppingCart();
-        cart.addItemQuantity(apples, 2.5);
-
         Teller teller = new Teller(catalog);
         teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
 
+        ShoppingCart cart = new ShoppingCart();
+        cart.addItemQuantity(apples, 2.5);
+        
         // ACT
         Receipt receipt = teller.checksOutArticlesFrom(cart);
 
