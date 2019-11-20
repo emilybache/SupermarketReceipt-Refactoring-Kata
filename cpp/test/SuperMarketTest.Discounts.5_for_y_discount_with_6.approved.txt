@@ -3,3 +3,4 @@ apples                             11.94
 5 for 5.990000(apples)             -3.96
 
 Total:                              7.98
+
