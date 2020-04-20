@@ -13,7 +13,7 @@ public class Receipt {
             total += item.getTotalPrice();
         }
         for (Discount discount : this.discounts) {
-            total -= discount.getDiscountAmount();
+            total += discount.getDiscountAmount();
         }
         return total;
     }
