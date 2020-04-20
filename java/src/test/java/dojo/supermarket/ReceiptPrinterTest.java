@@ -38,7 +38,7 @@ public class ReceiptPrinterTest {
 
     @Test
     public void discounts() {
-        receipt.addDiscount(new Discount(apples, "3 for 2", 0.99));
+        receipt.addDiscount(new Discount(apples, "3 for 2", -0.99));
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
 
@@ -47,7 +47,7 @@ public class ReceiptPrinterTest {
         receipt.addProduct(toothbrush, 1, 0.99, 0.99);
         receipt.addProduct(toothbrush, 2, 0.99, 2*0.99);
         receipt.addProduct(apples, 0.75, 1.99, 1.99*0.75);
-        receipt.addDiscount(new Discount(toothbrush, "3 for 2", 0.99));
+        receipt.addDiscount(new Discount(toothbrush, "3 for 2", -0.99));
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
 
