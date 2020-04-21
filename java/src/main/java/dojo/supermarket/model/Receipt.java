@@ -1,11 +1,17 @@
 package dojo.supermarket.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Receipt {
     private List<ReceiptItem> items = new ArrayList<>();
     private List<Discount> discounts = new ArrayList<>();
+    private Date date;
+
+    public Receipt() {
+        this.date = new Date();
+    }
 
     public Double getTotalPrice() {
         double total = 0.0;
@@ -32,5 +38,9 @@ public class Receipt {
 
     public List<Discount> getDiscounts() {
         return discounts;
+    }
+
+    public Date getDate() {
+        return date;
     }
 }

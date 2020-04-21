@@ -2,7 +2,11 @@ package dojo.supermarket;
 
 import dojo.supermarket.model.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class ReceiptPrinter {
 
@@ -18,6 +22,8 @@ public class ReceiptPrinter {
 
     public String printReceipt(Receipt receipt) {
         StringBuilder result = new StringBuilder();
+        result.append(header(receipt));
+
         for (ReceiptItem item : receipt.getItems()) {
             String receiptItem = presentReceiptItem(item);
             result.append(receiptItem);
@@ -29,6 +35,30 @@ public class ReceiptPrinter {
 
         result.append("\n");
         result.append(presentTotal(receipt));
+        return result.toString();
+    }
+
+    private String header(Receipt receipt) {
+        StringBuilder result = new StringBuilder();
+
+        result.append(horizontalLine());
+
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(receipt.getDate());
+        result.append(formatLineWithWhitespace("Receipt date:", nowAsISO));
+
+        result.append(horizontalLine());
+        return result.toString();
+    }
+
+    private String horizontalLine() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < columns; i++) {
+            result.append("-");
+        }
+        result.append("\n");
         return result.toString();
     }
 
