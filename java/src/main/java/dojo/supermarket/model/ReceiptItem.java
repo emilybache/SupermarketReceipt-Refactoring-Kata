@@ -49,4 +49,7 @@ public class ReceiptItem {
     }
 
 
+    public String getQuantityType() {
+        return product.getQuantityType();
+    }
 }

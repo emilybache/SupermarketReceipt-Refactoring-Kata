@@ -25,6 +25,7 @@ public class SupermarketTest {
         rice = new Product("rice", ProductUnit.Each);
         catalog.addProduct(rice, 2.99);
         apples = new Product("apples", ProductUnit.Kilo);
+        apples.setQuantityType(" KG");
         catalog.addProduct(apples, 1.99);
         cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
         catalog.addProduct(cherryTomatoes, 0.69);
