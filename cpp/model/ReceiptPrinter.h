@@ -29,8 +29,17 @@ public:
         {
             result.append(presentDiscount(discount));
         }
-        result.append("\n");
+        result.append(horizontalLine());
         result.append(presentTotal(receipt));
+        return result;
+    }
+
+    std::string horizontalLine() {
+        std::string result;
+        for (int i = 0; i < columns; i++) {
+            result.append("-");
+        }
+        result.append("\n");
         return result;
     }
 
@@ -50,7 +59,7 @@ public:
 
     std::string presentDiscount(const Discount &discount) const
     {
-        std::string name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
+        std::string name = discount.getDescription() + " (" + discount.getProduct().getName() + ")";
         std::string pricePresentation = "-" + getFormattedNumberAsString(discount.getDiscountAmount(), 2);
         return formatLineWithWhitespace(name, pricePresentation);
     }
@@ -79,7 +88,7 @@ public:
     static std::string presentQuantity(const ReceiptItem &item)
     {
         return ProductUnit::Each == item.getProduct().getUnit()
-               ? getFormattedNumberAsString(item.getQuantity(), 0)
+               ? getFormattedNumberAsString(item.getQuantity(), 0) + item.getQuantityType()
                : getFormattedNumberAsString(item.getQuantity(), 3);
     }
 
