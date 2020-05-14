@@ -79,19 +79,19 @@ class SupermarketTest(unittest.TestCase):
 
     def test_five_for_y_discount(self):
         self.the_cart.add_item_quantity(self.apples, 5)
-        self.teller.add_special_offer(SpecialOfferType.FIVE_FOR_AMOUNT, self.apples, 6.99)
+        self.teller.add_special_offer(SpecialOfferType.FIVE_FOR_AMOUNT, self.apples, 5.99)
         receipt = self.teller.checks_out_articles_from(self.the_cart)
         verify(ReceiptPrinter(40).print_receipt(receipt))
 
     def test_five_for_y_discount_with_six(self):
         self.the_cart.add_item_quantity(self.apples, 6)
-        self.teller.add_special_offer(SpecialOfferType.FIVE_FOR_AMOUNT, self.apples, 6.99)
+        self.teller.add_special_offer(SpecialOfferType.FIVE_FOR_AMOUNT, self.apples, 5.99)
         receipt = self.teller.checks_out_articles_from(self.the_cart)
         verify(ReceiptPrinter(40).print_receipt(receipt))
 
     def test_five_for_y_discount_with_sixteen(self):
         self.the_cart.add_item_quantity(self.apples, 16)
-        self.teller.add_special_offer(SpecialOfferType.FIVE_FOR_AMOUNT, self.apples, 6.99)
+        self.teller.add_special_offer(SpecialOfferType.FIVE_FOR_AMOUNT, self.apples, 7.99)
         receipt = self.teller.checks_out_articles_from(self.the_cart)
         verify(ReceiptPrinter(40).print_receipt(receipt))
 

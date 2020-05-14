@@ -1,5 +1,5 @@
 apples                             11.94
   1.99 * 6.000
-5 for 6.99(apples)                 -1.56
+5 for 5.99(apples)                 -3.96
 
-Total:                             10.38
+Total:                              7.98
