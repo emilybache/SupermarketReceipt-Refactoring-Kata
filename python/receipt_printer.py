@@ -45,8 +45,7 @@ class ReceiptPrinter:
             result += "("
             result += product_presentation
             result += ")"
-            result += whitespace(self.columns - 3 - len(product_presentation) - len(description) - len(price_presentation))
-            result += "-"
+            result += whitespace(self.columns - 2 - len(product_presentation) - len(description) - len(price_presentation))
             result += price_presentation
             result += "\n"
 

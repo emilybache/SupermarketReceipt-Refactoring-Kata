@@ -3,6 +3,6 @@ toothbrush                          0.99
 toothbrush                          0.99
 toothbrush                          0.99
 toothbrush                          0.99
-3 for 2(toothbrush)               --0.33
+3 for 2(toothbrush)                -0.99
 
-Total:                              5.28
+Total:                              3.96
