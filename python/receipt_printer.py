@@ -16,13 +16,29 @@ def present_quantity(item):
         return '%.3f' % item.quantity
 
 
+def horizontal_line(columns):
+    result = ""
+    for i in range(columns):
+        result += "-"
+    result += "\n"
+    return result
+
+
 class ReceiptPrinter:
 
     def __init__(self, columns=40):
         self.columns = columns
-  
+
+    def header(self, receipt):
+        result = ""
+        result += horizontal_line(self.columns)
+        result += receipt.date.isoformat() + "\n"
+        result += horizontal_line(self.columns)
+        return result
+
     def print_receipt(self, receipt):
         result = ""
+        result += self.header(receipt)
         for item in receipt.items:
             price = "%.2f" % item.total_price
             quantity = present_quantity(item)

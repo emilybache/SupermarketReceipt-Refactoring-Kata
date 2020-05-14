@@ -1,3 +1,5 @@
+import datetime
+
 
 class ReceiptItem:
     def __init__(self, product, quantity, price, total_price):
@@ -11,6 +13,7 @@ class Receipt:
     def __init__(self):
         self._items = []
         self._discounts = []
+        self.date = datetime.datetime.now()
 
     def total_price(self):
         total = 0
