@@ -7,26 +7,39 @@
 #include <iomanip>
 #include <sstream>
 
-class ReceiptPrinter
-{
+class ReceiptPrinter {
 
 public:
-    ReceiptPrinter() : ReceiptPrinter(40)
-    {
+    ReceiptPrinter() : ReceiptPrinter(40) {
     }
 
-    ReceiptPrinter(int columns) : columns(columns)
-    {}
+    ReceiptPrinter(int columns) : columns(columns) {}
 
-    std::string printReceipt(const Receipt &receipt)
-    {
+    std::string horizontalLine() {
         std::string result;
-        for (const auto &item : receipt.getItems())
-        {
+        for (int i = 0; i < columns; i++) {
+            result.append("-");
+        }
+        result.append("\n");
+        return result;
+    }
+
+    std::string printHeader(const Receipt &receipt) {
+        std::string result = "";
+        result.append(horizontalLine());
+        result.append( std::to_string(receipt.getDate()));
+        result.append("\n");
+        result.append(horizontalLine());
+        return result;
+    }
+
+    std::string printReceipt(const Receipt &receipt) {
+        std::string result;
+        result.append(printHeader(receipt));
+        for (const auto &item : receipt.getItems()) {
             result.append(presentReceiptItem(item));
         }
-        for (const auto &discount : receipt.getDiscounts())
-        {
+        for (const auto &discount : receipt.getDiscounts()) {
             result.append(presentDiscount(discount));
         }
         result.append("\n");
@@ -34,50 +47,42 @@ public:
         return result;
     }
 
-    std::string presentReceiptItem(const ReceiptItem &item) const
-    {
+    std::string presentReceiptItem(const ReceiptItem &item) const {
         std::string price = getFormattedNumberAsString(item.getTotalPrice(), 2);
         std::string name = item.getProduct().getName();
 
         std::string line = formatLineWithWhitespace(name, price);
 
-        if (item.getQuantity() != 1)
-        {
+        if (item.getQuantity() != 1) {
             line += "  " + getFormattedNumberAsString(item.getPrice(), 2) + " * " + presentQuantity(item) + "\n";
         }
         return line;
     }
 
-    std::string presentDiscount(const Discount &discount) const
-    {
+    std::string presentDiscount(const Discount &discount) const {
         std::string name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
         std::string pricePresentation = "-" + getFormattedNumberAsString(discount.getDiscountAmount(), 2);
         return formatLineWithWhitespace(name, pricePresentation);
     }
 
-    std::string presentTotal(const Receipt &receipt) const
-    {
+    std::string presentTotal(const Receipt &receipt) const {
         std::string total = "Total: ";
         std::string pricePresentation = presentPrice(receipt.getTotalPrice());
         return formatLineWithWhitespace(total, pricePresentation);
     }
 
-    std::string formatLineWithWhitespace(const std::string &name, const std::string &value) const
-    {
+    std::string formatLineWithWhitespace(const std::string &name, const std::string &value) const {
         int whitespaceSize = columns - name.length() - value.length();
         std::string whitespace;
-        for (int i = 0; i < whitespaceSize; i++)
-        {
+        for (int i = 0; i < whitespaceSize; i++) {
             whitespace.append(" ");
         }
         return name + whitespace + value + "\n";
     }
 
-    std::string presentPrice(double price) const
-    { return getFormattedNumberAsString(price, 2); }
+    std::string presentPrice(double price) const { return getFormattedNumberAsString(price, 2); }
 
-    static std::string presentQuantity(const ReceiptItem &item)
-    {
+    static std::string presentQuantity(const ReceiptItem &item) {
         return ProductUnit::Each == item.getProduct().getUnit()
                ? getFormattedNumberAsString(item.getQuantity(), 0)
                : getFormattedNumberAsString(item.getQuantity(), 3);
@@ -85,8 +90,7 @@ public:
 
 private:
 
-    static std::string getFormattedNumberAsString(double number, int precision)
-    {
+    static std::string getFormattedNumberAsString(double number, int precision) {
         std::stringstream stream;
         stream << std::fixed << std::setprecision(precision) << number;
         return stream.str();

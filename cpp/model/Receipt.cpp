@@ -9,7 +9,7 @@ void Receipt::addDiscount(const Discount& discount) {
 }
 
 void Receipt::addProduct(const Product& product, double quantity, double price, double totalPrice) {
-    items.push_back(ReceiptItem(product, quantity, price, totalPrice));
+    items.emplace_back(product, quantity, price, totalPrice);
 }
 
 std::vector<Discount> Receipt::getDiscounts() const {
@@ -25,4 +25,14 @@ double Receipt::getTotalPrice() const {
         total -= discount.getDiscountAmount();
     }
     return total;
+}
+
+std::time_t Receipt::getDate() const {
+    return this->date;
+}
+
+Receipt::Receipt() : date(std::time(nullptr)) {}
+
+void Receipt::setDate(std::time_t adate) {
+    this->date = adate;
 }
