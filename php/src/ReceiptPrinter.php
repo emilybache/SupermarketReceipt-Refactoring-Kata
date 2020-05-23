@@ -21,7 +21,7 @@ class ReceiptPrinter
     {
         $result = "";
         foreach ($receipt->getItems() as $item) {
-            $price = sprintf('%.2f', $item->getPrice());
+            $price = sprintf('%.2F', $item->getPrice());
             $name = $item->getProduct()->getName();
 
             $whitespaceSize = $this->columns - strlen($name) - strlen($price);
@@ -29,7 +29,7 @@ class ReceiptPrinter
 
             if ($item->getQuantity() != 1) {
                 $quantity = self::presentQuantity($item);
-                $unitPrice = sprintf('%.2f', $item->getPrice());
+                $unitPrice = sprintf('%.2F', $item->getPrice());
                 $line .= ' ' . $unitPrice . ' * ' . $quantity . "\n";
             }
 
@@ -38,7 +38,7 @@ class ReceiptPrinter
 
         foreach ($receipt->getDiscounts() as $discount) {
             $productPresentation = $discount->getProduct()->getName();
-            $pricePresentation = sprintf('%.2f', $discount->getDiscountAmount());
+            $pricePresentation = sprintf('%.2F', $discount->getDiscountAmount());
             $description = $discount->getDescription();
             $result .= "$description($productPresentation)";
             $result .= self::whitespace($this->columns - 2 - strlen($productPresentation) - strlen($description) - strlen($pricePresentation));
@@ -47,7 +47,7 @@ class ReceiptPrinter
         }
 
         $result .= "\n";
-        $pricePresentation = sprintf('%.2f', $receipt->getTotalPrice());
+        $pricePresentation = sprintf('%.2F', $receipt->getTotalPrice());
         $total = "Total :";
         $whitespace = self::whitespace($this->columns - strlen($total) - strlen($pricePresentation));
         $result .= $total . $whitespace . $pricePresentation;
@@ -58,7 +58,7 @@ class ReceiptPrinter
     {
         return $item->getProduct()->getUnit()->equals(ProductUnit::each()) ?
             sprintf('%x', $item->getQuantity()) :
-            sprintf('%.3f', $item->getQuantity());
+            sprintf('%.3F', $item->getQuantity());
     }
 
     private static function whitespace(int $whitespaceSize)
