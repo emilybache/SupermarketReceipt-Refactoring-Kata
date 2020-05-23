@@ -14,7 +14,7 @@ class Receipt
     {
         $total = 0.0;
         foreach ($this->items as $item) $total += $item->getTotalPrice();
-        foreach ($this->discounts as $discount) $total -= $discount->getDiscountAmount();
+        foreach ($this->discounts as $discount) $total += $discount->getDiscountAmount();
         return $total;
     }
 
