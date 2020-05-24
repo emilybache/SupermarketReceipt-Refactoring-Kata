@@ -20,8 +20,8 @@ class ReceiptPrinterTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->toothbrush = new Product('toothbrush', ProductUnit::each());
-        $this->apples = new Product('apples', ProductUnit::kilo());
+        $this->toothbrush = new Product('toothbrush', ProductUnit::EACH());
+        $this->apples = new Product('apples', ProductUnit::KILO());
         $this->receipt = new Receipt();
         $this->printer = new ReceiptPrinter(40);
     }
