@@ -3,6 +3,7 @@
 namespace Supermarket;
 
 use Supermarket\Model\{
+    Discount,
     Receipt,
     ReceiptItem,
     ProductUnit
@@ -26,7 +27,7 @@ class ReceiptPrinter
         }
 
         foreach ($receipt->getDiscounts() as $discount) {
-            $discountPresentation = $this->presentDiscount($discount, $result);
+            $discountPresentation = $this->presentDiscount($discount);
             $result .= $discountPresentation;
         }
 
@@ -53,11 +54,10 @@ class ReceiptPrinter
     }
 
     /**
-     * @param Model\Discount $discount
-     * @param string         $result
+     * @param Discount $discount
      * @return string
      */
-    protected function presentDiscount(Model\Discount $discount, string $result): string
+    protected function presentDiscount(Discount $discount): string
     {
         $name = "{$discount->getDescription()}({$discount->getProduct()->getName()})";
         $value = self::presentPrice($discount->getDiscountAmount());
@@ -98,7 +98,7 @@ class ReceiptPrinter
 
     private static function presentQuantity(ReceiptItem $item): string
     {
-        return $item->getProduct()->getUnit()->equals(ProductUnit::each()) ?
+        return $item->getProduct()->getUnit()->equals(ProductUnit::EACH()) ?
             sprintf('%x', $item->getQuantity()) :
             sprintf('%.3F', $item->getQuantity());
     }

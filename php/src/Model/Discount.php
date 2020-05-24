@@ -2,7 +2,8 @@
 
 namespace Supermarket\Model;
 
-class Discount {
+class Discount
+{
     private Product $product;
     private string $description;
     private float $discount;
@@ -14,7 +15,8 @@ class Discount {
         $this->discount = $discount;
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 

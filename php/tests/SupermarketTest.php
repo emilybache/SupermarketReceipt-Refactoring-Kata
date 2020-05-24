@@ -11,16 +11,16 @@ class SupermarketTest extends TestCase
     {
         // Arrange
         $catalog = new FakeCatalog();
-        $toothbrush = new Product('toothbrush', ProductUnit::each());
+        $toothbrush = new Product('toothbrush', ProductUnit::EACH());
         $catalog->addProduct($toothbrush, 0.99);
-        $apples = new Product('apples', ProductUnit::kilo());
+        $apples = new Product('apples', ProductUnit::KILO());
         $catalog->addProduct($apples, 1.99);
 
         $cart = new ShoppingCart();
         $cart->addItemQuantity($apples, 2.5);
 
         $teller = new Teller($catalog);
-        $teller->addSpecialOffer(SpecialOfferType::tenPercentDiscount(), $toothbrush, 10.0);
+        $teller->addSpecialOffer(SpecialOfferType::TEN_PERCENT_DISCOUNT(), $toothbrush, 10.0);
 
         // Act
         $receipt = $teller->checkoutArticlesFrom($cart);
@@ -36,4 +36,3 @@ class SupermarketTest extends TestCase
         self::assertEquals(2.5, $receiptItem->getQuantity());
     }
 }
-

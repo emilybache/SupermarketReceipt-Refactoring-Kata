@@ -7,13 +7,13 @@ use MyCLabs\Enum\Enum;
 /**
  * Class ProductUnit
  *
- * @method static ProductUnit each
- * @method static ProductUnit kilo
+ * @method static ProductUnit EACH
+ * @method static ProductUnit KILO
  * @method equals(ProductUnit $unit)
  * @package Supermarket
  */
 class ProductUnit extends Enum
 {
-    private const each = 'each';
-    private const kilo = 'kilo';
+    private const EACH = 'each';
+    private const KILO = 'kilo';
 }

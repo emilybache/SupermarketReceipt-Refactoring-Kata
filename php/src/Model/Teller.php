@@ -14,7 +14,7 @@ class Teller
     public function __construct(SupermarketCatalog $catalog)
     {
         $this->catalog = $catalog;
-        $this->offers = new Map;
+        $this->offers = new Map();
     }
 
     public function addSpecialOffer(SpecialOfferType $offerType, Product $product, float $argument)
