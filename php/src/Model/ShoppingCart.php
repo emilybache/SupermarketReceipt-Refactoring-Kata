@@ -65,14 +65,14 @@ class ShoppingCart
                 } elseif ($offer->getOfferType()->equals(SpecialOfferType::TWO_FOR_AMOUNT())) {
                     $x = 2;
                     if ($quantityAsInt >= 2) {
-                        $total = $offer->getArgument() * $quantityAsInt / $x + $quantityAsInt % 2 * $unitPrice;
+                        $total = $offer->getArgument() * intdiv($quantityAsInt, $x) + $quantityAsInt % 2 * $unitPrice;
                         $discountN = $unitPrice * $quantity - $total;
                         $discount = new Discount($p, "2 for {$offer->getArgument()}", -1 * $discountN);
                     }
                 }
 
                 if ($offer->getOfferType()->equals(SpecialOfferType::FIVE_FOR_AMOUNT())) $x = 5;
-                $numberOfXs = $quantityAsInt / $x;
+                $numberOfXs = intdiv($quantityAsInt, $x);
                 if ($offer->getOfferType()->equals(SpecialOfferType::THREE_FOR_TWO()) && $quantityAsInt > 2)
                 {
                     $discountAmount = $quantity * $unitPrice - ($numberOfXs * 2 * $unitPrice + $quantityAsInt % 3 * $unitPrice);
