@@ -1,0 +1,239 @@
+From 6e73705154fd945875fb836fba03da32a171bd74 Mon Sep 17 00:00:00 2001
+From: emily <emily@bacheconsulting.com>
+Date: Thu, 14 May 2020 12:45:02 +0200
+Subject: [PATCH] first change
+
+---
+ cpp/model/Product.cpp                                    | 8 ++++++++
+ cpp/model/Product.h                                      | 5 +++++
+ cpp/model/ReceiptItem.cpp                                | 4 ++++
+ cpp/model/ReceiptItem.h                                  | 2 ++
+ cpp/model/ReceiptPrinter.h                               | 4 ++--
+ cpp/test/SuperMarketTest.cpp                             | 1 +
+ java/src/main/java/dojo/supermarket/ReceiptPrinter.java  | 4 ++--
+ java/src/main/java/dojo/supermarket/model/Product.java   | 9 +++++++++
+ .../main/java/dojo/supermarket/model/ReceiptItem.java    | 3 +++
+ .../test/java/dojo/supermarket/ReceiptPrinterTest.java   | 1 +
+ python/model_objects.py                                  | 3 ++-
+ python/receipt.py                                        | 4 ++++
+ python/receipt_printer.py                                | 4 ++--
+ python/tests/test_supermarket.py                         | 1 +
+ 14 files changed, 46 insertions(+), 7 deletions(-)
+
+diff --git a/cpp/model/Product.cpp b/cpp/model/Product.cpp
+index 731d6c8..e5ecd20 100644
+--- a/cpp/model/Product.cpp
++++ b/cpp/model/Product.cpp
+@@ -38,3 +38,11 @@ bool Product::operator<=(const Product& rhs) const {
+ bool Product::operator>=(const Product& rhs) const {
+     return !(*this < rhs);
+ }
++
++std::string Product::getQuantityType() const {
++    return this->quantityType;
++}
++
++void Product::setQuantityType(std::string qt) {
++    this->quantityType = qt;
++}
+diff --git a/cpp/model/Product.h b/cpp/model/Product.h
+index ca4469e..e1095f8 100644
+--- a/cpp/model/Product.h
++++ b/cpp/model/Product.h
+@@ -15,6 +15,10 @@ public:
+ 
+     ProductUnit getUnit() const;
+ 
++    std::string getQuantityType() const;
++
++    void setQuantityType(std::string qt);
++
+     bool operator==(const Product& rhs) const;
+ 
+     bool operator!=(const Product& rhs) const;
+@@ -30,6 +34,7 @@ public:
+ private:
+     std::string name;
+     ProductUnit unit;
++    std::string quantityType;
+ 
+ };
+ 
+diff --git a/cpp/model/ReceiptItem.cpp b/cpp/model/ReceiptItem.cpp
+index 3dab218..25f8bc8 100644
+--- a/cpp/model/ReceiptItem.cpp
++++ b/cpp/model/ReceiptItem.cpp
+@@ -29,3 +29,7 @@ bool ReceiptItem::operator==(const ReceiptItem& rhs) const {
+ bool ReceiptItem::operator!=(const ReceiptItem& rhs) const {
+     return !(rhs == *this);
+ }
++
++std::string ReceiptItem::getQuantityType() const {
++    return product.getQuantityType();
++}
+diff --git a/cpp/model/ReceiptItem.h b/cpp/model/ReceiptItem.h
+index 2f770c8..f7fed01 100644
+--- a/cpp/model/ReceiptItem.h
++++ b/cpp/model/ReceiptItem.h
+@@ -15,6 +15,8 @@ public:
+ 
+     double getQuantity() const;
+ 
++    std::string getQuantityType() const;
++
+     bool operator==(const ReceiptItem& rhs) const;
+ 
+     bool operator!=(const ReceiptItem& rhs) const;
+diff --git a/cpp/model/ReceiptPrinter.h b/cpp/model/ReceiptPrinter.h
+index 16c61e4..0f7a2bb 100644
+--- a/cpp/model/ReceiptPrinter.h
++++ b/cpp/model/ReceiptPrinter.h
+@@ -79,8 +79,8 @@ public:
+     static std::string presentQuantity(const ReceiptItem &item)
+     {
+         return ProductUnit::Each == item.getProduct().getUnit()
+-               ? getFormattedNumberAsString(item.getQuantity(), 0)
+-               : getFormattedNumberAsString(item.getQuantity(), 3);
++               ? getFormattedNumberAsString(item.getQuantity(), 0) + item.getQuantityType()
++               : getFormattedNumberAsString(item.getQuantity(), 3) + item.getQuantityType();
+     }
+ 
+ private:
+diff --git a/cpp/test/SuperMarketTest.cpp b/cpp/test/SuperMarketTest.cpp
+index f68c8c5..2a995c4 100644
+--- a/cpp/test/SuperMarketTest.cpp
++++ b/cpp/test/SuperMarketTest.cpp
+@@ -78,6 +78,7 @@ TEST_CASE("Discounts", "[Supermarket]")
+ 
+     SECTION("Loose weight product")
+     {
++        apples.setQuantityType("KG");
+         cart.addItemQuantity(apples, 0.5);
+         Receipt receipt = teller.checksOutArticlesFrom(cart);
+         ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+diff --git a/java/src/main/java/dojo/supermarket/ReceiptPrinter.java b/java/src/main/java/dojo/supermarket/ReceiptPrinter.java
+index e6f1bbd..643f37f 100644
+--- a/java/src/main/java/dojo/supermarket/ReceiptPrinter.java
++++ b/java/src/main/java/dojo/supermarket/ReceiptPrinter.java
+@@ -75,8 +75,8 @@ public class ReceiptPrinter {
+ 
+     private static String presentQuantity(ReceiptItem item) {
+         return ProductUnit.Each.equals(item.getProduct().getUnit())
+-                ? String.format("%x", (int)item.getQuantity())
+-                : String.format(Locale.UK, "%.3f", item.getQuantity());
++                ? String.format("%x%s", (int)item.getQuantity(), item.getQuantityType())
++                : String.format(Locale.UK, "%.3f%s", item.getQuantity(), item.getQuantityType());
+     }
+ 
+ }
+diff --git a/java/src/main/java/dojo/supermarket/model/Product.java b/java/src/main/java/dojo/supermarket/model/Product.java
+index ceacc3d..26f9a26 100644
+--- a/java/src/main/java/dojo/supermarket/model/Product.java
++++ b/java/src/main/java/dojo/supermarket/model/Product.java
+@@ -5,6 +5,7 @@ import java.util.Objects;
+ public class Product {
+     private final String name;
+     private final ProductUnit unit;
++    private String quantityType = "";
+ 
+     public Product(String name, ProductUnit unit) {
+         this.name = name;
+@@ -34,4 +35,12 @@ public class Product {
+ 
+         return Objects.hash(name, unit);
+     }
++
++    public String getQuantityType() {
++        return quantityType;
++    }
++
++    public void setQuantityType(String s) {
++        this.quantityType = s;
++    }
+ }
+diff --git a/java/src/main/java/dojo/supermarket/model/ReceiptItem.java b/java/src/main/java/dojo/supermarket/model/ReceiptItem.java
+index 7e39551..65a7be7 100644
+--- a/java/src/main/java/dojo/supermarket/model/ReceiptItem.java
++++ b/java/src/main/java/dojo/supermarket/model/ReceiptItem.java
+@@ -49,4 +49,7 @@ public class ReceiptItem {
+     }
+ 
+ 
++    public String getQuantityType() {
++        return product.getQuantityType();
++    }
+ }
+diff --git a/java/src/test/java/dojo/supermarket/ReceiptPrinterTest.java b/java/src/test/java/dojo/supermarket/ReceiptPrinterTest.java
+index ce207db..c0cc52c 100644
+--- a/java/src/test/java/dojo/supermarket/ReceiptPrinterTest.java
++++ b/java/src/test/java/dojo/supermarket/ReceiptPrinterTest.java
+@@ -24,6 +24,7 @@ public class ReceiptPrinterTest {
+ 
+     @Test
+     public void looseWeight() {
++        apples.setQuantityType(" KG");
+         receipt.addProduct(apples, 2.3, 1.99,1.99 * 2.3);
+         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
+     }
+diff --git a/python/model_objects.py b/python/model_objects.py
+index 2d8d0ad..7f48991 100644
+--- a/python/model_objects.py
++++ b/python/model_objects.py
+@@ -2,9 +2,10 @@ from enum import Enum
+ 
+ 
+ class Product:
+-    def __init__(self, name, unit):
++    def __init__(self, name, unit, quantity_type=None):
+         self.name = name
+         self.unit = unit
++        self.quantity_type = quantity_type or ""
+ 
+ 
+ class ProductQuantity:
+diff --git a/python/receipt.py b/python/receipt.py
+index 2a0a219..bd149d0 100644
+--- a/python/receipt.py
++++ b/python/receipt.py
+@@ -6,6 +6,10 @@ class ReceiptItem:
+         self.price = price
+         self.total_price = total_price
+ 
++    @property
++    def quantity_type(self):
++        return self.product.quantity_type
++
+ 
+ class Receipt:
+     def __init__(self):
+diff --git a/python/receipt_printer.py b/python/receipt_printer.py
+index ad9e761..6ef6611 100644
+--- a/python/receipt_printer.py
++++ b/python/receipt_printer.py
+@@ -11,9 +11,9 @@ def whitespace(whitespace_size):
+ 
+ def present_quantity(item):
+     if ProductUnit.EACH == item.product.unit:
+-        return str(item.quantity)
++        return str(item.quantity) + item.quantity_type
+     else:
+-        return '%.3f' % item.quantity
++        return '%.3f' % item.quantity + item.quantity_type
+ 
+ 
+ class ReceiptPrinter:
+diff --git a/python/tests/test_supermarket.py b/python/tests/test_supermarket.py
+index b6d8f13..fe3cffc 100644
+--- a/python/tests/test_supermarket.py
++++ b/python/tests/test_supermarket.py
+@@ -60,6 +60,7 @@ class SupermarketTest(unittest.TestCase):
+         verify(ReceiptPrinter(40).print_receipt(receipt))
+ 
+     def test_loose_weight_product(self):
++        self.apples.quantity_type = "KG"
+         self.the_cart.add_item_quantity(self.apples, 0.5)
+         receipt = self.teller.checks_out_articles_from(self.the_cart)
+         verify(ReceiptPrinter(40).print_receipt(receipt))
+-- 
+2.20.1 (Apple Git-117)
+
