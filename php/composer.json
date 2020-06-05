@@ -1,0 +1,21 @@
+{
+  "name": "Supermarket receipt kata",
+  "require": {
+    "php": "^7.4",
+    "phpunit/phpunit": "^9.0",
+    "myclabs/php-enum": "^1.7",
+    "php-ds/php-ds": "^1.2"
+  },
+  "suggest": {
+    "ext-ds": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Supermarket\\": "src/",
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "approvals/approval-tests": "^1.4"
+  }
+}
