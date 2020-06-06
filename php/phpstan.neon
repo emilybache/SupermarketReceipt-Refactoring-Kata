@@ -17,7 +17,7 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
 
     ignoreErrors:
-        # Majic method is used is simulate enum
+        # Magic method is used is simulate enum
         - '#Call to an undefined static method#'
         -
             message: '#PHPDoc tag @method has invalid value#'

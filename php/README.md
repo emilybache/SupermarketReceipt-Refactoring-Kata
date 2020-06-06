@@ -1,4 +1,4 @@
-# The Supermarket Receipt Refactoring Kata - PHP version
+# The Supermarket Receipt Refactoring Kata - PHP version With Tests
 
 See the [top level readme](../README.md) for general information about this exercise.
 
@@ -46,13 +46,13 @@ The project uses composer to install:
 
 - `src` - Contains the **ReceiptPrinter** Class which needs to be tested and refactored.
     - `models` - Contains the 11 Classes and Interface which need to be tested and refactored.
-- `tests` - Contains **ReceiptPrinterTest** which tests **ReceiptPrinter**.
-    - `approvals` - Contain the approved text files for each test method of ReceiptPrinterTest (these should not be
-     changed) 
-    - `models` - Contains **SupermarketTest** which tests the models, it also contains **FakeCatalog** Class is a basic
-     implementation of the **SupermarketCatalog** interface, which allows the tests to run.
-        - `approvals` - Contain the approved text files for each test method of SupermarketTest (these should not be
-         changed) 
+- `tests` 
+    - Contains **ReceiptPrinterTest** which tests **ReceiptPrinter**.
+    - Contains **SupermarketTest** which tests the models, 
+    - it also contains **FakeCatalog** Class is a basic implementation of the **SupermarketCatalog** interface, which
+     allows the tests to run.
+        - `approvals` - Contain the approved text files for each test method of ReceiptPrinterTest (these should not be
+        changed) 
 
 ## Testing
 
@@ -143,7 +143,7 @@ ApprovalTests.php can be used to compare the output of the **ReceiptPrinter**, s
 
 ## Start with the refactoring
 
-If you would like to just do the refactoring part of this exercise, you can instead check out the `with_tests` branch. 
-Those tests have reasonably good coverage and should support most kinds of refactorings you'd like to do.
+This is the `with_tests` branch. This branch allows you to do just the refactoring part of this exercise.
+ The tests have reasonably good coverage and should support most kinds of refactorings you'd like to do.
 
 **Happy coding**!
