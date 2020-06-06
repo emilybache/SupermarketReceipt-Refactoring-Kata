@@ -13,8 +13,17 @@ parameters:
     # Larstan recommendation:
     checkMissingIterableValueType: false
 
-    ignoreErrors:
+    # Ignore generic class Ds\Map
+    checkGenericClassInNonGenericObjectType: false
 
+    ignoreErrors:
+        # Majic method is used is simulate enum
+        - '#Call to an undefined static method#'
+        -
+            message: '#PHPDoc tag @method has invalid value#'
+            paths:
+                - src\Model\SpecialOfferType.php
+                - src\Model\ProductUnit.php
     # buggy
 
     # mixed

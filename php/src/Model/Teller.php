@@ -1,14 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 use Ds\Map;
 
 class Teller
 {
+    /**
+     * @var SupermarketCatalog
+     */
     private $catalog;
 
-    /** @var Map [Product => Offer] */
+    /**
+     * @var Map [Product => Offer]
+     */
     private $offers;
 
     public function __construct(SupermarketCatalog $catalog)
@@ -17,7 +24,7 @@ class Teller
         $this->offers = new Map();
     }
 
-    public function addSpecialOffer(SpecialOfferType $offerType, Product $product, float $argument)
+    public function addSpecialOffer(SpecialOfferType $offerType, Product $product, float $argument): void
     {
         $this->offers[$product] = new Offer($offerType, $product, $argument);
     }

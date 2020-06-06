@@ -1,11 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 class Discount
 {
+    /**
+     * @var Product
+     */
     private $product;
+
+    /**
+     * @var string
+     */
     private $description;
+
+    /**
+     * @var float
+     */
     private $discount;
 
     public function __construct(Product $product, string $description, float $discount)
@@ -15,12 +28,12 @@ class Discount
         $this->discount = $discount;
     }
 
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getDiscountAmount()
+    public function getDiscountAmount(): float
     {
         return $this->discount;
     }

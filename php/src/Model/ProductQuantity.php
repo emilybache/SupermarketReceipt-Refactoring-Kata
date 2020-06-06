@@ -1,10 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 class ProductQuantity
 {
+    /**
+     * @var Product
+     */
     private $product;
+
+    /**
+     * @var float
+     */
     private $quantity;
 
     public function __construct(Product $product, float $weight)

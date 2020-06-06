@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use Supermarket\Model\{Teller, Product, ProductUnit, ShoppingCart, SpecialOfferType};
+use Supermarket\Model\{Product, ProductUnit, ShoppingCart, SpecialOfferType, Teller};
 
 class SupermarketTest extends TestCase
 {
-    public function testTenPercentDiscount()
+    public function testTenPercentDiscount(): void
     {
         // Arrange
         $catalog = new FakeCatalog();
@@ -26,13 +28,13 @@ class SupermarketTest extends TestCase
         $receipt = $teller->checkoutArticlesFrom($cart);
 
         // Assert
-        self::assertEquals(4.975, $receipt->getTotalPrice());
-        self::assertEquals([], $receipt->getDiscounts());
+        self::assertSame(4.975, $receipt->getTotalPrice());
+        self::assertSame([], $receipt->getDiscounts());
         self::assertCount(1, $receipt->getItems());
         $receiptItem = $receipt->getItems()[0];
-        self::assertEquals($apples, $receiptItem->getProduct());
-        self::assertEquals(1.99, $receiptItem->getPrice());
-        self::assertEquals(2.5 * 1.99, $receiptItem->getTotalPrice());
-        self::assertEquals(2.5, $receiptItem->getQuantity());
+        self::assertSame($apples, $receiptItem->getProduct());
+        self::assertSame(1.99, $receiptItem->getPrice());
+        self::assertSame(2.5 * 1.99, $receiptItem->getTotalPrice());
+        self::assertSame(2.5, $receiptItem->getQuantity());
     }
 }

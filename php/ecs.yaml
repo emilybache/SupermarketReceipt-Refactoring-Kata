@@ -13,3 +13,11 @@ parameters:
     indentation: "    "
 
     skip:
+        # Starting code has unused constants
+        SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff.UnusedConstant:
+        - src/Model/SpecialOfferType.php
+        - src/Model/ProductUnit.php
+
+        # Starting code has property without a getter
+        SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff.WriteOnlyProperty:
+        - src/Model/Offer.php

@@ -1,4 +1,4 @@
-# The Supermarket Receipt Refactoring Kata - PHP version (With Tests)
+# The Supermarket Receipt Refactoring Kata - PHP version
 
 See the [top level readme](../README.md) for general information about this exercise.
 
@@ -7,7 +7,6 @@ See the [top level readme](../README.md) for general information about this exer
 The project uses:
 
 - [PHP 7.2+](https://www.php.net/downloads.php)
-  - **ext-spltype** is required for **SplObjectStorage**
 - [Composer](https://getcomposer.org)
 
 Recommended:
@@ -144,7 +143,7 @@ ApprovalTests.php can be used to compare the output of the **ReceiptPrinter**, s
 
 ## Start with the refactoring
 
-This is the `with_tests` branch. This branch allows you to do just the refactoring part of this exercise.
- The tests have reasonably good coverage and should support most kinds of refactorings you'd like to do.
+If you would like to just do the refactoring part of this exercise, you can instead check out the `with_tests` branch. 
+Those tests have reasonably good coverage and should support most kinds of refactorings you'd like to do.
 
 **Happy coding**!
