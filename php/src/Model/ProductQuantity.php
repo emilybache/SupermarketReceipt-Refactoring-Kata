@@ -4,8 +4,8 @@ namespace Supermarket\Model;
 
 class ProductQuantity
 {
-    private Product $product;
-    private float $quantity;
+    private $product;
+    private $quantity;
 
     public function __construct(Product $product, float $weight)
     {

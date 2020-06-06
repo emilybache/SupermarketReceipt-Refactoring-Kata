@@ -7,8 +7,8 @@ use Supermarket\Model\SupermarketCatalog;
 
 class FakeCatalog implements SupermarketCatalog
 {
-    private array $prices = [];
-    private array $products = [];
+    private $prices = [];
+    private $products = [];
 
     public function addProduct(Product $product, float $price): void
     {

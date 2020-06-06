@@ -5,10 +5,10 @@ namespace Supermarket\Model;
 class Receipt
 {
     /** @var Discount[] */
-    private array $discounts = [];
+    private $discounts = [];
 
     /** @var ReceiptItem[] */
-    private array $items = [];
+    private $items = [];
 
     public function getTotalPrice()
     {

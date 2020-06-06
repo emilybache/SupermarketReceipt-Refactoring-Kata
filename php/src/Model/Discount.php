@@ -4,9 +4,9 @@ namespace Supermarket\Model;
 
 class Discount
 {
-    private Product $product;
-    private string $description;
-    private float $discount;
+    private $product;
+    private $description;
+    private $discount;
 
     public function __construct(Product $product, string $description, float $discount)
     {

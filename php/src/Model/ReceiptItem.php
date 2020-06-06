@@ -4,10 +4,10 @@ namespace Supermarket\Model;
 
 class ReceiptItem
 {
-    private Product $product;
-    private float $quantity;
-    private float $price;
-    private float $totalPrice;
+    private $product;
+    private $quantity;
+    private $price;
+    private $totalPrice;
 
     public function __construct(Product $product, float $quantity, float $price, float $totalPrice)
     {

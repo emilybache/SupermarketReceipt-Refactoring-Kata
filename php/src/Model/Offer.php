@@ -4,9 +4,9 @@ namespace Supermarket\Model;
 
 class Offer
 {
-    private Product $product;
-    private SpecialOfferType $offerType;
-    private float $argument;
+    private $product;
+    private $offerType;
+    private $argument;
 
     public function __construct(SpecialOfferType $offerType, Product $product, float $argument)
     {

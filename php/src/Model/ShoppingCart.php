@@ -7,10 +7,10 @@ use Ds\Map;
 class ShoppingCart
 {
     /** @var ProductQuantity[] */
-    private array $items = [];
+    private $items = [];
 
     /** @var Map [Product => quantity] */
-    private Map $productQuantities;
+    private $productQuantities;
 
     public function __construct()
     {

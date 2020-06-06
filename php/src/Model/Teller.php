@@ -6,10 +6,10 @@ use Ds\Map;
 
 class Teller
 {
-    private SupermarketCatalog $catalog;
+    private $catalog;
 
     /** @var Map [Product => Offer] */
-    private Map $offers;
+    private $offers;
 
     public function __construct(SupermarketCatalog $catalog)
     {

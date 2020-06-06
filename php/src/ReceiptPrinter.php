@@ -11,7 +11,7 @@ use Supermarket\Model\{
 
 class ReceiptPrinter
 {
-    private int $columns;
+    private $columns;
 
     public function __construct(int $columns = 40)
     {

@@ -6,8 +6,8 @@ use Ds\Hashable;
 
 class Product implements Hashable
 {
-    private string $name;
-    private ProductUnit $unit;
+    private $name;
+    private $unit;
 
     public function __construct(string $name, ProductUnit $unit)
     {
