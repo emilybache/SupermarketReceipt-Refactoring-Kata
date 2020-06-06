@@ -46,13 +46,9 @@ The project uses composer to install:
 
 - `src` - Contains the **ReceiptPrinter** Class which needs to be tested and refactored.
     - `models` - Contains the 11 Classes and Interface which need to be tested and refactored.
-- `tests` - Contains **ReceiptPrinterTest** which tests **ReceiptPrinter**.
-    - `approvals` - Contain the approved text files for each test method of ReceiptPrinterTest (these should not be
-     changed) 
-    - `models` - Contains **SupermarketTest** which tests the models, it also contains **FakeCatalog** Class is a basic
-     implementation of the **SupermarketCatalog** interface, which allows the tests to run.
-        - `approvals` - Contain the approved text files for each test method of SupermarketTest (these should not be
-         changed) 
+- `tests` - Contains **SupermarketTest** which tests **ReceiptPrinter** and **FakeCatalog**, which is a basic
+     implementation of the **SupermarketCatalog** interface allowing the tests to run.
+
 
 ## Testing
 

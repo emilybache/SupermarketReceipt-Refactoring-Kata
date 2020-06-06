@@ -48,7 +48,7 @@ class ReceiptPrinter
 
         $line = $this->formatLineWithWhitespace($name, $price) . "\n";
 
-        if ($item->getQuantity() !== 1) {
+        if ($item->getQuantity() !== 1.0) {
             $line .= '  ' . self::presentPrice($item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
         }
         return $line;
