@@ -1,13 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 class ReceiptItem
 {
-    private Product $product;
-    private float $quantity;
-    private float $price;
-    private float $totalPrice;
+    /**
+     * @var Product
+     */
+    private $product;
+
+    /**
+     * @var float
+     */
+    private $quantity;
+
+    /**
+     * @var float
+     */
+    private $price;
+
+    /**
+     * @var float
+     */
+    private $totalPrice;
 
     public function __construct(Product $product, float $quantity, float $price, float $totalPrice)
     {

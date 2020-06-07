@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 use MyCLabs\Enum\Enum;
@@ -17,7 +19,10 @@ use MyCLabs\Enum\Enum;
 class SpecialOfferType extends Enum
 {
     private const THREE_FOR_TWO = 0;
+
     private const TEN_PERCENT_DISCOUNT = 1;
+
     private const TWO_FOR_AMOUNT = 2;
+
     private const FIVE_FOR_AMOUNT = 3;
 }
