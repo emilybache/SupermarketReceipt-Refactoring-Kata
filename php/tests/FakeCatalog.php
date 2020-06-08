@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Supermarket\Model\Product;
@@ -7,8 +9,15 @@ use Supermarket\Model\SupermarketCatalog;
 
 class FakeCatalog implements SupermarketCatalog
 {
-    private array $prices = [];
-    private array $products = [];
+    /**
+     * @var array
+     */
+    private $prices = [];
+
+    /**
+     * @var array
+     */
+    private $products = [];
 
     public function addProduct(Product $product, float $price): void
     {

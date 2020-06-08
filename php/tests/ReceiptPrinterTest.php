@@ -1,23 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use ApprovalTests\Approvals;
-use Supermarket\Model\Product;
-use Supermarket\Model\Receipt;
 use PHPUnit\Framework\TestCase;
-use Supermarket\ReceiptPrinter;
 use Supermarket\Model\Discount;
+use Supermarket\Model\Product;
 use Supermarket\Model\ProductUnit;
+use Supermarket\Model\Receipt;
+use Supermarket\ReceiptPrinter;
 
 class ReceiptPrinterTest extends TestCase
 {
-    private Product $toothbrush;
-    private Product $apples;
-    private Receipt $receipt;
-    private ReceiptPrinter $printer;
+    /**
+     * @var Product
+     */
+    private $toothbrush;
 
-    public function setUp(): void
+    /**
+     * @var Product
+     */
+    private $apples;
+
+    /**
+     * @var Receipt
+     */
+    private $receipt;
+
+    /**
+     * @var ReceiptPrinter
+     */
+    private $printer;
+
+    protected function setUp(): void
     {
         parent::setUp();
         $this->toothbrush = new Product('toothbrush', ProductUnit::EACH());
@@ -26,55 +43,46 @@ class ReceiptPrinterTest extends TestCase
         $this->printer = new ReceiptPrinter(40);
     }
 
-    /** @test */
-    public function oneLineItem()
+    public function testOneLineItem(): void
     {
         $this->receipt->addProduct($this->toothbrush, 1, 0.99, 0.99);
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function quantityTwo()
+    public function testQuantityTwo(): void
     {
         $this->receipt->addProduct($this->toothbrush, 2, 0.99, 2 * 0.99);
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function looseWeight()
+    public function testLooseWeight(): void
     {
         $this->receipt->addProduct($this->apples, 2.3, 1.99, 2.3 * 1.99);
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function total()
+    public function testTotal(): void
     {
         $this->receipt->addProduct($this->toothbrush, 1, 0.99, 2 * 0.99);
         $this->receipt->addProduct($this->apples, 0.75, 1.99, 0.75 * 1.99);
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function discounts()
+    public function testDiscounts(): void
     {
         $this->receipt->addDiscount(new Discount($this->apples, '3 for 2', -0.99));
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function printWholeReceipt()
+    public function testPrintWholeReceipt(): void
     {
         $this->receipt->addProduct($this->toothbrush, 1, 0.99, 0.99);
         $this->receipt->addProduct($this->toothbrush, 2, 0.99, 2 * 0.99);
         $this->receipt->addProduct($this->apples, 0.75, 1.99, 1.99 * 0.75);
-        $this->receipt->addDiscount(new Discount($this->toothbrush, "3 for 2", -0.99));
+        $this->receipt->addDiscount(new Discount($this->toothbrush, '3 for 2', -0.99));
         Approvals::verifyString($this->printReceipt());
     }
 
-    /**
-     * @return string
-     */
     private function printReceipt(): string
     {
         return $this->printer->printReceipt($this->receipt);

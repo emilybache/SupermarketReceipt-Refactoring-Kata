@@ -1,26 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket;
 
 use Supermarket\Model\{
     Discount,
+    ProductUnit,
     Receipt,
-    ReceiptItem,
-    ProductUnit
+    ReceiptItem
 };
 
 class ReceiptPrinter
 {
-    private int $columns;
+    /**
+     * @var int
+     */
+    private $columns;
 
     public function __construct(int $columns = 40)
     {
         $this->columns = $columns;
     }
 
-    public function printReceipt(Receipt $receipt)
+    public function printReceipt(Receipt $receipt): string
     {
-        $result = "";
+        $result = '';
         foreach ($receipt->getItems() as $item) {
             $itemPresentation = $this->presentReceiptItem($item);
             $result .= $itemPresentation;
@@ -36,10 +41,6 @@ class ReceiptPrinter
         return $result;
     }
 
-    /**
-     * @param ReceiptItem $item
-     * @return string
-     */
     protected function presentReceiptItem(ReceiptItem $item): string
     {
         $price = self::presentPrice($item->getTotalPrice());
@@ -47,16 +48,12 @@ class ReceiptPrinter
 
         $line = $this->formatLineWithWhitespace($name, $price) . "\n";
 
-        if ($item->getQuantity() != 1) {
+        if ($item->getQuantity() !== 1.0) {
             $line .= '  ' . self::presentPrice($item->getPrice()) . ' * ' . self::presentQuantity($item) . "\n";
         }
         return $line;
     }
 
-    /**
-     * @param Discount $discount
-     * @return string
-     */
     protected function presentDiscount(Discount $discount): string
     {
         $name = "{$discount->getDescription()}({$discount->getProduct()->getName()})";
@@ -65,32 +62,19 @@ class ReceiptPrinter
         return $this->formatLineWithWhitespace($name, $value) . "\n";
     }
 
-    /**
-     * @param Receipt $receipt
-     * @return string
-     */
     protected function presentTotal(Receipt $receipt): string
     {
-        $name = "Total: ";
+        $name = 'Total: ';
         $value = self::presentPrice($receipt->getTotalPrice());
         return $this->formatLineWithWhitespace($name, $value);
     }
 
-    /**
-     * @param string $name
-     * @param string $value
-     * @return string
-     */
     protected function formatLineWithWhitespace(string $name, string $value): string
     {
         $whitespaceSize = $this->columns - strlen($name) - strlen($value);
         return $name . str_repeat(' ', $whitespaceSize) . $value;
     }
 
-    /**
-     * @param float $price
-     * @return string
-     */
     protected static function presentPrice(float $price): string
     {
         return sprintf('%.2F', $price);
