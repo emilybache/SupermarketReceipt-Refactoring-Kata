@@ -1,0 +1,35 @@
+includes:
+    - vendor/symplify/phpstan-extensions/config/config.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+
+parameters:
+    paths:
+        - src
+        - tests
+
+    # The level 8 is the highest level
+    level: 8
+
+    # Larstan recommendation:
+    checkMissingIterableValueType: false
+
+    # Ignore generic class Ds\Map
+    checkGenericClassInNonGenericObjectType: false
+
+    ignoreErrors:
+        # Magic method is used is simulate enum
+        - '#Call to an undefined static method#'
+        -
+            message: '#PHPDoc tag @method has invalid value#'
+            paths:
+                - src\Model\SpecialOfferType.php
+                - src\Model\ProductUnit.php
+    # buggy
+
+    # mixed
+
+    # cache buggy
+
+    # tests
+
+    # iterable

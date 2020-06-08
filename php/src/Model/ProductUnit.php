@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 use MyCLabs\Enum\Enum;
@@ -15,5 +17,6 @@ use MyCLabs\Enum\Enum;
 class ProductUnit extends Enum
 {
     private const EACH = 'each';
+
     private const KILO = 'kilo';
 }
