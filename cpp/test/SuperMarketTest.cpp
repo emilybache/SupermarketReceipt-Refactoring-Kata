@@ -1,13 +1,20 @@
 
 
 #include "ApprovalTests.hpp"
-#include "Catch.hpp"
+#include "catch2/catch.hpp"
 
 #include "../model/ReceiptPrinter.h"
 #include "../model/SupermarketCatalog.h"
 #include "FakeCatalog.h"
 #include "../model/ShoppingCart.h"
 #include "../model/Teller.h"
+
+static void verifyReceipt(Receipt receipt)
+{
+    ReceiptPrinter printer = ReceiptPrinter();
+    ApprovalTests::Approvals::verify(printer.printReceipt(receipt),
+                                     ApprovalTests::Options(ApprovalTests::Scrubbers::createRegexScrubber(R"(Receipt Date: \d+)", "Receipt Date: [timestamp]")));
+}
 
 TEST_CASE("Discounts", "[Supermarket]")
 {
@@ -28,14 +35,14 @@ TEST_CASE("Discounts", "[Supermarket]")
     SECTION("Empty cart costs nothing")
     {
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("One normal item")
     {
         cart.addItem(toothbrush);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("Two normal items")
@@ -43,7 +50,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItem(toothbrush);
         cart.addItem(rice);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("buy two get one free")
@@ -53,7 +60,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItem(toothbrush);
         teller.addSpecialOffer(SpecialOfferType::ThreeForTwo, toothbrush, catalog->getUnitPrice(toothbrush));
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("buy two get one free but insufficient in basket")
@@ -61,7 +68,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItem(toothbrush);
         teller.addSpecialOffer(SpecialOfferType::ThreeForTwo, toothbrush, catalog->getUnitPrice(toothbrush));
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
     SECTION("buy five get one free")
     {
@@ -72,7 +79,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItem(toothbrush);
         teller.addSpecialOffer(SpecialOfferType::ThreeForTwo, toothbrush, catalog->getUnitPrice(toothbrush));
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
 
@@ -80,7 +87,7 @@ TEST_CASE("Discounts", "[Supermarket]")
     {
         cart.addItemQuantity(apples, 0.5);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
 
     }
     SECTION("percent discount")
@@ -88,7 +95,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItem(rice);
         teller.addSpecialOffer(SpecialOfferType::TenPercentDiscount, rice, 10.0);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("x for y discount")
@@ -97,7 +104,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItem(cherryTomatoes);
         teller.addSpecialOffer(SpecialOfferType::TwoForAmount, cherryTomatoes, 0.99);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("x for y discount but insufficient in basket")
@@ -105,7 +112,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItem(cherryTomatoes);
         teller.addSpecialOffer(SpecialOfferType::TwoForAmount, cherryTomatoes, 0.99);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("5 for y discount")
@@ -113,7 +120,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItemQuantity(apples, 5);
         teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 6.99);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("5 for y discount with 6")
@@ -121,7 +128,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItemQuantity(apples, 6);
         teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 5.99);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("5 for y discount with 16")
@@ -129,7 +136,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItemQuantity(apples, 16);
         teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 7.99);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 
     SECTION("5 for y discount with 4")
@@ -137,6 +144,6 @@ TEST_CASE("Discounts", "[Supermarket]")
         cart.addItemQuantity(apples, 4);
         teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 8.99);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        verifyReceipt(receipt);
     }
 }

@@ -27,6 +27,7 @@ public:
     std::string printHeader(const Receipt &receipt) {
         std::string result = "";
         result.append(horizontalLine());
+        result.append("Receipt Date: ");
         result.append( std::to_string(receipt.getDate()));
         result.append("\n");
         result.append(horizontalLine());
