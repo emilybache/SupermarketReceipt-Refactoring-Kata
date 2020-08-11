@@ -1,7 +1,5 @@
-
-
-#include "Catch.hpp"
 #include "ApprovalTests.hpp"
+#include "catch2/catch.hpp"
 
 #include "../model/SupermarketCatalog.h"
 #include "FakeCatalog.h"
