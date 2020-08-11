@@ -1,7 +1,7 @@
 
 
 #include "ApprovalTests.hpp"
-#include "Catch.hpp"
+#include "catch2/catch.hpp"
 
 #include "../model/ReceiptPrinter.h"
 #include "../model/SupermarketCatalog.h"
