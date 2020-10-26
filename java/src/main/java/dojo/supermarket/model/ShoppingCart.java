@@ -68,7 +68,7 @@ public class ShoppingCart {
                     discount = new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
                 }
                 if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
-                    double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
+                    double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 6 * unitPrice);
                     discount = new Discount(p, x + " for " + offer.argument, -discountTotal);
                 }
                 if (discount != null)

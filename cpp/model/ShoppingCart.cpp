@@ -55,7 +55,7 @@ void ShoppingCart::handleOffers(Receipt& receipt, std::map<Product, Offer> offer
                 discount = new Discount(std::to_string(offer.getArgument()) + "% off", -quantity * unitPrice * offer.getArgument() / 100.0, product);
             }
             if (offer.getOfferType() == SpecialOfferType::FiveForAmount && quantityAsInt >= 5) {
-                double discountTotal = unitPrice * quantity - (offer.getArgument() * numberOfXs + quantityAsInt % 5 * unitPrice);
+                double discountTotal = unitPrice * quantity - (offer.getArgument() * numberOfXs + quantityAsInt % 6 * unitPrice);
                 discount = new Discount(std::to_string(x) + " for " + std::to_string(offer.getArgument()), -discountTotal, product);
             }
             if (discount != nullptr)

@@ -61,7 +61,7 @@ class ShoppingCart:
 
                 if offer.offer_type == SpecialOfferType.FIVE_FOR_AMOUNT and quantity_as_int >= 5:
                     discount_total = unit_price * quantity - (
-                                offer.argument * number_of_x + quantity_as_int % 5 * unit_price)
+                                offer.argument * number_of_x + quantity_as_int % 6 * unit_price)
                     discount = Discount(p, str(x) + " for " + str(offer.argument), -discount_total)
 
                 if discount:

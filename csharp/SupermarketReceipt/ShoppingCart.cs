@@ -71,7 +71,7 @@ namespace SupermarketReceipt
                     if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(p, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
                     if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                     {
-                        var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
+                        var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 6 * unitPrice);
                         discount = new Discount(p, x + " for " + offer.Argument, -discountTotal);
                     }
 
