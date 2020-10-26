@@ -1,3 +1,4 @@
+import datetime
 import unittest
 
 from approvaltests import verify
@@ -13,6 +14,7 @@ class ReceiptPrinterTest(unittest.TestCase):
         self.toothbrush = Product("toothbrush", ProductUnit.EACH)
         self.apples = Product("apples", ProductUnit.KILO)
         self.receipt = Receipt()
+        self.fixed_date = datetime.datetime.fromisoformat("2012-12-12 10:10:10")
 
     def test_one_line_item(self):
         self.receipt.add_product(self.toothbrush, 1, 0.99, 0.99)
@@ -40,4 +42,5 @@ class ReceiptPrinterTest(unittest.TestCase):
         self.receipt.add_product(self.toothbrush, 2, 0.99, 0.99*2)
         self.receipt.add_product(self.apples, 0.75, 1.99, 1.99 * 0.75)
         self.receipt.add_discount(Discount(self.apples, "3 for 2", -0.99))
+        self.receipt.date = self.fixed_date
         verify(ReceiptPrinter().print_receipt(self.receipt))
