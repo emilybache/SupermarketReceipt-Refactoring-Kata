@@ -11,7 +11,7 @@ namespace SupermarketReceipt
         {
             var total = 0.0;
             foreach (var item in _items) total += item.TotalPrice;
-            foreach (var discount in _discounts) total -= discount.DiscountAmount;
+            foreach (var discount in _discounts) total += discount.DiscountAmount;
             return total;
         }
 
