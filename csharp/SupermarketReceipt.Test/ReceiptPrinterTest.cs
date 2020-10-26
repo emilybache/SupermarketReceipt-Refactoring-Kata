@@ -1,39 +1,38 @@
 using ApprovalTests;
 using ApprovalTests.Reporters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace supermarket
+namespace SupermarketReceipt.Test
 {
     [UseReporter(typeof(DiffReporter))]
-    [TestClass]
     public class ReceiptPrinterTest
     {
         readonly Product _toothbrush = new Product("toothbrush", ProductUnit.Each);
         readonly Product _apples = new Product("apples", ProductUnit.Kilo);
         Receipt _receipt = new Receipt();
 
-        [TestMethod]
+        [Fact]
         public void oneLineItem()
         {
             _receipt.AddProduct(_toothbrush, 1, 0.99, 0.99);
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(_receipt));
         }
-
-        [TestMethod]
+        
+        [Fact]
         public void quantityTwo()
         {
             _receipt.AddProduct(_toothbrush, 2, 0.99, 0.99 * 2);
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(_receipt));
         }
-
-        [TestMethod]
+        
+        [Fact]
         public void looseWeight()
         {
             _receipt.AddProduct(_apples, 2.3, 1.99, 1.99 * 2.3);
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(_receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void total()
         {
 
@@ -42,14 +41,14 @@ namespace supermarket
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(_receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void discounts()
         {
             _receipt.AddDiscount(new Discount(_apples, "3 for 2", 0.99));
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(_receipt));
         }
 
-        [TestMethod]
+        [Fact]
         public void printWholeReceipt()
         {
             _receipt.AddProduct(_toothbrush, 1, 0.99, 0.99);
@@ -58,6 +57,5 @@ namespace supermarket
             _receipt.AddDiscount(new Discount(_toothbrush, "3 for 2", 0.99));
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(_receipt));
         }
-
     }
 }

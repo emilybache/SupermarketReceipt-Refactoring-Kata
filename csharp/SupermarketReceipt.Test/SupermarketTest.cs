@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using Xunit;
 
-namespace SupermarketReceipt
+namespace SupermarketReceipt.Test
 {
     [UseReporter(typeof(DiffReporter))]
     public class SupermarketTest
@@ -31,7 +32,7 @@ namespace SupermarketReceipt
             _catalog.AddProduct(_cherryTomatoes, 0.69);
 
         }
-
+        
         [Fact]
         public void an_empty_shopping_cart_should_cost_nothing()
         {
@@ -142,6 +143,5 @@ namespace SupermarketReceipt
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
-
     }
 }
