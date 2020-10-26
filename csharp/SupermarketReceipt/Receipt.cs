@@ -50,5 +50,10 @@ namespace SupermarketReceipt
         public double Price { get; }
         public double TotalPrice { get; }
         public double Quantity { get; }
+
+        public string GetQuantityType()
+        {
+            return Product.QuantityType;
+        }
     }
 }

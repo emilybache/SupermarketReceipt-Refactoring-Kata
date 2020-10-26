@@ -2,9 +2,10 @@ from enum import Enum
 
 
 class Product:
-    def __init__(self, name, unit):
+    def __init__(self, name, unit, quantity_type=None):
         self.name = name
         self.unit = unit
+        self.quantity_type = quantity_type or ""
 
 
 class ProductQuantity:

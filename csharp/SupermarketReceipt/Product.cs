@@ -8,7 +8,10 @@ namespace SupermarketReceipt
         {
             Name = name;
             Unit = unit;
+            QuantityType = "";
         }
+
+        public string QuantityType { get; set; }
 
         public string Name { get; }
         public ProductUnit Unit { get; }

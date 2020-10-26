@@ -11,9 +11,9 @@ def whitespace(whitespace_size):
 
 def present_quantity(item):
     if ProductUnit.EACH == item.product.unit:
-        return str(item.quantity)
+        return str(item.quantity) + item.quantity_type
     else:
-        return '%.3f' % item.quantity
+        return '%.3f' % item.quantity + item.quantity_type
 
 
 class ReceiptPrinter:
