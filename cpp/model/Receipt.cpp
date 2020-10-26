@@ -22,7 +22,7 @@ double Receipt::getTotalPrice() const {
         total += item.getTotalPrice();
     }
     for (const auto& discount : discounts) {
-        total -= discount.getDiscountAmount();
+        total += discount.getDiscountAmount();
     }
     return total;
 }

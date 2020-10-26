@@ -5,15 +5,14 @@ namespace SupermarketReceipt
 {
     public class ReceiptPrinter
     {
-
-        private readonly int _columns;
         private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
 
+        private readonly int _columns;
 
 
         public ReceiptPrinter(int columns)
         {
-            this._columns = columns;
+            _columns = columns;
         }
 
         public ReceiptPrinter() : this(40)
@@ -23,64 +22,101 @@ namespace SupermarketReceipt
         public string PrintReceipt(Receipt receipt)
         {
             var result = new StringBuilder();
+            result.Append(PrintHeader(receipt));
             foreach (var item in receipt.GetItems())
             {
-                var price = item.TotalPrice.ToString("F", Culture);
-                var quantity = PresentQuantity(item);
-                var name = item.Product.Name;
-                var unitPrice = item.Price.ToString("F", Culture);
-
-                var whitespaceSize = this._columns - name.Length - price.Length;
-                var line = name + GetWhitespace(whitespaceSize) + price + "\n";
-
-                if (item.Quantity != 1)
-                {
-                    line += "  " + unitPrice + " * " + quantity + "\n";
-                }
-                result.Append(line);
+                string receiptItem = PrintReceiptItem(item);
+                result.Append(receiptItem);
+                
             }
-            foreach (Discount discount in receipt.GetDiscounts())
+
+            foreach (var discount in receipt.GetDiscounts())
             {
-                var productPresentation = discount.Product.Name;
-                var pricePresentation = discount.DiscountAmount.ToString("F", Culture);
-                var description = discount.Description;
-                result.Append(description);
-                result.Append("(");
-                result.Append(productPresentation);
-                result.Append(")");
-                result.Append(GetWhitespace(this._columns - 3 - productPresentation.Length - description.Length - pricePresentation.Length));
-                result.Append("-");
-                result.Append(pricePresentation);
-                result.Append("\n");
+                string discountPresentation = PrintDiscount(discount);
+                result.Append(discountPresentation);
             }
 
             {
                 result.Append("\n");
-                var pricePresentation = receipt.GetTotalPrice().ToString("F", Culture);
-                var total = "Total: ";
-                var whitespace = GetWhitespace(this._columns - total.Length - pricePresentation.Length);
-                result.Append(total).Append(whitespace).Append(pricePresentation);
-
+                result.Append(PrintTotal(receipt));
             }
             return result.ToString();
         }
 
-        private static string PresentQuantity(ReceiptItem item)
+        private string PrintHeader(Receipt receipt)
+        {
+            var result = new StringBuilder();
+            result.Append(PrintHorizontalLine());
+            result.Append(receipt.Date.ToString("s", System.Globalization.CultureInfo.InvariantCulture));
+            result.Append("\n");
+            result.Append(PrintHorizontalLine());
+
+            return result.ToString();
+        }
+
+        private string PrintHorizontalLine()
+        {
+            var result = new StringBuilder();
+            for (int i = 0; i < _columns; i++) {
+                result.Append("-");
+            }
+            result.Append("\n");
+            return result.ToString();
+        }
+
+        private string PrintTotal(Receipt receipt)
+        {
+            string name = "Total: ";
+            string value = PrintPrice(receipt.GetTotalPrice());
+            return FormatLineWithWhitespace(name, value);
+        }
+
+        private string PrintDiscount(Discount discount)
+        {
+            string name = discount.Description + "(" + discount.Product.Name + ")";
+            string value = PrintPrice(discount.DiscountAmount);
+
+            return FormatLineWithWhitespace(name, value);
+        }
+
+        private string PrintReceiptItem(ReceiptItem item)
+        {
+            string totalPrice = PrintPrice(item.TotalPrice);
+            string name = item.Product.Name;
+            string line = FormatLineWithWhitespace(name, totalPrice);
+            if (item.Quantity != 1)
+            {
+                line += "  " + PrintPrice(item.Price) + " * " + PrintQuantity(item) + "\n";
+            }
+
+            return line;
+        }
+        
+
+        private string FormatLineWithWhitespace(string name, string value)
+        {
+            var line = new StringBuilder();
+            line.Append(name);
+            int whitespaceSize = this._columns - name.Length - value.Length;
+            for (int i = 0; i < whitespaceSize; i++) {
+                line.Append(" ");
+            }
+            line.Append(value);
+            line.Append('\n');
+            return line.ToString();
+        }
+
+        private string PrintPrice(double price)
+        {
+            return price.ToString("N2", Culture);
+        }
+
+        private static string PrintQuantity(ReceiptItem item)
         {
             return ProductUnit.Each == item.Product.Unit
-                    ? ((int)item.Quantity).ToString()
-                    : item.Quantity.ToString("N3", Culture);
+                ? ((int) item.Quantity).ToString()
+                : item.Quantity.ToString("N3", Culture);
         }
-
-        private static string GetWhitespace(int whitespaceSize)
-        {
-            var whitespace = new StringBuilder();
-            for (var i = 0; i < whitespaceSize; i++)
-            {
-                whitespace.Append(" ");
-            }
-            return whitespace.ToString();
-        }
+        
     }
-
 }
