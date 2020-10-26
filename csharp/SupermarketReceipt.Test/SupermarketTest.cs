@@ -32,12 +32,17 @@ namespace SupermarketReceipt.Test
             _catalog.AddProduct(_cherryTomatoes, 0.69);
 
         }
-        
+
+        private static void VerifyReceipt(Receipt receipt)
+        {
+            ReceiptPrinterTest.VerifyReceipt(receipt);
+        }
+
         [Fact]
         public void an_empty_shopping_cart_should_cost_nothing()
         {
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -45,7 +50,7 @@ namespace SupermarketReceipt.Test
         {
             _theCart.AddItem(_toothbrush);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -54,7 +59,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_rice);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -65,7 +70,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_toothbrush);
             _teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -78,7 +83,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_toothbrush);
             _teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -86,7 +91,7 @@ namespace SupermarketReceipt.Test
         {
             _theCart.AddItemQuantity(_apples, .5);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -95,7 +100,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_rice);
             _teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _rice, 10.0);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -105,7 +110,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItem(_cherryTomatoes);
             _teller.AddSpecialOffer(SpecialOfferType.TwoForAmount, _cherryTomatoes, .99);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -114,7 +119,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItemQuantity(_apples, 5);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -123,7 +128,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItemQuantity(_apples, 6);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -132,7 +137,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItemQuantity(_apples, 16);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
 
         [Fact]
@@ -141,7 +146,7 @@ namespace SupermarketReceipt.Test
             _theCart.AddItemQuantity(_apples, 4);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+            VerifyReceipt(receipt);
         }
     }
 }

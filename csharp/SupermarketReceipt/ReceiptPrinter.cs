@@ -47,6 +47,7 @@ namespace SupermarketReceipt
         {
             var result = new StringBuilder();
             result.Append(PrintHorizontalLine());
+            result.Append("Date: ");
             result.Append(receipt.Date.ToString("s", System.Globalization.CultureInfo.InvariantCulture));
             result.Append("\n");
             result.Append(PrintHorizontalLine());

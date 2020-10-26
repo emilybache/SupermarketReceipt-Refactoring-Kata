@@ -1,5 +1,6 @@
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using ApprovalTests.Scrubber;
 using Xunit;
 
 namespace SupermarketReceipt.Test
@@ -55,7 +56,13 @@ namespace SupermarketReceipt.Test
             _receipt.AddProduct(_toothbrush, 2, 0.99, 2 * 0.99);
             _receipt.AddProduct(_apples, 0.75, 1.99, 1.99 * 0.75);
             _receipt.AddDiscount(new Discount(_toothbrush, "3 for 2", 0.99));
-            Approvals.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
+            VerifyReceipt(_receipt);
+        }
+
+        public static void VerifyReceipt(Receipt receipt)
+        {
+            var printout = new ReceiptPrinter().PrintReceipt(receipt);
+            Approvals.VerifyWithExtension(printout, ".txt", ScrubberUtils.RemoveLinesContaining("Date:"));
         }
     }
 }
