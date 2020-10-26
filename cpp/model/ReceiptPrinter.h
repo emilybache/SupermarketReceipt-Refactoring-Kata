@@ -50,7 +50,7 @@ public:
 
     std::string presentDiscount(const Discount &discount) const
     {
-        std::string name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
+        std::string name = discount.getDescription() + " (" + discount.getProduct().getName() + ")";
         std::string pricePresentation = getFormattedNumberAsString(discount.getDiscountAmount(), 2);
         return formatLineWithWhitespace(name, pricePresentation);
     }
