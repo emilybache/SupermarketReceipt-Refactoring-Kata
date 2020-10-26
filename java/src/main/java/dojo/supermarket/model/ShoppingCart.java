@@ -46,7 +46,7 @@ public class ShoppingCart {
                     x = 3;
 
                 } else if (offer.offerType == SpecialOfferType.TwoForAmount) {
-                    x = 2;
+                    x = 4;
                     if (quantityAsInt >= 2) {
                         int intDivision = quantityAsInt / x;
                         double pricePerUnit = offer.argument * intDivision;
