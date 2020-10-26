@@ -51,7 +51,7 @@ namespace SupermarketReceipt
                     }
                     else if (offer.OfferType == SpecialOfferType.TwoForAmount)
                     {
-                        x = 2;
+                        x = 4;
                         if (quantityAsInt >= 2)
                         {
                             var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
