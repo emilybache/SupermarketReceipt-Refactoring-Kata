@@ -7,6 +7,7 @@ class ReceiptPrinter:
   
     def print_receipt(self, receipt):
         result = ""
+        result += self.print_header(receipt)
         for item in receipt.items:
             receipt_item = self.print_receipt_item(item)
             result += receipt_item
@@ -54,3 +55,18 @@ class ReceiptPrinter:
         name = "Total: "
         value = self.print_price(receipt.total_price())
         return self.format_line_with_whitespace(name, value)
+
+    def print_header(self, receipt):
+        result = ""
+        result += self.horizontal_line()
+        result += receipt.date.isoformat() + "\n"
+        result += self.horizontal_line()
+
+        return result
+
+    def horizontal_line(self):
+        result = ""
+        for i in range(self.columns):
+            result += "-"
+        result += "\n"
+        return result
