@@ -27,9 +27,16 @@ public class ReceiptPrinter {
             result.append(discountPresentation);
         }
 
-        result.append("\n");
+        horizontalLine(result);
         result.append(presentTotal(receipt));
         return result.toString();
+    }
+
+    private void horizontalLine(StringBuilder result) {
+        for (int i = 0; i < this.columns; i++) {
+            result.append("-");
+        }
+        result.append("\n");
     }
 
     private String presentReceiptItem(ReceiptItem item) {
@@ -45,7 +52,7 @@ public class ReceiptPrinter {
     }
 
     private String presentDiscount(Discount discount) {
-        String name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
+        String name = discount.getDescription() + " (" + discount.getProduct().getName() + ")";
         String value = presentPrice(discount.getDiscountAmount());
 
         return formatLineWithWhitespace(name, value);
@@ -75,8 +82,8 @@ public class ReceiptPrinter {
 
     private static String presentQuantity(ReceiptItem item) {
         return ProductUnit.Each.equals(item.getProduct().getUnit())
-                ? String.format("%x", (int)item.getQuantity())
-                : String.format(Locale.UK, "%.3f", item.getQuantity());
+                ? String.format("%x%s", (int)item.getQuantity(), item.getQuantityType())
+                : String.format(Locale.UK, "%.3f%s", item.getQuantity(), item.getQuantityType());
     }
 
 }

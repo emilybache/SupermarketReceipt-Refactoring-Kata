@@ -15,6 +15,8 @@ public:
 
     double getQuantity() const;
 
+    std::string getQuantityType() const;
+
     bool operator==(const ReceiptItem& rhs) const;
 
     bool operator!=(const ReceiptItem& rhs) const;

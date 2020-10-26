@@ -36,9 +36,19 @@ namespace SupermarketReceipt
             }
 
             {
-                result.Append("\n");
+                result.Append(PrintHorizontalLine());
                 result.Append(PrintTotal(receipt));
             }
+            return result.ToString();
+        }
+
+        private string PrintHorizontalLine()
+        {
+            var result = new StringBuilder();
+            for (int i = 0; i < _columns; i++) {
+                result.Append("-");
+            }
+            result.Append("\n");
             return result.ToString();
         }
 
@@ -51,7 +61,7 @@ namespace SupermarketReceipt
 
         private string PrintDiscount(Discount discount)
         {
-            string name = discount.Description + "(" + discount.Product.Name + ")";
+            string name = discount.Description + " (" + discount.Product.Name + ")";
             string value = PrintPrice(discount.DiscountAmount);
 
             return FormatLineWithWhitespace(name, value);
@@ -93,7 +103,7 @@ namespace SupermarketReceipt
         {
             return ProductUnit.Each == item.Product.Unit
                 ? ((int) item.Quantity).ToString()
-                : item.Quantity.ToString("N3", Culture);
+                : item.Quantity.ToString("N3", Culture) + item.GetQuantityType();
         }
         
     }

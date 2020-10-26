@@ -15,7 +15,7 @@ class ReceiptPrinter:
             discount_presentation = self.print_discount(discount)
             result += discount_presentation
 
-        result += "\n"
+        result += self.horizontal_line()
         result += self.present_total(receipt)
         return str(result)
 
@@ -46,7 +46,7 @@ class ReceiptPrinter:
             return '%.3f' % item.quantity
 
     def print_discount(self, discount):
-        name = f"{discount.description} ({discount.product.name})"
+        name = f"{discount.description}  ({discount.product.name})"
         value = self.print_price(discount.discount_amount)
         return self.format_line_with_whitespace(name, value)
 
@@ -54,3 +54,10 @@ class ReceiptPrinter:
         name = "Total: "
         value = self.print_price(receipt.total_price())
         return self.format_line_with_whitespace(name, value)
+
+    def horizontal_line(self):
+        result = ""
+        for i in range(self.columns):
+            result += "-"
+        result += "\n"
+        return result
