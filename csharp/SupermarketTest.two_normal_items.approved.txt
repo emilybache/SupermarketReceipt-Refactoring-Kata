@@ -1,4 +1,0 @@
-﻿toothbrush                          0.99
-rice                                2.99
-
-Total:                              3.98
