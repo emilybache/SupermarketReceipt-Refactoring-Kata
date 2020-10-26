@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SupermarketReceipt
@@ -6,6 +7,7 @@ namespace SupermarketReceipt
     {
         private readonly List<Discount> _discounts = new List<Discount>();
         private readonly List<ReceiptItem> _items = new List<ReceiptItem>();
+        public DateTime Date { get; } = DateTime.Now;
 
         public double GetTotalPrice()
         {
