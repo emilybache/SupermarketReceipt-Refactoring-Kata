@@ -49,7 +49,7 @@ void ShoppingCart::handleOffers(Receipt& receipt, std::map<Product, Offer> offer
             int numberOfXs = quantityAsInt / x;
             if (offer.getOfferType() == SpecialOfferType::ThreeForTwo && quantityAsInt > 2) {
                 double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
-                discount = new Discount("3 for 2", -discountAmount, product);
+                discount = new Discount("buy 3 get one free", -discountAmount, product);
             }
             if (offer.getOfferType() == SpecialOfferType::TenPercentDiscount) {
                 discount = new Discount(std::to_string(offer.getArgument()) + "% off", -quantity * unitPrice * offer.getArgument() / 100.0, product);

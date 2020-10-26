@@ -1,5 +1,3 @@
-import math
-
 from model_objects import ProductQuantity, SpecialOfferType, Discount
 
 
@@ -49,11 +47,11 @@ class ShoppingCart:
                 if offer.offer_type == SpecialOfferType.FIVE_FOR_AMOUNT:
                     x = 5
 
-                number_of_x = math.floor(quantity_as_int / x)
+                number_of_x = quantity_as_int / x
                 if offer.offer_type == SpecialOfferType.THREE_FOR_TWO and quantity_as_int > 2:
                     discount_amount = quantity * unit_price - (
                                 (number_of_x * 2 * unit_price) + quantity_as_int % 3 * unit_price)
-                    discount = Discount(p, "3 for 2", -discount_amount)
+                    discount = Discount(p, "buy 3 get one free", -discount_amount)
 
                 if offer.offer_type == SpecialOfferType.TEN_PERCENT_DISCOUNT:
                     discount = Discount(p, str(offer.argument) + "% off",
