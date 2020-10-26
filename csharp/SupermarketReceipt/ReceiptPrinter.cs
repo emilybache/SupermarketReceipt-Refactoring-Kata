@@ -36,9 +36,19 @@ namespace SupermarketReceipt
             }
 
             {
-                result.Append("\n");
+                result.Append(PrintHorizontalLine());
                 result.Append(PrintTotal(receipt));
             }
+            return result.ToString();
+        }
+
+        private string PrintHorizontalLine()
+        {
+            var result = new StringBuilder();
+            for (int i = 0; i < _columns; i++) {
+                result.Append("-");
+            }
+            result.Append("\n");
             return result.ToString();
         }
 

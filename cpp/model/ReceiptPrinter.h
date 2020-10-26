@@ -29,8 +29,17 @@ public:
         {
             result.append(presentDiscount(discount));
         }
-        result.append("\n");
+        result.append(horizontalLine());
         result.append(presentTotal(receipt));
+        return result;
+    }
+
+    std::string horizontalLine() {
+        std::string result;
+        for (int i = 0; i < columns; i++) {
+            result.append("-");
+        }
+        result.append("\n");
         return result;
     }
 
