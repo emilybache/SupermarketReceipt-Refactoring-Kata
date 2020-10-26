@@ -1,23 +1,5 @@
 from model_objects import ProductUnit
 
-
-def whitespace(whitespace_size):
-    space = ''
-    for i in range(whitespace_size):
-        space += ' '
-
-    return space
-
-
-def present_quantity(item):
-    if ProductUnit.EACH == item.product.unit:
-        return str(item.quantity) + item.quantity_type
-    else:
-        return '%.3f' % item.quantity + item.quantity_type
-
-
-
-
 class ReceiptPrinter:
 
     def __init__(self, columns=40):
