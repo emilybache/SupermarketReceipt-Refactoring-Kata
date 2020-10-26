@@ -46,7 +46,7 @@ class ReceiptPrinter:
             return '%.3f' % item.quantity
 
     def print_discount(self, discount):
-        name = f"{discount.description} ({discount.product.name})"
+        name = f"{discount.description}  ({discount.product.name})"
         value = self.print_price(discount.discount_amount)
         return self.format_line_with_whitespace(name, value)
 
