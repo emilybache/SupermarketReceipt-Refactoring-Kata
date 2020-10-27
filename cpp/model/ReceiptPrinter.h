@@ -89,7 +89,7 @@ public:
     {
         return ProductUnit::Each == item.getProduct().getUnit()
                ? getFormattedNumberAsString(item.getQuantity(), 0) + item.getQuantityType()
-               : getFormattedNumberAsString(item.getQuantity(), 3);
+               : getFormattedNumberAsString(item.getQuantity(), 3) + item.getQuantityType();
     }
 
 private:

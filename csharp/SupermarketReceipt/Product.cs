@@ -4,14 +4,17 @@ namespace SupermarketReceipt
 {
     public class Product
     {
-        public  string Name { get; }
-        public ProductUnit Unit { get; }
-
         public Product(string name, ProductUnit unit)
         {
-            this.Name = name;
-            this.Unit = unit;
+            Name = name;
+            Unit = unit;
+            QuantityType = "";
         }
+
+        public string QuantityType { get; set; }
+
+        public string Name { get; }
+        public ProductUnit Unit { get; }
 
         public override bool Equals(object obj)
         {
@@ -32,19 +35,19 @@ namespace SupermarketReceipt
 
     public class ProductQuantity
     {
-        public Product Product { get; }
-        public double Quantity { get; }
-
         public ProductQuantity(Product product, double weight)
         {
-            this.Product = product;
-            this.Quantity = weight;
+            Product = product;
+            Quantity = weight;
         }
 
+        public Product Product { get; }
+        public double Quantity { get; }
     }
 
     public enum ProductUnit
     {
-        Kilo, Each
+        Kilo,
+        Each
     }
 }
