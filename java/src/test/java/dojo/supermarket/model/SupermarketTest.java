@@ -2,9 +2,12 @@ package dojo.supermarket.model;
 
 import dojo.supermarket.ReceiptPrinter;
 import org.approvaltests.Approvals;
+import org.approvaltests.reporters.JunitReporter;
+import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@UseReporter(JunitReporter.class)
 public class SupermarketTest {
     private SupermarketCatalog catalog;
     private Teller teller;
