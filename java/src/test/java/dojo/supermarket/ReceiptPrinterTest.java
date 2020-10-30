@@ -6,7 +6,6 @@ import org.approvaltests.reporters.JunitReporter;
 import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.Test;
 
-@UseReporter(JunitReporter.class)
 public class ReceiptPrinterTest {
 
     Product toothbrush = new Product("toothbrush", ProductUnit.Each);
