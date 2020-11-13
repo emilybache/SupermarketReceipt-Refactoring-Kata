@@ -29,6 +29,7 @@ func NewFakeCatalog() *FakeCatalog {
 }
 
 func TestTenPercentDiscount(t *testing.T) {
+	// ARRANGE
 	var toothbrush = Product{name: "toothbrush", unit: Each}
 	var apples = Product{name: "apples", unit: Kilo}
 	var catalog = NewFakeCatalog()
@@ -41,8 +42,10 @@ func TestTenPercentDiscount(t *testing.T) {
 	var cart = NewShoppingCart()
 	cart.addItemQuantity(apples, 2.5)
 
+	// ACT
 	var receipt = teller.checksOutArticlesFrom(cart)
 
+	// ASSERT
 	assert.Equal(t, 4.975, receipt.totalPrice())
 	assert.Equal(t, 0, len(receipt.discounts))
 	require.Equal(t, 1, len(receipt.items))
