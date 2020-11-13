@@ -22,6 +22,10 @@ func NewShoppingCart() *ShoppingCart {
 	return &s
 }
 
+func (c *ShoppingCart) addItem(product Product) {
+	c.addItemQuantity(product, 1)
+}
+
 func (c *ShoppingCart) addItemQuantity(product Product, amount float64) {
 	c.items = append(c.items, ProductQuantity{product: product, quantity: amount})
 	currentAmount, ok := c.productQuantities[product]
@@ -48,7 +52,7 @@ func (c *ShoppingCart) handleOffers(receipt *Receipt, offers map[Product]Special
 				if quantityAsInt >= 2 {
 					var total = offer.argument * float64(quantityAsInt / x) + float64(quantityAsInt % 2) * unitPrice
 					var discountN = unitPrice * quantity - total;
-					discount = &Discount{product: p, description: fmt.Sprintf("2 for %f", offer.argument), discountAmount: -discountN}
+					discount = &Discount{product: p, description: fmt.Sprintf("2 for %.2f", offer.argument), discountAmount: -discountN}
 				}
 
 			}
@@ -61,11 +65,11 @@ func (c *ShoppingCart) handleOffers(receipt *Receipt, offers map[Product]Special
 				discount = &Discount{product: p, description: "3 for 2", discountAmount: -discountAmount}
 			}
 			if offer.offerType == TenPercentDiscount {
-				discount = &Discount{product: p, description: fmt.Sprintf("%f %% off", offer.argument), discountAmount: -quantity * unitPrice * offer.argument / 100.0}
+				discount = &Discount{product: p, description: fmt.Sprintf("%.0f %% off", offer.argument), discountAmount: -quantity * unitPrice * offer.argument / 100.0}
 			}
 			if offer.offerType == FiveForAmount && quantityAsInt >= 5 {
 				var discountTotal = unitPrice * quantity - (offer.argument * float64(numberOfXs) + float64(quantityAsInt % 5) * unitPrice)
-				discount = &Discount{product: p, description: fmt.Sprintf("%d for %f", x, offer.argument), discountAmount: -discountTotal}
+				discount = &Discount{product: p, description: fmt.Sprintf("%d for %.2f", x, offer.argument), discountAmount: -discountTotal}
 			}
 			if discount != nil {
 				receipt.addDiscount(*discount)

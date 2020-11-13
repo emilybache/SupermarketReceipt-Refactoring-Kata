@@ -21,11 +21,11 @@ func NewReceiptPrinter() *ReceiptPrinter {
 
 func (p ReceiptPrinter) printReceipt(receipt *Receipt) string {
 	var result string
-	for _, item := range receipt.items {
+	for _, item := range receipt.sortedItems() {
 		var receiptItem = p.presentReceiptItem(item)
 		result += receiptItem
 	}
-	for _, discount := range receipt.discounts {
+	for _, discount := range receipt.sortedDiscounts() {
 		result += p.presentDiscount(discount)
 	}
 	result += "\n"
