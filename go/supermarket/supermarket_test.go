@@ -1,15 +1,14 @@
 package supermarket
 
 import (
-	approvals "github.com/approvals/go-approval-tests"
+	"github.com/approvals/go-approval-tests"
 	"testing"
 )
 
 type FakeCatalog struct {
-    _products map[string]Product
-    _prices map[string]float64
+	_products map[string]Product
+	_prices   map[string]float64
 }
-
 
 func (c FakeCatalog) unitPrice(product Product) float64 {
 	return c._prices[product.name]
@@ -29,8 +28,8 @@ func NewFakeCatalog() *FakeCatalog {
 
 type Offer struct {
 	offerType SpecialOfferType
-	product Product
-	argument float64
+	product   Product
+	argument  float64
 }
 
 func TestSupermarket(t *testing.T) {
@@ -48,94 +47,94 @@ func TestSupermarket(t *testing.T) {
 	var printer = NewReceiptPrinter()
 
 	tests := []struct {
-	name       string
-	products   []Product
-	offers     []Offer
-	quantities []float64
-}{
+		name       string
+		products   []Product
+		offers     []Offer
+		quantities []float64
+	}{
 		{
-			name: "empty shoppingcart",
+			name:     "empty shoppingcart",
 			products: []Product{},
-			offers: []Offer{},
+			offers:   []Offer{},
 		},
 		{
-			name: "one normal item",
+			name:     "one normal item",
 			products: []Product{toothbrush},
-			offers: []Offer{},
+			offers:   []Offer{},
 		},
 		{
-			name: "two normal items",
+			name:     "two normal items",
 			products: []Product{toothbrush, rice},
-			offers: []Offer{},
+			offers:   []Offer{},
 		},
 		{
-			name: "buy two get one free",
+			name:     "buy two get one free",
 			products: []Product{toothbrush, toothbrush, toothbrush},
-			offers: []Offer{{ThreeForTwo, toothbrush, catalog.unitPrice(toothbrush)}},
+			offers:   []Offer{{ThreeForTwo, toothbrush, catalog.unitPrice(toothbrush)}},
 		},
 		{
-			name: "buy two get one free but insufficient",
+			name:     "buy two get one free but insufficient",
 			products: []Product{toothbrush},
-			offers: []Offer{{ThreeForTwo, toothbrush, catalog.unitPrice(toothbrush)}},
+			offers:   []Offer{{ThreeForTwo, toothbrush, catalog.unitPrice(toothbrush)}},
 		},
 		{
-			name: "buy five get one free",
+			name:     "buy five get one free",
 			products: []Product{toothbrush, toothbrush, toothbrush, toothbrush, toothbrush},
-			offers: []Offer{{ThreeForTwo, toothbrush, catalog.unitPrice(toothbrush)}},
+			offers:   []Offer{{ThreeForTwo, toothbrush, catalog.unitPrice(toothbrush)}},
 		},
 		{
-			name: "loose weight product",
-			products: []Product{apples},
+			name:       "loose weight product",
+			products:   []Product{apples},
 			quantities: []float64{0.5},
-			offers: []Offer{},
+			offers:     []Offer{},
 		},
 		{
-			name: "percent discount",
+			name:     "percent discount",
 			products: []Product{rice},
-			offers: []Offer{{TenPercentDiscount, rice, 10.0}},
+			offers:   []Offer{{TenPercentDiscount, rice, 10.0}},
 		},
 		{
-			name: "XForY discount",
+			name:     "XForY discount",
 			products: []Product{cherryTomatoes, cherryTomatoes},
-			offers: []Offer{{TwoForAmount, cherryTomatoes, 0.99}},
+			offers:   []Offer{{TwoForAmount, cherryTomatoes, 0.99}},
 		},
 		{
-			name: "XForY discount with insufficient in basket",
+			name:     "XForY discount with insufficient in basket",
 			products: []Product{cherryTomatoes},
-			offers: []Offer{{TwoForAmount, cherryTomatoes, 0.99}},
+			offers:   []Offer{{TwoForAmount, cherryTomatoes, 0.99}},
 		},
 		{
-			name: "FiveForY discount",
-			products: []Product{apples},
+			name:       "FiveForY discount",
+			products:   []Product{apples},
 			quantities: []float64{5},
-			offers: []Offer{{FiveForAmount, apples, 6.99}},
+			offers:     []Offer{{FiveForAmount, apples, 6.99}},
 		},
 		{
-			name: "FiveForY discount with six",
-			products: []Product{apples},
+			name:       "FiveForY discount with six",
+			products:   []Product{apples},
 			quantities: []float64{6},
-			offers: []Offer{{FiveForAmount, apples, 6.99}},
+			offers:     []Offer{{FiveForAmount, apples, 6.99}},
 		},
 		{
-			name: "FiveForY discount with sixteen",
-			products: []Product{apples},
+			name:       "FiveForY discount with sixteen",
+			products:   []Product{apples},
 			quantities: []float64{16},
-			offers: []Offer{{FiveForAmount, apples, 6.99}},
+			offers:     []Offer{{FiveForAmount, apples, 6.99}},
 		},
 		{
-			name: "FiveForY discount with four",
-			products: []Product{apples},
+			name:       "FiveForY discount with four",
+			products:   []Product{apples},
 			quantities: []float64{4},
-			offers: []Offer{{FiveForAmount, apples, 6.99}},
+			offers:     []Offer{{FiveForAmount, apples, 6.99}},
 		},
 	}
-	var toVerify string
+	t.Parallel()
 	for _, tc := range tests {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			var cart = NewShoppingCart()
 			for i, product := range tc.products {
-				if len(tc.quantities) - 1 >= i {
+				if len(tc.quantities)-1 >= i {
 					cart.addItemQuantity(product, tc.quantities[i])
 				} else {
 					cart.addItem(product)
@@ -145,10 +144,8 @@ func TestSupermarket(t *testing.T) {
 				teller.addSpecialOffer(offer.offerType, offer.product, offer.argument)
 			}
 			var receipt = teller.checksOutArticlesFrom(cart)
-			toVerify += "\n========================================\n\n"
-			toVerify += printer.printReceipt(receipt)
+			approvals.VerifyString(t, printer.printReceipt(receipt))
 		})
 	}
-	// TODO: make these into separate data driven tests when approvals supports that
-	approvals.VerifyString(t, toVerify)
+
 }
