@@ -1,5 +1,7 @@
 package supermarket
 
+import "sort"
+
 type Receipt struct {
     items []ReceiptItem
     discounts []Discount
@@ -42,4 +44,18 @@ func (r *Receipt) addProduct(product Product, quantity float64, unitPrice float6
 
 func (r *Receipt) addDiscount(discount Discount) {
     r.discounts = append(r.discounts, discount)
+}
+
+func (r Receipt) sortedItems() []ReceiptItem {
+    sort.Slice(r.items, func(i, j int) bool {
+        return r.items[i].product.name < r.items[j].product.name
+    })
+    return r.items
+}
+
+func (r Receipt) sortedDiscounts() []Discount {
+    sort.Slice(r.discounts, func(i, j int) bool {
+        return r.discounts[i].product.name < r.discounts[j].product.name
+    })
+    return r.discounts
 }
