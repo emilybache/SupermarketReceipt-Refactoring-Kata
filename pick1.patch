@@ -241,15 +241,3 @@ index 2a0a219..bd149d0 100644
  
  class Receipt:
      def __init__(self):
-diff --git a/python/tests/test_supermarket.py b/python/tests/test_supermarket.py
-index b6d8f13..fe3cffc 100644
---- a/python/tests/test_supermarket.py
-+++ b/python/tests/test_supermarket.py
-@@ -60,6 +60,7 @@ class SupermarketTest(unittest.TestCase):
-         verify(ReceiptPrinter(40).print_receipt(receipt))
- 
-     def test_loose_weight_product(self):
-+        self.apples.quantity_type = "KG"
-         self.the_cart.add_item_quantity(self.apples, 0.5)
-         receipt = self.teller.checks_out_articles_from(self.the_cart)
-         verify(ReceiptPrinter(40).print_receipt(receipt))
