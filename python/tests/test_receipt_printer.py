@@ -18,29 +18,34 @@ class ReceiptPrinterTest(unittest.TestCase):
 
     def test_one_line_item(self):
         self.receipt.add_product(self.toothbrush, 1, 0.99, 0.99)
-        verify(ReceiptPrinter().print_receipt(self.receipt))
+        verify(printReceiptWithFixedDate(self.receipt))
 
     def test_quantity_two(self):
         self.receipt.add_product(self.toothbrush, 2, 0.99, 0.99 * 2)
-        verify(ReceiptPrinter().print_receipt(self.receipt))
+        verify(printReceiptWithFixedDate(self.receipt))
 
     def test_loose_weight(self):
         self.receipt.add_product(self.apples, 2.3, 1.99, 1.99 * 2.3)
-        verify(ReceiptPrinter().print_receipt(self.receipt))
+        verify(printReceiptWithFixedDate(self.receipt))
 
     def test_total(self):
         self.receipt.add_product(self.toothbrush, 1, 0.99, 0.99 * 2)
         self.receipt.add_product(self.apples, 0.75, 1.99, 1.99 * 0.75)
-        verify(ReceiptPrinter().print_receipt(self.receipt))
+        verify(printReceiptWithFixedDate(self.receipt))
 
     def test_discounts(self):
         self.receipt.add_discount(Discount(self.apples, "3 for 2", -0.99))
-        verify(ReceiptPrinter().print_receipt(self.receipt))
+        verify(printReceiptWithFixedDate(self.receipt))
 
     def test_whole_receipt(self):
         self.receipt.add_product(self.toothbrush, 1, 0.99, 0.99)
         self.receipt.add_product(self.toothbrush, 2, 0.99, 0.99*2)
         self.receipt.add_product(self.apples, 0.75, 1.99, 1.99 * 0.75)
         self.receipt.add_discount(Discount(self.apples, "3 for 2", -0.99))
-        self.receipt.date = self.fixed_date
-        verify(ReceiptPrinter().print_receipt(self.receipt))
+        verify(printReceiptWithFixedDate(self.receipt))
+
+
+def printReceiptWithFixedDate(receipt):
+        receipt.date = datetime.datetime.fromisoformat("2012-12-12 10:10:10")
+        receiptText = ReceiptPrinter().print_receipt(receipt)
+        return receiptText
