@@ -1,24 +1,57 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
-use Supermarket\Model\{Receipt, SpecialOfferType, Teller, Product, ProductUnit, ShoppingCart};
+use Supermarket\Model\{Product, ProductUnit, Receipt, ShoppingCart, SpecialOfferType, Teller};
 use Supermarket\ReceiptPrinter;
 
 class SupermarketTest extends TestCase
 {
-    private FakeCatalog $catalog;
-    private Product $toothbrush;
-    private Product $rice;
-    private Product $apples;
-    private Product $cherryTomatoes;
-    private ShoppingCart $cart;
-    private Teller $teller;
-    private ReceiptPrinter $printer;
+    /**
+     * @var FakeCatalog
+     */
+    private $catalog;
 
-    public function setUp(): void
+    /**
+     * @var Product
+     */
+    private $toothbrush;
+
+    /**
+     * @var Product
+     */
+    private $rice;
+
+    /**
+     * @var Product
+     */
+    private $apples;
+
+    /**
+     * @var Product
+     */
+    private $cherryTomatoes;
+
+    /**
+     * @var ShoppingCart
+     */
+    private $cart;
+
+    /**
+     * @var Teller
+     */
+    private $teller;
+
+    /**
+     * @var ReceiptPrinter
+     */
+    private $printer;
+
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -38,22 +71,19 @@ class SupermarketTest extends TestCase
         $this->printer = new ReceiptPrinter(40);
     }
 
-    /** @test */
-    public function anEmptyShoppingCartShouldCostNothing()
+    public function testAnEmptyShoppingCartShouldCostNothing(): void
     {
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function oneNormalItem()
+    public function testOneNormalItem(): void
     {
         $this->cart->addItem($this->toothbrush);
 
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function twoNormalItems()
+    public function testTwoNormalItems(): void
     {
         $this->cart->addItem($this->toothbrush);
         $this->cart->addItem($this->rice);
@@ -61,8 +91,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function buyTwoGetOneFree()
+    public function testBuyTwoGetOneFree(): void
     {
         $this->cart->addItem($this->toothbrush);
         $this->cart->addItem($this->toothbrush);
@@ -76,8 +105,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function buyTwoGetOneFreeButInsufficientInBasket()
+    public function testBuyTwoGetOneFreeButInsufficientInBasket(): void
     {
         $this->cart->addItem($this->toothbrush);
         $this->teller->addSpecialOffer(
@@ -89,8 +117,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function buyFiveGetOneFree()
+    public function testBuyFiveGetOneFree(): void
     {
         $this->cart->addItem($this->toothbrush);
         $this->cart->addItem($this->toothbrush);
@@ -106,16 +133,14 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function looseWeightProduct()
+    public function testLooseWeightProduct(): void
     {
         $this->cart->addItemQuantity($this->apples, 0.5);
 
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function percentDiscount()
+    public function testPercentDiscount(): void
     {
         $this->cart->addItem($this->rice);
         $this->teller->addSpecialOffer(SpecialOfferType::TEN_PERCENT_DISCOUNT(), $this->rice, 10.0);
@@ -123,8 +148,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function xForYDiscount()
+    public function testXForYDiscount(): void
     {
         $this->cart->addItem($this->cherryTomatoes);
         $this->cart->addItem($this->cherryTomatoes);
@@ -133,8 +157,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function xForYDiscountWithInsufficientInBasket()
+    public function testXForYDiscountWithInsufficientInBasket(): void
     {
         $this->cart->addItem($this->cherryTomatoes);
         $this->teller->addSpecialOffer(SpecialOfferType::TWO_FOR_AMOUNT(), $this->cherryTomatoes, 0.99);
@@ -142,8 +165,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function fiveForYDiscount()
+    public function testFiveForYDiscount(): void
     {
         $this->cart->addItemQuantity($this->apples, 5);
         $this->teller->addSpecialOffer(SpecialOfferType::FIVE_FOR_AMOUNT(), $this->apples, 6.99);
@@ -151,8 +173,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function fiveForYDiscountWithSix()
+    public function testFiveForYDiscountWithSix(): void
     {
         $this->cart->addItemQuantity($this->apples, 6);
         $this->teller->addSpecialOffer(SpecialOfferType::FIVE_FOR_AMOUNT(), $this->apples, 6.99);
@@ -160,8 +181,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function fiveForYDiscountWithSixteen()
+    public function testFiveForYDiscountWithSixteen(): void
     {
         $this->cart->addItemQuantity($this->apples, 16);
         $this->teller->addSpecialOffer(SpecialOfferType::FIVE_FOR_AMOUNT(), $this->apples, 6.99);
@@ -169,8 +189,7 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /** @test */
-    public function fiveForYDiscountWithFour()
+    public function testFiveForYDiscountWithFour(): void
     {
         $this->cart->addItemQuantity($this->apples, 4);
         $this->teller->addSpecialOffer(SpecialOfferType::FIVE_FOR_AMOUNT(), $this->apples, 6.99);
@@ -178,9 +197,6 @@ class SupermarketTest extends TestCase
         Approvals::verifyString($this->printReceipt());
     }
 
-    /**
-     * @return string
-     */
     private function printReceipt(): string
     {
         $receipt = $this->teller->checkoutArticlesFrom($this->cart);

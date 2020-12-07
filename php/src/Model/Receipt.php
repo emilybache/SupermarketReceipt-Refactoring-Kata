@@ -1,16 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 class Receipt
 {
-    /** @var Discount[] */
-    private array $discounts = [];
+    /**
+     * @var Discount[]
+     */
+    private $discounts = [];
 
-    /** @var ReceiptItem[] */
-    private array $items = [];
+    /**
+     * @var ReceiptItem[]
+     */
+    private $items = [];
 
-    public function getTotalPrice()
+    public function getTotalPrice(): float
     {
         $total = 0.0;
         foreach ($this->items as $item) {

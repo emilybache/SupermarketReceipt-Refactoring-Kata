@@ -1,13 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Supermarket\Model;
 
 use Ds\Hashable;
 
 class Product implements Hashable
 {
-    private string $name;
-    private ProductUnit $unit;
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var ProductUnit
+     */
+    private $unit;
 
     public function __construct(string $name, ProductUnit $unit)
     {
@@ -25,9 +34,12 @@ class Product implements Hashable
         return $this->unit;
     }
 
+    /**
+     * @param Product $obj
+     */
     public function equals($obj): bool
     {
-        return $obj instanceof Product &&
+        return $obj instanceof self &&
             $this->getName() === $obj->getName() &&
             $this->getUnit() === $obj->getUnit();
     }
