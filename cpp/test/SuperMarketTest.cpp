@@ -6,8 +6,9 @@
 #include "../model/ShoppingCart.h"
 #include "../model/Teller.h"
 
-TEST_CASE("Discounts", "[Supermarket]")
+TEST_CASE("TenPercentDiscount", "[Supermarket]")
 {
+    // ARRANGE
     SupermarketCatalog *catalog = new FakeCatalog();
     Product toothbrush("toothbrush", ProductUnit::Each);
     catalog->addProduct(toothbrush, 0.99);
@@ -19,8 +20,10 @@ TEST_CASE("Discounts", "[Supermarket]")
     ShoppingCart cart;
     cart.addItemQuantity(apples, 2.5);
 
+    // ACT
     Receipt receipt = teller.checksOutArticlesFrom(cart);
 
+    // ASSERT
     REQUIRE(4.975 == receipt.getTotalPrice());
     REQUIRE(receipt.getDiscounts().empty());
     REQUIRE(1 == receipt.getItems().size());
