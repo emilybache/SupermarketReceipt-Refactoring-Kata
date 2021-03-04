@@ -36,3 +36,7 @@ we do need someone to keep duplication between the reports to a bare minimum.
 
 If you would like to just do the refactoring part of this exercise, you can instead check out the 'with_tests' branch. 
 Those tests have reasonably good coverage and should support most kinds of refactorings you'd like to do.
+
+## Use this exercise in a Learning Hour
+
+You can use the [Supermarket Receipt](https://sammancoaching.org/kata_descriptions/supermarket_receipt.html) Kata in learning hours if you are using the [Samman](https://sammancoaching.org) coaching method.
