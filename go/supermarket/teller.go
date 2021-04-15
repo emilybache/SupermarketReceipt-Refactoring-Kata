@@ -1,9 +1,8 @@
 package supermarket
 
-
 type Teller struct {
-    catalog Catalog
-    offers map[Product]SpecialOffer
+	catalog Catalog
+	offers  map[Product]SpecialOffer
 }
 
 func NewTeller(catalog Catalog) *Teller {
