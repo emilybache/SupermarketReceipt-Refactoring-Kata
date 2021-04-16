@@ -10,14 +10,14 @@ const (
 )
 
 type SpecialOffer struct {
-	offerType SpecialOfferType
-	product Product
-	argument float64
+	offerType   SpecialOfferType
+	products    map[Product]float64
+	description string
+	discount    float64
 }
 
 type Discount struct {
-	product Product
-	description string
+	product        Product
+	description    string
 	discountAmount float64
 }
-

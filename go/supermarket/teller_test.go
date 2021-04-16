@@ -35,7 +35,9 @@ func TestChecksOutArticlesFrom(t *testing.T) {
 			cart.addItemQuantity(cItem.product, cItem.quantity)
 		}
 		var teller = NewTeller(catalog)
-		teller.addSpecialOffer(TenPercentDiscount, toothbrush, 10.0)
+		var offerProducts = make(map[Product]float64)
+		offerProducts[toothbrush] = 1.0
+		teller.addSpecialOffer(TenPercentDiscount, offerProducts, -0.09)
 		var receipt = teller.checksOutArticlesFrom(cart)
 
 		assert.Equal(t, item.itemsCount, len(receipt.items))

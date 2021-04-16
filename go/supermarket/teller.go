@@ -23,7 +23,9 @@ func (t *Teller) checksOutArticlesFrom(cart *ShoppingCart) *Receipt {
 	return receipt
 }
 
-func (t *Teller) addSpecialOffer(offerType SpecialOfferType, product Product, argument float64) {
-	var offer = SpecialOffer{offerType: offerType, product: product, argument: argument}
-	t.offers[product] = offer
+func (t *Teller) addSpecialOffer(offerType SpecialOfferType, products map[Product]float64, discount float64) {
+	var offer = SpecialOffer{offerType: offerType, products: products, discount: discount}
+	for product := range products {
+		t.offers[product] = offer
+	}
 }
