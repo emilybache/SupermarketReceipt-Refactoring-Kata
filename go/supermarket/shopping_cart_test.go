@@ -131,6 +131,22 @@ func TestHandleOffersTwoForAmount(t *testing.T) {
 	assert.Equal(t, -0.48, receipt.discounts[0].discountAmount)
 }
 
+func TestHandleOffersTwoForAmountMultiples(t *testing.T) {
+	var toothbrush = Product{name: "toothbrush", unit: Each}
+	var catalog = NewFakeCatalog()
+	catalog.addProduct(toothbrush, 0.99)
+
+	var cart = NewShoppingCart()
+	var teller = NewTeller(catalog)
+	var offerProducts = make(map[Product]float64)
+	offerProducts[toothbrush] = 2.0
+	teller.addSpecialOffer(TwoForAmount, offerProducts, -0.48)
+	cart.addItemQuantity(toothbrush, 5.0)
+
+	var receipt = teller.checksOutArticlesFrom(cart)
+	assert.Equal(t, -0.96, receipt.discounts[0].discountAmount)
+}
+
 func TestHandleOffersFiveForAmount(t *testing.T) {
 	var toothbrush = Product{name: "toothbrush", unit: Each}
 	var catalog = NewFakeCatalog()

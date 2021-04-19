@@ -1,5 +1,7 @@
 package supermarket
 
+import "math"
+
 type ProductQuantity struct {
 	product  Product
 	quantity float64
@@ -35,11 +37,13 @@ func (c *ShoppingCart) handleOffers(receipt *Receipt, offers map[Product]Special
 	for p, quantity := range c.productQuantities {
 		if offer, ok := offers[p]; ok {
 
-			if offers[p].products[p] < quantity {
+			if quantity < offers[p].products[p] {
 				continue
 			}
 
-			receipt.addDiscount(Discount{product: p, description: offer.description, discountAmount: offer.discount})
+			multiplier := math.Floor(quantity / offers[p].products[p])
+
+			receipt.addDiscount(Discount{product: p, description: offer.description, discountAmount: offer.discount * multiplier})
 		}
 
 	}
