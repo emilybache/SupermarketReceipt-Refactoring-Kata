@@ -26,6 +26,8 @@ func (t *Teller) checksOutArticlesFrom(cart *ShoppingCart) *Receipt {
 func (t *Teller) addSpecialOffer(offerType SpecialOfferType, products map[Product]float64, discount float64) {
 	var offer = SpecialOffer{offerType: offerType, products: products, discount: discount}
 	for product := range products {
+		// TODO: update this to be a slice or similar, currently this
+		//   means that a product can only ever have a single offer
 		t.offers[product] = offer
 	}
 }

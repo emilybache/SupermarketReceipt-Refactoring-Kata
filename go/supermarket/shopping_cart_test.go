@@ -1,6 +1,7 @@
 package supermarket
 
 import (
+	"math"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -161,4 +162,84 @@ func TestHandleOffersFiveForAmount(t *testing.T) {
 
 	var receipt = teller.checksOutArticlesFrom(cart)
 	assert.Equal(t, -0.85, receipt.discounts[0].discountAmount)
+}
+
+func TestHandleOffersBundle(t *testing.T) {
+	var toothbrush = Product{name: "toothbrush", unit: Each}
+	var mouthwash = Product{name: "mouthwash", unit: Each}
+	var dentalfloss = Product{name: "dentalfloss", unit: Each}
+	var catalog = NewFakeCatalog()
+	catalog.addProduct(toothbrush, 0.99)
+	catalog.addProduct(mouthwash, 1.11)
+	catalog.addProduct(dentalfloss, 1.00)
+
+	var cart = NewShoppingCart()
+	var teller = NewTeller(catalog)
+	var offerProducts = make(map[Product]float64)
+	offerProducts[toothbrush] = 1.0
+	offerProducts[mouthwash] = 1.0
+	offerProducts[dentalfloss] = 1.0
+	teller.addSpecialOffer(TwoForAmount, offerProducts, -0.60)
+	cart.addItemQuantity(toothbrush, 1.0)
+	cart.addItemQuantity(mouthwash, 1.0)
+	cart.addItemQuantity(dentalfloss, 1.0)
+
+	var receipt = teller.checksOutArticlesFrom(cart)
+	assert.Equal(t, -0.60, receipt.discounts[0].discountAmount)
+	assert.Equal(t, 1, len(receipt.discounts))
+	// TODO: refactor receipt.totalPrice to return a rounded float64
+	assert.Equal(t, 2.50, math.Floor(receipt.totalPrice()*100)/100)
+}
+
+func TestHandleOffersBundleWithExtras(t *testing.T) {
+	var toothbrush = Product{name: "toothbrush", unit: Each}
+	var mouthwash = Product{name: "mouthwash", unit: Each}
+	var dentalfloss = Product{name: "dentalfloss", unit: Each}
+	var catalog = NewFakeCatalog()
+	catalog.addProduct(toothbrush, 0.99)
+	catalog.addProduct(mouthwash, 1.11)
+	catalog.addProduct(dentalfloss, 1.00)
+
+	var cart = NewShoppingCart()
+	var teller = NewTeller(catalog)
+	var offerProducts = make(map[Product]float64)
+	offerProducts[toothbrush] = 1.0
+	offerProducts[mouthwash] = 1.0
+	offerProducts[dentalfloss] = 1.0
+	teller.addSpecialOffer(TwoForAmount, offerProducts, -0.60)
+	cart.addItemQuantity(toothbrush, 1.0)
+	cart.addItemQuantity(toothbrush, 1.0)
+	cart.addItemQuantity(mouthwash, 1.0)
+	cart.addItemQuantity(mouthwash, 1.0)
+	cart.addItemQuantity(dentalfloss, 1.0)
+
+	var receipt = teller.checksOutArticlesFrom(cart)
+	assert.Equal(t, -0.60, receipt.discounts[0].discountAmount)
+	assert.Equal(t, 1, len(receipt.discounts))
+	// TODO: refactor receipt.totalPrice to return a rounded float64
+	assert.Equal(t, 4.60, math.Floor(receipt.totalPrice()*100)/100)
+}
+
+func TestHandleOffersIncompleteBundle(t *testing.T) {
+	var toothbrush = Product{name: "toothbrush", unit: Each}
+	var mouthwash = Product{name: "mouthwash", unit: Each}
+	var dentalfloss = Product{name: "dentalfloss", unit: Each}
+	var catalog = NewFakeCatalog()
+	catalog.addProduct(toothbrush, 0.99)
+	catalog.addProduct(mouthwash, 1.11)
+	catalog.addProduct(dentalfloss, 1.00)
+
+	var cart = NewShoppingCart()
+	var teller = NewTeller(catalog)
+	var offerProducts = make(map[Product]float64)
+	offerProducts[toothbrush] = 1.0
+	offerProducts[mouthwash] = 1.0
+	offerProducts[dentalfloss] = 1.0
+	teller.addSpecialOffer(TwoForAmount, offerProducts, -0.60)
+	cart.addItemQuantity(toothbrush, 1.0)
+	cart.addItemQuantity(mouthwash, 1.0)
+
+	var receipt = teller.checksOutArticlesFrom(cart)
+	assert.Equal(t, 0, len(receipt.discounts))
+	assert.Equal(t, 2.10, receipt.totalPrice())
 }

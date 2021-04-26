@@ -2,6 +2,7 @@ package supermarket
 
 type SpecialOfferType int
 
+// TODO: remove these, they aren't needed anymore
 const (
 	TenPercentDiscount SpecialOfferType = iota
 	ThreeForTwo
