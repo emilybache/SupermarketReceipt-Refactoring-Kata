@@ -19,6 +19,7 @@ parameters:
     ignoreErrors:
         # Magic method is used is simulate enum
         - '#Call to an undefined static method#'
+        - '#Cannot access offset Supermarket\\Model\\Product on Ds\\Map.#'
         -
             message: '#PHPDoc tag @method has invalid value#'
             paths:
