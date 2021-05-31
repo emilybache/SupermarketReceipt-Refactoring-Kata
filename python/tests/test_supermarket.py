@@ -1,23 +1,45 @@
 import pytest
+from approvaltests import verify
 
 from model_objects import Product, SpecialOfferType, ProductUnit
+from receipt_printer import ReceiptPrinter
 from shopping_cart import ShoppingCart
 from teller import Teller
 from tests.fake_catalog import FakeCatalog
 
 
-def test_ten_percent_discount():
+@pytest.fixture
+def products():
+    products = {
+        "toothbrush": (Product("toothbrush", ProductUnit.EACH), 0.99),
+        "apples": (Product("apples", ProductUnit.KILO), 1.99),
+    }
+    return products
+
+
+@pytest.fixture
+def cart():
+    return ShoppingCart()
+
+
+@pytest.fixture
+def teller(catalog):
+    return Teller(catalog)
+
+
+@pytest.fixture
+def catalog(products):
     catalog = FakeCatalog()
-    toothbrush = Product("toothbrush", ProductUnit.EACH)
-    catalog.add_product(toothbrush, 0.99)
+    for name, (product, price) in products.items():
+        catalog.add_product(product, price)
+    return catalog
 
-    apples = Product("apples", ProductUnit.KILO)
-    catalog.add_product(apples, 1.99)
 
-    teller = Teller(catalog)
+def test_ten_percent_discount(teller, cart, products):
+    toothbrush = products["toothbrush"][0]
+    apples = products["apples"][0]
+
     teller.add_special_offer(SpecialOfferType.TEN_PERCENT_DISCOUNT, toothbrush, 10.0)
-
-    cart = ShoppingCart()
     cart.add_item_quantity(apples, 2.5)
 
     receipt = teller.checks_out_articles_from(cart)
@@ -30,3 +52,5 @@ def test_ten_percent_discount():
     assert 1.99 == receipt_item.price
     assert 2.5 * 1.99 == pytest.approx(receipt_item.total_price, 0.01)
     assert 2.5 == receipt_item.quantity
+
+
