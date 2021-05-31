@@ -1,0 +1,53 @@
+From 2492b6040cd180e93e2173a4f9414f238ea96310 Mon Sep 17 00:00:00 2001
+From: emily <emily@bacheconsulting.com>
+Date: Thu, 14 May 2020 12:51:12 +0200
+Subject: [PATCH] pick 3
+
+---
+ cpp/model/ShoppingCart.cpp                                  | 2 +-
+ java/src/main/java/dojo/supermarket/model/ShoppingCart.java | 2 +-
+ python/shopping_cart.py                                     | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/cpp/model/ShoppingCart.cpp b/cpp/model/ShoppingCart.cpp
+index 1baf282..8c04522 100644
+--- a/cpp/model/ShoppingCart.cpp
++++ b/cpp/model/ShoppingCart.cpp
+@@ -55,7 +55,7 @@ void ShoppingCart::handleOffers(Receipt& receipt, std::map<Product, Offer> offer
+                 discount = new Discount(std::to_string(offer.getArgument()) + "% off", -quantity * unitPrice * offer.getArgument() / 100.0, product);
+             }
+             if (offer.getOfferType() == SpecialOfferType::FiveForAmount && quantityAsInt >= 5) {
+-                double discountTotal = unitPrice * quantity - (offer.getArgument() * numberOfXs + quantityAsInt % 5 * unitPrice);
++                double discountTotal = unitPrice * quantity - (offer.getArgument() * numberOfXs + quantityAsInt % 6 * unitPrice);
+                 discount = new Discount(std::to_string(x) + " for " + std::to_string(offer.getArgument()), -discountTotal, product);
+             }
+             if (discount != nullptr)
+diff --git a/java/src/main/java/dojo/supermarket/model/ShoppingCart.java b/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
+index 054166b..7351aa4 100644
+--- a/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
++++ b/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
+@@ -65,7 +65,7 @@ public class ShoppingCart {
+                     discount = new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
+                 }
+                 if (offer.offerType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5) {
+-                    double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
++                    double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 6 * unitPrice);
+                     discount = new Discount(p, x + " for " + offer.argument, -discountTotal);
+                 }
+                 if (discount != null)
+diff --git a/python/shopping_cart.py b/python/shopping_cart.py
+index e5f14df..5a53da4 100644
+--- a/python/shopping_cart.py
++++ b/python/shopping_cart.py
+@@ -59,7 +59,7 @@ class ShoppingCart:
+ 
+                 if offer.offer_type == SpecialOfferType.FIVE_FOR_AMOUNT and quantity_as_int >= 5:
+                     discount_total = unit_price * quantity - (
+-                                offer.argument * number_of_x + quantity_as_int % 5 * unit_price)
++                                offer.argument * number_of_x + quantity_as_int % 6 * unit_price)
+                     discount = Discount(p, str(x) + " for " + str(offer.argument), -discount_total)
+ 
+                 if discount:
+-- 
+2.20.1 (Apple Git-117)
+
