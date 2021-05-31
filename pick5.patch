@@ -1,0 +1,52 @@
+diff --git a/cpp/model/ShoppingCart.cpp b/cpp/model/ShoppingCart.cpp
+index 3c3a523..a0ce2f9 100644
+--- a/cpp/model/ShoppingCart.cpp
++++ b/cpp/model/ShoppingCart.cpp
+@@ -37,7 +37,7 @@ void ShoppingCart::handleOffers(Receipt& receipt, std::map<Product, Offer> offer
+             if (offer.getOfferType() == SpecialOfferType::ThreeForTwo) {
+                 x = 3;
+             } else if (offer.getOfferType() == SpecialOfferType::TwoForAmount) {
+-                x = 2;
++                x = 4;
+                 if (quantityAsInt >= 2) {
+                     double total = offer.getArgument() * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
+                     double discountN = unitPrice * quantity - total;
+diff --git a/csharp/SupermarketReceipt/ShoppingCart.cs b/csharp/SupermarketReceipt/ShoppingCart.cs
+index 28abbe7..3c8341f 100644
+--- a/csharp/SupermarketReceipt/ShoppingCart.cs
++++ b/csharp/SupermarketReceipt/ShoppingCart.cs
+@@ -51,7 +51,7 @@ namespace SupermarketReceipt
+                     }
+                     else if (offer.OfferType == SpecialOfferType.TwoForAmount)
+                     {
+-                        x = 2;
++                        x = 4;
+                         if (quantityAsInt >= 2)
+                         {
+                             var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
+diff --git a/java/src/main/java/dojo/supermarket/model/ShoppingCart.java b/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
+index c03834d..af5e618 100644
+--- a/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
++++ b/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
+@@ -46,7 +46,7 @@ public class ShoppingCart {
+                     x = 3;
+ 
+                 } else if (offer.offerType == SpecialOfferType.TwoForAmount) {
+-                    x = 2;
++                    x = 4;
+                     if (quantityAsInt >= 2) {
+                         int intDivision = quantityAsInt / x;
+                         double pricePerUnit = offer.argument * intDivision;
+diff --git a/python/shopping_cart.py b/python/shopping_cart.py
+index 4e36cc5..fa3f6e0 100644
+--- a/python/shopping_cart.py
++++ b/python/shopping_cart.py
+@@ -40,7 +40,7 @@ class ShoppingCart:
+                     x = 3
+ 
+                 elif offer.offer_type == SpecialOfferType.TWO_FOR_AMOUNT:
+-                    x = 2
++                    x = 4
+                     if quantity_as_int >= 2:
+                         total = offer.argument * (quantity_as_int / x) + quantity_as_int % 2 * unit_price
+                         discount_n = unit_price * quantity - total
