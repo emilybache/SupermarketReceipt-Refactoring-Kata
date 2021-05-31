@@ -1,0 +1,94 @@
+From 9e3147930ecd6205979c62ddfeb45c92ba0006b6 Mon Sep 17 00:00:00 2001
+From: emily <emily@bacheconsulting.com>
+Date: Thu, 14 May 2020 12:54:29 +0200
+Subject: [PATCH] pick 4
+
+---
+ cpp/model/ReceiptPrinter.h                           | 11 ++++++++++-
+ .../main/java/dojo/supermarket/ReceiptPrinter.java   |  9 ++++++++-
+ python/receipt_printer.py                            | 12 ++++++++++--
+ 3 files changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/cpp/model/ReceiptPrinter.h b/cpp/model/ReceiptPrinter.h
+index 0f7a2bb..4bed443 100644
+--- a/cpp/model/ReceiptPrinter.h
++++ b/cpp/model/ReceiptPrinter.h
+@@ -29,11 +29,20 @@ public:
+         {
+             result.append(presentDiscount(discount));
+         }
+-        result.append("\n");
++        result.append(horizontalLine());
+         result.append(presentTotal(receipt));
+         return result;
+     }
+ 
++    std::string horizontalLine() {
++        std::string result;
++        for (int i = 0; i < columns; i++) {
++            result.append("-");
++        }
++        result.append("\n");
++        return result;
++    }
++
+     std::string presentReceiptItem(const ReceiptItem &item) const
+     {
+         std::string price = getFormattedNumberAsString(item.getTotalPrice(), 2);
+diff --git a/java/src/main/java/dojo/supermarket/ReceiptPrinter.java b/java/src/main/java/dojo/supermarket/ReceiptPrinter.java
+index 643f37f..f547f1f 100644
+--- a/java/src/main/java/dojo/supermarket/ReceiptPrinter.java
++++ b/java/src/main/java/dojo/supermarket/ReceiptPrinter.java
+@@ -27,11 +27,18 @@ public class ReceiptPrinter {
+             result.append(discountPresentation);
+         }
+ 
+-        result.append("\n");
++        horizontalLine(result);
+         result.append(presentTotal(receipt));
+         return result.toString();
+     }
+ 
++    private void horizontalLine(StringBuilder result) {
++        for (int i = 0; i < this.columns; i++) {
++            result.append("-");
++        }
++        result.append("\n");
++    }
++
+     private String presentReceiptItem(ReceiptItem item) {
+         String totalPricePresentation = presentPrice(item.getTotalPrice());
+         String name = item.getProduct().getName();
+diff --git a/python/receipt_printer.py b/python/receipt_printer.py
+index 6ef6611..c06da17 100644
+--- a/python/receipt_printer.py
++++ b/python/receipt_printer.py
+@@ -13,7 +13,15 @@ def present_quantity(item):
+     if ProductUnit.EACH == item.product.unit:
+         return str(item.quantity) + item.quantity_type
+     else:
+-        return '%.3f' % item.quantity + item.quantity_type
++        return '%.3f' % item.quantity
++
++
++def horizontal_line(columns):
++    result = ""
++    for i in range(columns):
++        result += "-"
++    result += "\n"
++    return result
+ 
+ 
+ class ReceiptPrinter:
+@@ -49,7 +57,7 @@ class ReceiptPrinter:
+             result += price_presentation
+             result += "\n"
+ 
+-        result += "\n"
++        result += horizontal_line(self.columns)
+         price_presentation = "%.2f" % receipt.total_price()
+         total = "Total: "
+         space = whitespace(self.columns - len(total) - len(price_presentation))
+-- 
+2.20.1 (Apple Git-117)
+
