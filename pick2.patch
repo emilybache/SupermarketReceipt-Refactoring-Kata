@@ -1,0 +1,52 @@
+diff --git a/cpp/model/ShoppingCart.cpp b/cpp/model/ShoppingCart.cpp
+index 3c3a523..1baf282 100644
+--- a/cpp/model/ShoppingCart.cpp
++++ b/cpp/model/ShoppingCart.cpp
+@@ -49,7 +49,7 @@ void ShoppingCart::handleOffers(Receipt& receipt, std::map<Product, Offer> offer
+             int numberOfXs = quantityAsInt / x;
+             if (offer.getOfferType() == SpecialOfferType::ThreeForTwo && quantityAsInt > 2) {
+                 double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+-                discount = new Discount("3 for 2", -discountAmount, product);
++                discount = new Discount("buy 3 get one free", -discountAmount, product);
+             }
+             if (offer.getOfferType() == SpecialOfferType::TenPercentDiscount) {
+                 discount = new Discount(std::to_string(offer.getArgument()) + "% off", -quantity * unitPrice * offer.getArgument() / 100.0, product);
+diff --git a/csharp/SupermarketReceipt/ShoppingCart.cs b/csharp/SupermarketReceipt/ShoppingCart.cs
+index 28abbe7..00d4e29 100644
+--- a/csharp/SupermarketReceipt/ShoppingCart.cs
++++ b/csharp/SupermarketReceipt/ShoppingCart.cs
+@@ -65,7 +65,7 @@ namespace SupermarketReceipt
+                     if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
+                     {
+                         var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
+-                        discount = new Discount(p, "3 for 2", -discountAmount);
++                        discount = new Discount(p, "Buy 2 get one free", -discountAmount);
+                     }
+ 
+                     if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(p, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
+diff --git a/java/src/main/java/dojo/supermarket/model/ShoppingCart.java b/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
+index c03834d..91af255 100644
+--- a/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
++++ b/java/src/main/java/dojo/supermarket/model/ShoppingCart.java
+@@ -62,7 +62,7 @@ public class ShoppingCart {
+                 int numberOfXs = quantityAsInt / x;
+                 if (offer.offerType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2) {
+                     double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+-                    discount = new Discount(p, "3 for 2", -discountAmount);
++                    discount = new Discount(p, "buy 3 get one free", -discountAmount);
+                 }
+                 if (offer.offerType == SpecialOfferType.TenPercentDiscount) {
+                     discount = new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
+diff --git a/python/shopping_cart.py b/python/shopping_cart.py
+index 4e36cc5..1ab5fcd 100644
+--- a/python/shopping_cart.py
++++ b/python/shopping_cart.py
+@@ -53,7 +53,7 @@ class ShoppingCart:
+                 if offer.offer_type == SpecialOfferType.THREE_FOR_TWO and quantity_as_int > 2:
+                     discount_amount = quantity * unit_price - (
+                                 (number_of_x * 2 * unit_price) + quantity_as_int % 3 * unit_price)
+-                    discount = Discount(p, "3 for 2", -discount_amount)
++                    discount = Discount(p, "buy 2 get one free", -discount_amount)
+ 
+                 if offer.offer_type == SpecialOfferType.TEN_PERCENT_DISCOUNT:
+                     discount = Discount(p, str(offer.argument) + "% off",
