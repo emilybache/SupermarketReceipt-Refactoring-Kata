@@ -93,7 +93,7 @@ namespace SupermarketReceipt
         {
             return ProductUnit.Each == item.Product.Unit
                 ? ((int) item.Quantity).ToString()
-                : item.Quantity.ToString("N3", Culture);
+                : item.Quantity.ToString("N3", Culture) + item.GetQuantityType();
         }
         
     }
