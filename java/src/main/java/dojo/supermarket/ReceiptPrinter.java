@@ -105,8 +105,8 @@ public class ReceiptPrinter {
 
     private static String presentQuantity(ReceiptItem item) {
         return ProductUnit.Each.equals(item.getProduct().getUnit())
-                ? String.format("%x", (int)item.getQuantity())
-                : String.format(Locale.UK, "%.3f", item.getQuantity());
+                ? String.format("%x%s", (int)item.getQuantity(), item.getQuantityType())
+                : String.format(Locale.UK, "%.3f%s", item.getQuantity(), item.getQuantityType());
     }
 
 }

@@ -24,6 +24,7 @@ class ReceiptPrinterTest(unittest.TestCase):
         verify(ReceiptPrinter().print_receipt(self.receipt), reporter=self.reporter)
 
     def test_loose_weight(self):
+        self.apples.quantity_type = " KG"
         self.receipt.add_product(self.apples, 2.3, 1.99, 1.99 * 2.3)
         verify(ReceiptPrinter().print_receipt(self.receipt), reporter=self.reporter)
 

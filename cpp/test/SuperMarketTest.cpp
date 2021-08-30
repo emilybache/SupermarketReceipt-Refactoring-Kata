@@ -78,6 +78,7 @@ TEST_CASE("Discounts", "[Supermarket]")
 
     SECTION("Loose weight product")
     {
+        apples.setQuantityType("KG");
         cart.addItemQuantity(apples, 0.5);
         Receipt receipt = teller.checksOutArticlesFrom(cart);
         ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
