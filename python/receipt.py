@@ -6,6 +6,10 @@ class ReceiptItem:
         self.price = price
         self.total_price = total_price
 
+    @property
+    def quantity_type(self):
+        return self.product.quantity_type
+
 
 class Receipt:
     def __init__(self):
