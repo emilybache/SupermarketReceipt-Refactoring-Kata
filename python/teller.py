@@ -24,3 +24,6 @@ class Teller:
         the_cart.handle_offers(receipt, self.offers, self.catalog)
 
         return receipt
+
+    def product_with_name(self, name):
+        return self.catalog.products.get(name, None)
