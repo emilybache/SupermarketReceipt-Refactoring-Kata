@@ -1,3 +1,9 @@
+"""
+Start texttest from a command prompt in the same folder as this file with this command:
+
+texttest -a sr -d .
+"""
+
 import sys,csv
 from pathlib import Path
 
