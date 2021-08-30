@@ -43,10 +43,11 @@ class ReceiptPrinter:
         if ProductUnit.EACH == item.product.unit:
             return str(item.quantity)
         else:
-            return '%.3f' % item.quantity
+            quantity = '%.3f' % item.quantity
+            return f"{quantity}{item.quantity_type}"
 
     def print_discount(self, discount):
-        name = f"{discount.description}  ({discount.product.name})"
+        name = f"{discount.description} ({discount.product.name})"
         value = self.print_price(discount.discount_amount)
         return self.format_line_with_whitespace(name, value)
 
