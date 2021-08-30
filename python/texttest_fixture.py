@@ -24,7 +24,8 @@ def read_catalog(catalog_file):
             name = row['name']
             unit = ProductUnit[row['unit']]
             price = float(row['price'])
-            product = Product(name, unit)
+            quantity_type = row.get('quantity_type')
+            product = Product(name, unit, quantity_type)
             catalog.add_product(product, price)
     return catalog
 
