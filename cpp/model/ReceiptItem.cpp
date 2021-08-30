@@ -29,3 +29,7 @@ bool ReceiptItem::operator==(const ReceiptItem& rhs) const {
 bool ReceiptItem::operator!=(const ReceiptItem& rhs) const {
     return !(rhs == *this);
 }
+
+std::string ReceiptItem::getQuantityType() const {
+    return product.getQuantityType();
+}

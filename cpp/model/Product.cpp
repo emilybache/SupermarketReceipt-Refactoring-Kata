@@ -38,3 +38,11 @@ bool Product::operator<=(const Product& rhs) const {
 bool Product::operator>=(const Product& rhs) const {
     return !(*this < rhs);
 }
+
+std::string Product::getQuantityType() const {
+    return this->quantityType;
+}
+
+void Product::setQuantityType(std::string qt) {
+    this->quantityType = qt;
+}

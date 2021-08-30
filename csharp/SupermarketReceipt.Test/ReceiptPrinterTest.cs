@@ -28,6 +28,7 @@ namespace SupermarketReceipt.Test
         [Fact]
         public void looseWeight()
         {
+            _apples.QuantityType = "KG";
             _receipt.AddProduct(_apples, 2.3, 1.99, 1.99 * 2.3);
             Approvals.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
