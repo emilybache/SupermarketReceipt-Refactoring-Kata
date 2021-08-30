@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Product {
     private final String name;
     private final ProductUnit unit;
+    private String quantityType = "";
 
     public Product(String name, ProductUnit unit) {
         this.name = name;
@@ -33,5 +34,13 @@ public class Product {
     public int hashCode() {
 
         return Objects.hash(name, unit);
+    }
+
+    public String getQuantityType() {
+        return quantityType;
+    }
+
+    public void setQuantityType(String s) {
+        this.quantityType = s;
     }
 }

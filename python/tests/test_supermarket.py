@@ -62,7 +62,7 @@ class SupermarketTest(unittest.TestCase):
         verify(ReceiptPrinter(40).print_receipt(receipt), reporter=self.reporter)
 
     def test_loose_weight_product(self):
-        self.apples.quantity_type = "KG"
+        self.apples.quantity_type = " KG"
         self.the_cart.add_item_quantity(self.apples, 0.5)
         receipt = self.teller.checks_out_articles_from(self.the_cart)
         verify(ReceiptPrinter(40).print_receipt(receipt), reporter=self.reporter)

@@ -15,6 +15,10 @@ public:
 
     ProductUnit getUnit() const;
 
+    std::string getQuantityType() const;
+
+    void setQuantityType(std::string qt);
+
     bool operator==(const Product& rhs) const;
 
     bool operator!=(const Product& rhs) const;
@@ -30,6 +34,7 @@ public:
 private:
     std::string name;
     ProductUnit unit;
+    std::string quantityType;
 
 };
 

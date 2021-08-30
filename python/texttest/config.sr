@@ -1,0 +1,14 @@
+# Full path to the System Under Test (or Java Main Class name)
+executable:${TEXTTEST_HOME}/texttest_fixture.py
+interpreter:python3
+
+# Naming scheme to use for files for stdin,stdout and stderr
+filename_convention_scheme:standard
+
+# Expanded name to use for application
+full_name:Supermarket Receipt
+
+copy_test_path:catalog.csv
+copy_test_path:offers.csv
+copy_test_path:cart.csv
+

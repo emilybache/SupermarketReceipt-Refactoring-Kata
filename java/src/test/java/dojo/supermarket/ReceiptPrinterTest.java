@@ -24,6 +24,7 @@ public class ReceiptPrinterTest {
 
     @Test
     public void looseWeight() {
+        apples.setQuantityType(" KG");
         receipt.addProduct(apples, 2.3, 1.99,1.99 * 2.3);
         Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
     }
