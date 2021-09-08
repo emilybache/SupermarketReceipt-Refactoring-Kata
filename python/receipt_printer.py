@@ -45,7 +45,7 @@ class ReceiptPrinter:
             return str(item.quantity)
         else:
             quantity = '%.3f' % item.quantity
-            return f"{quantity}{item.quantity_type}"
+            return f"{quantity}"
 
     def print_discount(self, discount):
         name = f"{discount.description} ({discount.product.name})"
