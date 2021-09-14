@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt", "SupermarketReceipt\SupermarketReceipt.csproj", "{B384010A-E2A8-4720-A622-DC49A1CC76D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt.Test", "SupermarketReceipt.Test\SupermarketReceipt.Test.csproj", "{B8789108-5351-4785-836A-6E00C6AF3596}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B384010A-E2A8-4720-A622-DC49A1CC76D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8789108-5351-4785-836A-6E00C6AF3596}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F0B1464-4A07-42A3-A0C1-2D5A51311E8F}
+	EndGlobalSection
+EndGlobal
