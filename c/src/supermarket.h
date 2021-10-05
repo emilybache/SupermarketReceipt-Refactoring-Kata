@@ -66,7 +66,7 @@ struct receipt_t {
 
 struct product_t* product_create(char* name, enum unit unit);
 struct special_offer_t* special_offer_create(enum SpecialOfferType type, struct product_t *product, float argument);
-struct catalog_t* catalog_create(struct product_t* products, const double* prices, int product_count);
+struct catalog_t* catalog_create(struct product_t products[], const double prices[], int product_count);
 struct teller_t *teller_create(struct catalog_t *products, int product_count, struct special_offer_t *offer);
 struct cart_t* cart_create(struct product_t *products, const double* quantities, int product_count);
 struct receipt_item_t* receipt_item_create(struct product_t* product, double quantity, double price, double totalPrice);
