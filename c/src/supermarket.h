@@ -70,8 +70,11 @@ struct catalog_t* catalog_create(struct product_t products[], const double price
 struct teller_t *teller_create(struct catalog_t *products, int product_count, struct special_offer_t *offer);
 struct cart_t* cart_create(struct product_t *products, const double* quantities, int product_count);
 struct receipt_item_t* receipt_item_create(struct product_t* product, double quantity, double price, double totalPrice);
+struct discount_t* discount_create(char* description, double discount, struct product_t* product);
+
 struct receipt_t* check_out_articles(struct teller_t* teller, struct cart_t* cart);
 double total_price(struct receipt_t* receipt);
-double unit_price(struct teller_t* teller, struct product_t* product);
+double unit_price(struct catalog_t* catalog, struct product_t *product);
+void handle_offers(struct cart_t* cart, struct receipt_t* receipt, struct special_offer_t* offer, struct catalog_t* catalog);
 
 #endif //SAMPLE_H

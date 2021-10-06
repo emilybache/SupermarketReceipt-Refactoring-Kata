@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "supermarket.h"
 
 struct product_t* product_create(char* name, enum unit unit) {
@@ -55,15 +56,76 @@ receipt_item_create(struct product_t* product, double quantity, double price, do
     return item;
 }
 
+struct discount_t* discount_create(char* description, double amount, struct product_t* product) {
+    struct discount_t* discount = malloc(sizeof(discount));
+    discount->product = product;
+    discount->description = description;
+    discount->amount = amount;
+
+    return discount;
+}
+
+void handle_offers(struct cart_t* cart, struct receipt_t* receipt, struct special_offer_t* offer, struct catalog_t* catalog) {
+    for (int i = 0; i < cart->product_count; ++i) {
+        struct product_t product = cart->products[i];
+        double quantity = cart->quantities[i];
+        if (strcmp(offer->product->name, product.name) == 0) {
+            double unitPrice = unit_price(catalog, &product);
+            int quantityAsInt = (int)quantity;
+            struct discount_t* discount = NULL;
+            int x = 1;
+
+            if (offer->type == ThreeForTwo) {
+                x = 3;
+            } else if (offer->type == TwoForAmount) {
+                x = 2;
+                if (quantityAsInt >= 2) {
+                    double total = offer->argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
+                    double discountN = unitPrice * quantity - total;
+                    char description[MAX_NAME_LENGTH];
+                    sprintf(description, "2 for %f", offer->argument);
+                    discount = discount_create(description, -discountN, &product);
+                }
+            } if (offer->type == FiveForAmount) {
+                x = 5;
+            }
+            int numberOfXs = quantityAsInt / x;
+            if (offer->type == ThreeForTwo && quantityAsInt > 2) {
+                double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
+                char description[MAX_NAME_LENGTH];
+                sprintf(description, "3 for 2");
+                discount = discount_create(description, -discountAmount, &product);
+            }
+            if (offer->type == TenPercentDiscount) {
+                char description[MAX_NAME_LENGTH];
+                sprintf(description, "%f%% off", offer->argument);
+                discount = discount_create(description, -quantity * unitPrice * offer->argument / 100.0, &product);
+
+            }
+            if (offer->type == FiveForAmount && quantityAsInt >= 5) {
+                double discountTotal = unitPrice * quantity - (offer->argument * numberOfXs + quantityAsInt % 5 * unitPrice);
+                char description[MAX_NAME_LENGTH];
+                sprintf(description, "%d for %f", x, offer->argument);
+                discount = discount_create(description, -discountTotal, &product);
+            }
+            if (discount != NULL) {
+                receipt->discounts[receipt->discountCount] = *discount;
+                receipt->discountCount++;
+            }
+        }
+    }
+}
+
 struct receipt_t *check_out_articles(struct teller_t* teller, struct cart_t* cart) {
     struct receipt_t* receipt = malloc(sizeof(*receipt));
     receipt->itemCount = cart->product_count;
     for (int i = 0; i < cart->product_count; ++i) {
-        double uprice = unit_price(teller, &cart->products[i]);
+        double uprice = unit_price(teller->catalog, &cart->products[i]);
         double price = uprice * cart->quantities[i];
         struct receipt_item_t* item = receipt_item_create(&cart->products[i], cart->quantities[i], uprice, price);
         receipt->items[i] = *item;
     }
+    handle_offers(cart, receipt, teller->offer, teller->catalog);
 
     return receipt;
 }
@@ -79,10 +141,11 @@ double total_price(struct receipt_t *receipt) {
     return total;
 }
 
-double unit_price(struct teller_t *teller, struct product_t *product) {
-    for (int i = 0; i < teller->catalog->product_count; ++i) {
-        if (strcmp(teller->catalog->products[i].name, product->name) == 0)
-            return teller->catalog->prices[i];
+
+double unit_price(struct catalog_t* catalog, struct product_t *product) {
+    for (int i = 0; i < catalog->product_count; ++i) {
+        if (strcmp(catalog->products[i].name, product->name) == 0)
+            return catalog->prices[i];
     }
     return 0;
 }
