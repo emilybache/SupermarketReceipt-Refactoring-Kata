@@ -7,8 +7,6 @@ extern "C"
 
 using namespace std;
 
-
-
 TEST(Supermarket, TenPercentDiscount)
 {
     // ARRANGE
@@ -31,4 +29,10 @@ TEST(Supermarket, TenPercentDiscount)
 
     // ASSERT
     EXPECT_NEAR(total_price(receipt), 4.98, 0.01);
+    EXPECT_EQ(0, receipt->discountCount);
+    EXPECT_EQ(1, receipt->itemCount);
+    struct receipt_item_t item = receipt->items[0];
+    EXPECT_EQ(1.99, item.price);
+    EXPECT_EQ(2.5*1.99, item.totalPrice);
+    EXPECT_EQ(2.5, item.quantity);
 }
