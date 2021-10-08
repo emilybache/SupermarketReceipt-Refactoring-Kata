@@ -36,7 +36,7 @@ struct special_offer_t* special_offer_create(enum SpecialOfferType type, struct 
     return special_offer;
 }
 
-struct cart_t* cart_create(struct product_t *products, const double* quantities, int product_count) {
+struct cart_t* cart_create(struct product_t products[], const double quantities[], int product_count) {
     struct cart_t* cart = malloc(sizeof(*cart));
     cart->product_count = product_count;
     for (int i = 0; i < product_count; ++i) {
@@ -59,7 +59,7 @@ receipt_item_create(struct product_t* product, double quantity, double price, do
 struct discount_t* discount_create(char* description, double amount, struct product_t* product) {
     struct discount_t* discount = malloc(sizeof(discount));
     discount->product = product;
-    discount->description = description;
+    strcpy(discount->description, description);
     discount->amount = amount;
 
     return discount;
@@ -98,7 +98,7 @@ void handle_offers(struct cart_t* cart, struct receipt_t* receipt, struct specia
             }
             if (offer->type == TenPercentDiscount) {
                 char description[MAX_NAME_LENGTH];
-                sprintf(description, "%f%% off", offer->argument);
+                sprintf(description, "%.0f%% off", offer->argument);
                 discount = discount_create(description, -quantity * unitPrice * offer->argument / 100.0, &product);
 
             }
