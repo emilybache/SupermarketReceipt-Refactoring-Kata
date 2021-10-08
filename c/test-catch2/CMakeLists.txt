@@ -1,6 +1,6 @@
 set(TEST_NAME sample_test_catch2)
 include(FetchContent)
-set(SOURCE_FILES main.cpp sample_catch.cpp)
+set(SOURCE_FILES main.cpp supermarket_catch.cpp)
 
 # catch2
 FetchContent_Declare(
