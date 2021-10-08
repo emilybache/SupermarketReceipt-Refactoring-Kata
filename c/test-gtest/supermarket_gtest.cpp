@@ -1,8 +1,10 @@
 #include <gtest/gtest.h>
+#include <Approvals.h>
 
 extern "C"
 {
 #include "supermarket.h"
+#include "printer.h"
 }
 
 using namespace std;
@@ -21,8 +23,9 @@ TEST(Supermarket, TenPercentDiscount)
 
     struct teller_t* teller = teller_create(catalog, 2, special_offer);
 
-    double quantity = 2.5;
-    struct cart_t* cart = cart_create({apples}, {&quantity}, 1);
+    struct product_t cart_products[] = {*apples};
+    double cart_quantities[] = {2.5};
+    struct cart_t* cart = cart_create(cart_products, cart_quantities, 1);
 
     // ACT
     struct receipt_t* receipt = check_out_articles(teller, cart);
