@@ -1,4 +1,3 @@
-approvaltests
-python-dateutil
-pytest-approvaltests
-
+approvaltests==3.1.0
+python-dateutil==2.8.2
+pytest-approvaltests==0.2.3
