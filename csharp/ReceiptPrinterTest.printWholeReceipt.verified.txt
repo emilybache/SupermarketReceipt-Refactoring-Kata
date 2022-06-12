@@ -1,4 +1,4 @@
-toothbrush                          0.99
+﻿toothbrush                          0.99
 toothbrush                          1.98
   0.99 * 2
 apples                              1.49
