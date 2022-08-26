@@ -1,6 +1,7 @@
 package dojo.supermarket.model;
 
 public class Discount {
+
     private final String description;
     private final double discountAmount;
     private final Product product;
@@ -22,5 +23,4 @@ public class Discount {
     public Product getProduct() {
         return product;
     }
-
 }
