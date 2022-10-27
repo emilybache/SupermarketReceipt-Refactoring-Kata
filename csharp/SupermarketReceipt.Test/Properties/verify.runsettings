@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+	<!-- configuration elements -->
+	<RunConfiguration>
+		<EnvironmentVariables>
+			<DiffEngine_Disabled>false</DiffEngine_Disabled>
+			<DiffEngine_ToolOrder>VisualStudio</DiffEngine_ToolOrder>
+		</EnvironmentVariables>
+	</RunConfiguration>
+</RunSettings>
