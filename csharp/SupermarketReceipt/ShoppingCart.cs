@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SupermarketReceipt
 {
@@ -6,6 +7,7 @@ namespace SupermarketReceipt
     {
         private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
         private readonly Dictionary<Product, double> _productQuantities = new Dictionary<Product, double>();
+        private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
 
 
         public List<ProductQuantity> GetItems()
@@ -56,7 +58,7 @@ namespace SupermarketReceipt
                         {
                             var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
                             var discountN = unitPrice * quantity - total;
-                            discount = new Discount(p, "2 for " + offer.Argument, -discountN);
+                            discount = new Discount(p, "2 for " + PrintPrice(offer.Argument), -discountN);
                         }
                     }
 
@@ -72,13 +74,18 @@ namespace SupermarketReceipt
                     if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                     {
                         var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 6 * unitPrice);
-                        discount = new Discount(p, x + " for " + offer.Argument, -discountTotal);
+                        discount = new Discount(p, x + " for " + PrintPrice(offer.Argument), -discountTotal);
                     }
 
                     if (discount != null)
                         receipt.AddDiscount(discount);
                 }
             }
+        }
+        
+        private string PrintPrice(double price)
+        {
+            return price.ToString("N2", Culture);
         }
     }
 }
