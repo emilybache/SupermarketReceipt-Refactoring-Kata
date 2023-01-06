@@ -10,14 +10,14 @@ use Supermarket\Model\SupermarketCatalog;
 class FakeCatalog implements SupermarketCatalog
 {
     /**
-     * @var array
+     * @var array<string, float>
      */
-    private $prices = [];
+    private array $prices = [];
 
     /**
-     * @var array
+     * @var array<string, Product>
      */
-    private $products = [];
+    private array $products = [];
 
     public function addProduct(Product $product, float $price): void
     {
