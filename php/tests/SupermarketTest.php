@@ -6,50 +6,30 @@ namespace Tests;
 
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
-use Supermarket\Model\{Product, ProductUnit, Receipt, ShoppingCart, SpecialOfferType, Teller};
+use Supermarket\Model\Product;
+use Supermarket\Model\ProductUnit;
+use Supermarket\Model\ShoppingCart;
+use Supermarket\Model\SpecialOfferType;
+use Supermarket\Model\Teller;
 use Supermarket\ReceiptPrinter;
 
 class SupermarketTest extends TestCase
 {
-    /**
-     * @var FakeCatalog
-     */
-    private $catalog;
+    private FakeCatalog $catalog;
 
-    /**
-     * @var Product
-     */
-    private $toothbrush;
+    private Product $toothbrush;
 
-    /**
-     * @var Product
-     */
-    private $rice;
+    private Product $rice;
 
-    /**
-     * @var Product
-     */
-    private $apples;
+    private Product $apples;
 
-    /**
-     * @var Product
-     */
-    private $cherryTomatoes;
+    private Product $cherryTomatoes;
 
-    /**
-     * @var ShoppingCart
-     */
-    private $cart;
+    private ShoppingCart $cart;
 
-    /**
-     * @var Teller
-     */
-    private $teller;
+    private Teller $teller;
 
-    /**
-     * @var ReceiptPrinter
-     */
-    private $printer;
+    private ReceiptPrinter $printer;
 
     protected function setUp(): void
     {

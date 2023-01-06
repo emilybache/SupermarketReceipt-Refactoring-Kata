@@ -11,12 +11,12 @@ class ShoppingCart
     /**
      * @var ProductQuantity[]
      */
-    private $items = [];
+    private array $items = [];
 
     /**
-     * @var Map [Product => quantity]
+     * @var Map<Product, float>
      */
-    private $productQuantities;
+    private Map $productQuantities;
 
     public function __construct()
     {
@@ -48,7 +48,7 @@ class ShoppingCart
     }
 
     /**
-     * @param Map                $offers  [Product => Offer]
+     * @param Map<Product, Offer> $offers
      */
     public function handleOffers(Receipt $receipt, Map $offers, SupermarketCatalog $catalog): void
     {

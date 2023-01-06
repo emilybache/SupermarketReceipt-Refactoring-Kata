@@ -6,20 +6,10 @@ namespace Supermarket\Model;
 
 class ProductQuantity
 {
-    /**
-     * @var Product
-     */
-    private $product;
-
-    /**
-     * @var float
-     */
-    private $quantity;
-
-    public function __construct(Product $product, float $weight)
-    {
-        $this->product = $product;
-        $this->quantity = $weight;
+    public function __construct(
+        private Product $product,
+        private float $quantity
+    ) {
     }
 
     public function getProduct(): Product
