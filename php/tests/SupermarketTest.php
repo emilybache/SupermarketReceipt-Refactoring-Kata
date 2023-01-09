@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use Supermarket\Model\{Product, ProductUnit, ShoppingCart, SpecialOfferType, Teller};
+use Supermarket\Model\Product;
+use Supermarket\Model\ProductUnit;
+use Supermarket\Model\ShoppingCart;
+use Supermarket\Model\SpecialOfferType;
+use Supermarket\Model\Teller;
 
 class SupermarketTest extends TestCase
 {
