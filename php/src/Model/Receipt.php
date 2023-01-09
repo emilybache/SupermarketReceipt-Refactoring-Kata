@@ -9,12 +9,12 @@ class Receipt
     /**
      * @var Discount[]
      */
-    private $discounts = [];
+    private array $discounts = [];
 
     /**
      * @var ReceiptItem[]
      */
-    private $items = [];
+    private array $items = [];
 
     public function getTotalPrice(): float
     {

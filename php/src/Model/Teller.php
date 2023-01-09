@@ -9,18 +9,13 @@ use Ds\Map;
 class Teller
 {
     /**
-     * @var SupermarketCatalog
+     * @var Map<Product, Offer>
      */
-    private $catalog;
+    private Map $offers;
 
-    /**
-     * @var Map [Product => Offer]
-     */
-    private $offers;
-
-    public function __construct(SupermarketCatalog $catalog)
-    {
-        $this->catalog = $catalog;
+    public function __construct(
+        private SupermarketCatalog $catalog
+    ) {
         $this->offers = new Map();
     }
 

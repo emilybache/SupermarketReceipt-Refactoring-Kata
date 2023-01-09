@@ -14,25 +14,13 @@ use Supermarket\ReceiptPrinter;
 
 class ReceiptPrinterTest extends TestCase
 {
-    /**
-     * @var Product
-     */
-    private $toothbrush;
+    private Product $toothbrush;
 
-    /**
-     * @var Product
-     */
-    private $apples;
+    private Product $apples;
 
-    /**
-     * @var Receipt
-     */
-    private $receipt;
+    private Receipt $receipt;
 
-    /**
-     * @var ReceiptPrinter
-     */
-    private $printer;
+    private ReceiptPrinter $printer;
 
     protected function setUp(): void
     {

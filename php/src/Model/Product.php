@@ -8,20 +8,10 @@ use Ds\Hashable;
 
 class Product implements Hashable
 {
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var ProductUnit
-     */
-    private $unit;
-
-    public function __construct(string $name, ProductUnit $unit)
-    {
-        $this->name = $name;
-        $this->unit = $unit;
+    public function __construct(
+        private string $name,
+        private ProductUnit $unit
+    ) {
     }
 
     public function getName(): string
@@ -44,7 +34,7 @@ class Product implements Hashable
             $this->getUnit() === $obj->getUnit();
     }
 
-    public function hash()
+    public function hash(): string
     {
         return "{$this->getName()}__{$this->getUnit()}";
     }
