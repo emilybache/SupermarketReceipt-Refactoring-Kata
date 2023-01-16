@@ -7,11 +7,11 @@ parameters:
         - src
         - tests
 
-    # The level 8 is the highest level
-    level: 8
+    # max is the highest level
+    level: max
 
     # Larstan recommendation:
-    checkMissingIterableValueType: false
+#    checkMissingIterableValueType: false
 
     # Ignore generic class Ds\Map
     checkGenericClassInNonGenericObjectType: false
@@ -19,12 +19,46 @@ parameters:
     ignoreErrors:
         # Magic method is used is simulate enum
         - '#Call to an undefined static method#'
-        - '#Cannot access offset Supermarket\\Model\\Product on Ds\\Map.#'
         -
             message: '#PHPDoc tag @method has invalid value#'
             paths:
                 - src\Model\SpecialOfferType.php
                 - src\Model\ProductUnit.php
+        -
+            message: "#^Constant Supermarket\\\\Model\\\\ProductUnit\\:\\:EACH is unused\\.$#"
+            count: 1
+            path: src/Model/ProductUnit.php
+
+        -
+            message: "#^Constant Supermarket\\\\Model\\\\ProductUnit\\:\\:KILO is unused\\.$#"
+            count: 1
+            path: src/Model/ProductUnit.php
+
+        -
+            message: "#^Constant Supermarket\\\\Model\\\\SpecialOfferType\\:\\:TWO_FOR_AMOUNT is unused\\.$#"
+            count: 1
+            path: src/Model/SpecialOfferType.php
+
+        -
+            message: "#^Constant Supermarket\\\\Model\\\\SpecialOfferType\\:\\:FIVE_FOR_AMOUNT is unused\\.$#"
+            count: 1
+            path: src/Model/SpecialOfferType.php
+
+        -
+            message: "#^Constant Supermarket\\\\Model\\\\SpecialOfferType\\:\\:THREE_FOR_TWO is unused\\.$#"
+            count: 1
+            path: src/Model/SpecialOfferType.php
+
+        -
+            message: "#^Constant Supermarket\\\\Model\\\\SpecialOfferType\\:\\:TEN_PERCENT_DISCOUNT is unused\\.$#"
+            count: 1
+            path: src/Model/SpecialOfferType.php
+
+        -
+            message: "#^Property Tests\\\\FakeCatalog\\:\\:\\$products is never read, only written\\.$#"
+            count: 1
+            path: tests/FakeCatalog.php
+
     # buggy
 
     # mixed

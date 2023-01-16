@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace Supermarket;
 
-use Supermarket\Model\{
-    Discount,
-    ProductUnit,
-    Receipt,
-    ReceiptItem
-};
+use Supermarket\Model\Discount;
+use Supermarket\Model\ProductUnit;
+use Supermarket\Model\Receipt;
+use Supermarket\Model\ReceiptItem;
 
 class ReceiptPrinter
 {
-    /**
-     * @var int
-     */
-    private $columns;
-
-    public function __construct(int $columns = 40)
-    {
-        $this->columns = $columns;
+    public function __construct(
+        private int $columns = 40
+    ) {
     }
 
     public function printReceipt(Receipt $receipt): string

@@ -1,6 +1,7 @@
 package dojo.supermarket.model;
 
 public class ProductQuantity {
+
     private final Product product;
     private final double quantity;
 
