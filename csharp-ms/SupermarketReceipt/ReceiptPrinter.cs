@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.Text;
 
@@ -8,6 +9,8 @@ namespace SupermarketReceipt
         private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
 
         private readonly int _columns;
+        private bool _startWithNewLine = false;
+        private string _wrappingText = "-";
 
 
         public ReceiptPrinter(int columns)
@@ -19,14 +22,22 @@ namespace SupermarketReceipt
         {
         }
 
+        public void StartWithNewLine()
+        {
+            _startWithNewLine = true;
+        }
+
         public string PrintReceipt(Receipt receipt)
         {
             var result = new StringBuilder();
+            result.Append(OptionalNewLineAtStart());
+            result.Append(DecorationLine());
+
             foreach (var item in receipt.GetItems())
             {
                 string receiptItem = PrintReceiptItem(item);
                 result.Append(receiptItem);
-                
+
             }
 
             foreach (var discount in receipt.GetDiscounts())
@@ -35,11 +46,21 @@ namespace SupermarketReceipt
                 result.Append(discountPresentation);
             }
 
-            {
-                result.Append("\n");
-                result.Append(PrintTotal(receipt));
-            }
+            result.Append(Environment.NewLine);
+            result.Append(PrintTotal(receipt));
+            result.Append(DecorationLine());
+
             return result.ToString();
+        }
+
+        private string OptionalNewLineAtStart()
+        {
+            return _startWithNewLine ? Environment.NewLine : "";
+        }
+
+        private string DecorationLine()
+        {
+            return string.Concat(System.Linq.Enumerable.Repeat(_wrappingText, _columns)) + Environment.NewLine;
         }
 
         private string PrintTotal(Receipt receipt)
@@ -64,23 +85,23 @@ namespace SupermarketReceipt
             string line = FormatLineWithWhitespace(name, totalPrice);
             if (item.Quantity != 1)
             {
-                line += "  " + PrintPrice(item.Price) + " * " + PrintQuantity(item) + "\n";
+                line += "  " + PrintPrice(item.Price) + " * " + PrintQuantity(item) + Environment.NewLine;
             }
 
             return line;
         }
-        
 
         private string FormatLineWithWhitespace(string name, string value)
         {
             var line = new StringBuilder();
             line.Append(name);
             int whitespaceSize = this._columns - name.Length - value.Length;
-            for (int i = 0; i < whitespaceSize; i++) {
+            for (int i = 0; i < whitespaceSize; i++)
+            {
                 line.Append(" ");
             }
             line.Append(value);
-            line.Append('\n');
+            line.Append(Environment.NewLine);
             return line.ToString();
         }
 
@@ -92,9 +113,13 @@ namespace SupermarketReceipt
         private static string PrintQuantity(ReceiptItem item)
         {
             return ProductUnit.Each == item.Product.Unit
-                ? ((int) item.Quantity).ToString()
+                ? ((int)item.Quantity).ToString()
                 : item.Quantity.ToString("N3", Culture);
         }
-        
+
+        public void WrapReceiptOutputWith(string wrappingText)
+        {
+            _wrappingText = wrappingText;
+        }
     }
 }
