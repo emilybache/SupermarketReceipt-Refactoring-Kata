@@ -1,9 +1,0 @@
-----------------------------------------
-Receipt date:           [date]
-----------------------------------------
-toothbrush                          0.99
-toothbrush                          0.99
-toothbrush                          0.99
-3 for 2(toothbrush)                -0.99
-
-Total:                              1.98
