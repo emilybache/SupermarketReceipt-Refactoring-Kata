@@ -3,7 +3,7 @@
 
 
 #include <map>
-#include "../model/SupermarketCatalog.h"
+#include "SupermarketCatalog.h"
 
 class FakeCatalog : public SupermarketCatalog {
 public:

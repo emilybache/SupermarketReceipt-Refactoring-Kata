@@ -1,13 +1,14 @@
-#include "ApprovalTests.hpp"
-#include "catch2/catch.hpp"
+#include <gtest/gtest.h>
+#include <Approvals.h>
 
-#include "../model/SupermarketCatalog.h"
+#include "SupermarketCatalog.h"
 #include "FakeCatalog.h"
-#include "../model/ShoppingCart.h"
-#include "../model/Teller.h"
+#include "ShoppingCart.h"
+#include "Teller.h"
 
-TEST_CASE("TenPercentDiscount", "[Supermarket]")
-{
+using namespace std;
+
+TEST(SupermarketTest, TenPercentDiscount) {
     // ARRANGE
     SupermarketCatalog *catalog = new FakeCatalog();
     Product toothbrush("toothbrush", ProductUnit::Each);
@@ -24,16 +25,13 @@ TEST_CASE("TenPercentDiscount", "[Supermarket]")
     Receipt receipt = teller.checksOutArticlesFrom(cart);
 
     // ASSERT
-    REQUIRE(4.975 == receipt.getTotalPrice());
-    REQUIRE(receipt.getDiscounts().empty());
-    REQUIRE(1 == receipt.getItems().size());
+    ASSERT_EQ(4.975, receipt.getTotalPrice());
+    ASSERT_TRUE(receipt.getDiscounts().empty());
+    ASSERT_EQ(1, receipt.getItems().size());
     ReceiptItem receiptItem = receipt.getItems()[0];
-    REQUIRE(apples == receiptItem.getProduct());
-    REQUIRE(1.99 == receiptItem.getPrice());
-    REQUIRE(2.5 * 1.99 == receiptItem.getTotalPrice());
-    REQUIRE(2.5 == receiptItem.getQuantity());
+    ASSERT_EQ(apples, receiptItem.getProduct());
+    ASSERT_EQ(1.99, receiptItem.getPrice());
+    ASSERT_EQ(2.5 * 1.99, receiptItem.getTotalPrice());
+    ASSERT_EQ(2.5, receiptItem.getQuantity());
 
 }
-
-
-
