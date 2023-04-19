@@ -5,6 +5,7 @@
 #include "FakeCatalog.h"
 #include "ShoppingCart.h"
 #include "Teller.h"
+#include "ReceiptPrinter.h"
 
 using namespace std;
 
