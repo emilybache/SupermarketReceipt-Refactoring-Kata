@@ -1,13 +1,11 @@
-
-
 #include "ApprovalTests.hpp"
-#include "Catch.hpp"
+#include "catch2/catch.hpp"
 
-#include "../model/ReceiptPrinter.h"
-#include "../model/SupermarketCatalog.h"
+#include "ReceiptPrinter.h"
+#include "SupermarketCatalog.h"
 #include "FakeCatalog.h"
-#include "../model/ShoppingCart.h"
-#include "../model/Teller.h"
+#include "ShoppingCart.h"
+#include "Teller.h"
 
 TEST_CASE("Discounts", "[Supermarket]")
 {
@@ -63,6 +61,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         Receipt receipt = teller.checksOutArticlesFrom(cart);
         ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
     }
+
     SECTION("buy five get one free")
     {
         cart.addItem(toothbrush);
@@ -75,7 +74,6 @@ TEST_CASE("Discounts", "[Supermarket]")
         ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
     }
 
-
     SECTION("Loose weight product")
     {
         cart.addItemQuantity(apples, 0.5);
@@ -83,6 +81,7 @@ TEST_CASE("Discounts", "[Supermarket]")
         ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
 
     }
+
     SECTION("percent discount")
     {
         cart.addItem(rice);
@@ -139,4 +138,5 @@ TEST_CASE("Discounts", "[Supermarket]")
         Receipt receipt = teller.checksOutArticlesFrom(cart);
         ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
     }
+    delete catalog;
 }

@@ -3,11 +3,12 @@
 
 
 #include <map>
-#include "../model/SupermarketCatalog.h"
+#include "SupermarketCatalog.h"
 
 class FakeCatalog : public SupermarketCatalog {
 public:
-
+    FakeCatalog() = default;
+    ~FakeCatalog() override;
     void addProduct(const Product& product, double price) override;
 
     double getUnitPrice(const Product& product) override;
