@@ -1,0 +1,27 @@
+﻿toothbrush                          0.99
+toothbrush                          0.99
+toothbrush                          0.99
+toothbrush                          0.99
+toothbrush                          0.99
+toothbrush                          0.99
+toothbrush                          0.99
+toothbrush                          0.99
+apples                              9.95
+  1.99 * 5.000
+apples                              7.96
+  1.99 * 4.000
+apples                             11.94
+  1.99 * 6.000
+apples                             31.84
+  1.99 * 16.000
+apples                              0.99
+  1.99 * 0.500
+toothbrush                          0.99
+rice                                2.99
+toothbrush                          0.99
+rice                                2.99
+3 for 2(toothbrush)                -2.97
+5 for 6.99(apples)                -18.76
+10% off(rice)                      -0.60
+
+Total:                             56.24

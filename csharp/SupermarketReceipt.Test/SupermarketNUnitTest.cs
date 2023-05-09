@@ -1,12 +1,13 @@
-
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using VerifyXunit;
-using Xunit;
+using NUnit;
+using NUnit.Framework;
+using VerifyNUnit;
 
 namespace SupermarketReceipt.Test
 {
-    [UsesVerify]
-    public class SupermarketTest
+
+    public class SupermarketNUnitTest
     {
         private SupermarketCatalog _catalog;
         private Teller _teller;
@@ -15,8 +16,8 @@ namespace SupermarketReceipt.Test
         private Product _rice;
         private Product _apples;
         private Product _cherryTomatoes;
-        
-        public SupermarketTest()
+
+        public SupermarketNUnitTest()
         {
             _catalog = new FakeCatalog();
             _teller = new Teller(_catalog);
@@ -32,15 +33,14 @@ namespace SupermarketReceipt.Test
             _catalog.AddProduct(_cherryTomatoes, 0.69);
 
         }
-        
-        [Fact]
+        [TestCase]
         public Task an_empty_shopping_cart_should_cost_nothing()
         {
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task one_normal_item()
         {
             _theCart.AddItem(_toothbrush);
@@ -48,7 +48,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task two_normal_items()
         {
             _theCart.AddItem(_toothbrush);
@@ -57,7 +57,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task buy_two_get_one_free()
         {
             _theCart.AddItem(_toothbrush);
@@ -68,7 +68,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task buy_five_get_one_free()
         {
             _theCart.AddItem(_toothbrush);
@@ -81,7 +81,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task loose_weight_product()
         {
             _theCart.AddItemQuantity(_apples, .5);
@@ -89,7 +89,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task percent_discount()
         {
             _theCart.AddItem(_rice);
@@ -98,7 +98,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task xForY_discount()
         {
             _theCart.AddItem(_cherryTomatoes);
@@ -108,7 +108,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task FiveForY_discount()
         {
             _theCart.AddItemQuantity(_apples, 5);
@@ -117,7 +117,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task FiveForY_discount_withSix()
         {
             _theCart.AddItemQuantity(_apples, 6);
@@ -126,7 +126,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task FiveForY_discount_withSixteen()
         {
             _theCart.AddItemQuantity(_apples, 16);
@@ -135,7 +135,7 @@ namespace SupermarketReceipt.Test
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
-        [Fact]
+        [TestCase]
         public Task FiveForY_discount_withFour()
         {
             _theCart.AddItemQuantity(_apples, 4);
