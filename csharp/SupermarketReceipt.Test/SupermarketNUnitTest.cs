@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using Xunit;
+using NUnit;
+using NUnit.Framework;
 
 namespace SupermarketReceipt.Test
 {
-    public class SupermarketTest
+    public class SupermarketNUnitTest
     {
-        [Fact]
+        [TestCase]
         public void TenPercentDiscount()
         {
             // ARRANGE
@@ -25,14 +26,14 @@ namespace SupermarketReceipt.Test
             var receipt = teller.ChecksOutArticlesFrom(cart);
 
             // ASSERT
-            Assert.Equal(4.975, receipt.GetTotalPrice());
-            Assert.Equal(new List<Discount>(), receipt.GetDiscounts());
-            Assert.Single(receipt.GetItems());
+            Assert.AreEqual(4.975, receipt.GetTotalPrice());
+            CollectionAssert.IsEmpty(receipt.GetDiscounts());
+            Assert.AreEqual(1, receipt.GetItems().Count);
             var receiptItem = receipt.GetItems()[0];
-            Assert.Equal(apples, receiptItem.Product);
-            Assert.Equal(1.99, receiptItem.Price);
-            Assert.Equal(2.5 * 1.99, receiptItem.TotalPrice);
-            Assert.Equal(2.5, receiptItem.Quantity);
+            Assert.AreEqual(apples, receiptItem.Product);
+            Assert.AreEqual(1.99, receiptItem.Price);
+            Assert.AreEqual(2.5 * 1.99, receiptItem.TotalPrice);
+            Assert.AreEqual(2.5, receiptItem.Quantity);
         }
     }
 }
