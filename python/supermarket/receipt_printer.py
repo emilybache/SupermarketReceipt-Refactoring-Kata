@@ -1,11 +1,12 @@
 from supermarket.product import ProductUnit
+from supermarket.receipt import Receipt
 
 
 class ReceiptPrinter:
     def __init__(self, columns=40):
         self.columns = columns
 
-    def print_receipt(self, receipt):
+    def print_receipt(self, receipt: Receipt):
         result = ""
         for item in receipt.items:
             receipt_item = self.print_receipt_item(item)
@@ -36,7 +37,7 @@ class ReceiptPrinter:
         line += "\n"
         return line
 
-    def print_price(self, price):
+    def print_price(self, price: float):
         return "%.2f" % price
 
     def print_quantity(self, item):
@@ -46,7 +47,7 @@ class ReceiptPrinter:
             return "%.3f" % item.quantity
 
     def print_discount(self, discount):
-        name = f"{discount.description} ({discount.product.name})"
+        name = f"{discount.description} ({discount.product})"
         value = self.print_price(discount.discount_amount)
         return self.format_line_with_whitespace(name, value)
 

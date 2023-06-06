@@ -1,4 +1,5 @@
-from catalog import SupermarketCatalog
+from supermarket.catalog import SupermarketCatalog
+from supermarket.product import Product, ProductName
 
 
 class FakeCatalog(SupermarketCatalog):
@@ -6,10 +7,9 @@ class FakeCatalog(SupermarketCatalog):
         self.products = {}
         self.prices = {}
 
-    def add_product(self, product, price):
+    def add_product(self, product: Product, price: float) -> None:
         self.products[product.name] = product
         self.prices[product.name] = price
 
-    def unit_price(self, product):
-        return self.prices[product.name]
-
+    def unit_price(self, product_name: ProductName) -> float:
+        return self.prices[product_name]
