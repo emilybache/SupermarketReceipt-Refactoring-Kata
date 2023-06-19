@@ -1,0 +1,4 @@
+toothbrush                          3.96
+  0.99 * 4
+
+Total:                              3.96

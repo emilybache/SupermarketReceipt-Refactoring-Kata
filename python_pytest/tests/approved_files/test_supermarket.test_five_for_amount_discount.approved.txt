@@ -1,0 +1,5 @@
+toothbrush                          4.95
+  0.99 * 5
+5 for 4.0 (toothbrush)             -0.95
+
+Total:                              4.00
