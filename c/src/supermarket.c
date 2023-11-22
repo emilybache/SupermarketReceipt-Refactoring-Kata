@@ -66,6 +66,8 @@ struct discount_t* discount_create(char* description, double amount, struct prod
 }
 
 void handle_offers(struct cart_t* cart, struct receipt_t* receipt, struct special_offer_t* offer, struct catalog_t* catalog) {
+    if (offer == NULL)
+        return;
     for (int i = 0; i < cart->product_count; ++i) {
         struct product_t product = cart->products[i];
         double quantity = cart->quantities[i];

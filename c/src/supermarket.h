@@ -13,7 +13,7 @@ enum SpecialOfferType {
     FiveForAmount
 };
 
-#define MAX_NAME_LENGTH 100
+#define MAX_NAME_LENGTH 120
 #define MAX_PRODUCTS 100
 
 struct product_t {
