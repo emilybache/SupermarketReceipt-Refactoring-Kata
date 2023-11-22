@@ -132,55 +132,92 @@ TEST_CASE ("Supermarket") {
         print_receipt(buffer, receipt);
         ApprovalTests::Approvals::verify(string(buffer));
     }
-/*
+
     SECTION("x for y discount")
     {
-        cart.addItem(cherryTomatoes);
-        cart.addItem(cherryTomatoes);
-        teller.addSpecialOffer(SpecialOfferType::TwoForAmount, cherryTomatoes, 0.99);
-        Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        struct special_offer_t* special_offer = special_offer_create(TwoForAmount, cherry_tomtoes, 0.99);
+        struct teller_t* teller = teller_create(catalog, PRODUCT_COUNT, special_offer);
+        struct product_t cart_products[] = {*cherry_tomtoes};
+        double cart_quantities[] = {2};
+        struct cart_t* cart = cart_create(cart_products, cart_quantities, 1);
+
+        struct receipt_t* receipt = check_out_articles(teller, cart);
+
+        print_receipt(buffer, receipt);
+        ApprovalTests::Approvals::verify(string(buffer));
     }
 
     SECTION("x for y discount but insufficient in basket")
     {
-        cart.addItem(cherryTomatoes);
-        teller.addSpecialOffer(SpecialOfferType::TwoForAmount, cherryTomatoes, 0.99);
-        Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
+        struct special_offer_t* special_offer = special_offer_create(TwoForAmount, cherry_tomtoes, 0.99);
+        struct teller_t* teller = teller_create(catalog, PRODUCT_COUNT, special_offer);
+        struct product_t cart_products[] = {*cherry_tomtoes};
+        double cart_quantities[] = {1};
+        struct cart_t* cart = cart_create(cart_products, cart_quantities, 1);
+
+        struct receipt_t* receipt = check_out_articles(teller, cart);
+
+        print_receipt(buffer, receipt);
+        ApprovalTests::Approvals::verify(string(buffer));
     }
 
-    SECTION("5 for y discount")
-    {
-        cart.addItemQuantity(apples, 5);
-        teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 6.99);
-        Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
-    }
+   SECTION("5 for y discount")
+   {
+        struct special_offer_t* special_offer = special_offer_create(FiveForAmount, apples, 6.99);
+        struct teller_t* teller = teller_create(catalog, PRODUCT_COUNT, special_offer);
+        struct product_t cart_products[] = {*apples};
+        double cart_quantities[] = {5};
+        struct cart_t* cart = cart_create(cart_products, cart_quantities, 1);
 
-    SECTION("5 for y discount with 6")
-    {
-        cart.addItemQuantity(apples, 6);
-        teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 5.99);
-        Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
-    }
+        struct receipt_t* receipt = check_out_articles(teller, cart);
 
-    SECTION("5 for y discount with 16")
-    {
-        cart.addItemQuantity(apples, 16);
-        teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 7.99);
-        Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
-    }
+        print_receipt(buffer, receipt);
+        ApprovalTests::Approvals::verify(string(buffer));
 
-    SECTION("5 for y discount with 4")
-    {
-        cart.addItemQuantity(apples, 4);
-        teller.addSpecialOffer(SpecialOfferType::FiveForAmount, apples, 8.99);
-        Receipt receipt = teller.checksOutArticlesFrom(cart);
-        ApprovalTests::Approvals::verify(printer.printReceipt(receipt));
-    }*/
+   }
+
+  SECTION("5 for y discount with 6")
+  {
+        struct special_offer_t* special_offer = special_offer_create(FiveForAmount, apples, 5.99);
+        struct teller_t* teller = teller_create(catalog, PRODUCT_COUNT, special_offer);
+        struct product_t cart_products[] = {*apples};
+        double cart_quantities[] = {6};
+        struct cart_t* cart = cart_create(cart_products, cart_quantities, 1);
+
+        struct receipt_t* receipt = check_out_articles(teller, cart);
+
+        print_receipt(buffer, receipt);
+        ApprovalTests::Approvals::verify(string(buffer));
+
+  }
+
+     SECTION("5 for y discount with 16")
+     {
+        struct special_offer_t* special_offer = special_offer_create(FiveForAmount, apples, 7.99);
+        struct teller_t* teller = teller_create(catalog, PRODUCT_COUNT, special_offer);
+        struct product_t cart_products[] = {*apples};
+        double cart_quantities[] = {16};
+        struct cart_t* cart = cart_create(cart_products, cart_quantities, 1);
+
+        struct receipt_t* receipt = check_out_articles(teller, cart);
+
+        print_receipt(buffer, receipt);
+        ApprovalTests::Approvals::verify(string(buffer));
+     }
+
+     SECTION("5 for y discount with 4")
+     {
+        struct special_offer_t* special_offer = special_offer_create(FiveForAmount, apples, 8.99);
+        struct teller_t* teller = teller_create(catalog, PRODUCT_COUNT, special_offer);
+        struct product_t cart_products[] = {*apples};
+        double cart_quantities[] = {4};
+        struct cart_t* cart = cart_create(cart_products, cart_quantities, 1);
+
+        struct receipt_t* receipt = check_out_articles(teller, cart);
+
+        print_receipt(buffer, receipt);
+        ApprovalTests::Approvals::verify(string(buffer));
+     }
 
     memset(buffer, 0, sizeof buffer);
 }
