@@ -1,5 +1,7 @@
 # The Supermarket Receipt Refactoring Kata
 
+Watch the ["Detangle Bad Code Challenge"](https://youtu.be/EWB-VhEUoHE) introduction to this exercise.
+
 This is a variation of a popular kata described in http://codekata.com/kata/kata01-supermarket-pricing/. The aim of the exercise is to build automated tests for this code, refactor it, and add a new feature. 
 
 The supermarket has a catalog with different types of products (rice, apples, milk, toothbrushes,...). Each product has a price, and the total price of the shopping cart is the total of all the prices of the items. You get a receipt that details the items you've bought, the total price and any discounts that were applied.
