@@ -52,7 +52,7 @@ defmodule ReceiptPrinterTest do
     receipt =
       receipt
       |> Receipt.add_product(@toothbrush, 1, 0.99, 0.99)
-      |> Receipt.add_product(@toothbrush, 2, 0.99, 0.99 * 2)
+      |> Receipt.add_product(@toothbrush, 2, 0.99, 2 * 0.99)
       |> Receipt.add_product(@apples, 0.75, 1.99, 1.99 * 0.75)
       |> Receipt.add_discount(%Discount{
         product: @toothbrush,
