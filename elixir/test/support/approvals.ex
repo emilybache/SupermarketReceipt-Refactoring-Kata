@@ -27,7 +27,7 @@ defmodule Approvals do
   [mneme](https://github.com/zachallaun/mneme).
   """
 
-  defmacro approve(name, context \\ %{}, expr) do
+  defmacro approve(name, context \\ Macro.escape(%{}), expr) do
     quote do
       test unquote(name), unquote(context) = %{module: approvals_module, test: approvals_test} do
         var!(approvals_file) =
