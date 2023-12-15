@@ -1,5 +1,5 @@
 defmodule ReceiptPrinter do
-  alias Supermarket.Receipt
+  alias Supermarket.Model.Receipt
 
   def print_receipt(receipt, columns \\ 40) do
     IO.chardata_to_string([

@@ -1,7 +1,7 @@
-defmodule Supermarket.Receipt do
+defmodule Supermarket.Model.Receipt do
   defstruct items: [], discounts: []
 
-  alias Supermarket.ReceiptItem
+  alias Supermarket.Model.ReceiptItem
 
   def add_product(receipt, product, quantity, price, total_price) do
     item = %ReceiptItem{

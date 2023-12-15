@@ -2,9 +2,9 @@ defmodule ReceiptPrinterTest do
   use ExUnit.Case, async: true
   import Approvals
 
-  alias Supermarket.Discount
-  alias Supermarket.Product
-  alias Supermarket.Receipt
+  alias Supermarket.Model.Discount
+  alias Supermarket.Model.Product
+  alias Supermarket.Model.Receipt
 
   @toothbrush %Product{name: "toothbrush", unit: :each}
   @apples %Product{name: "apples", unit: :kilo}
