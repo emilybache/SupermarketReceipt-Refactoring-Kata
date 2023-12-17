@@ -1,9 +1,28 @@
 defmodule Supermarket.Model.ShoppingCart do
+  alias Supermarket.Model.ProductQuantity
+
   defstruct items: []
 
   def handle_offers(cart, receipt, offers, catalog) do
     receipt
   end
+
+  def add_item(cart, product) do
+    add_item_quantity(cart, product, 1.0)
+  end
+
+  defp add_item_quantity(cart, product, quantity) do
+    cart
+    |> Map.update!(:items, &[ProductQuantity.new(product, quantity) | &1])
+  end
+
+  # items.add(new ProductQuantity(product, quantity));
+  # if (productQuantities.containsKey(product)) {
+  #     productQuantities.put(product, productQuantities.get(product) + quantity);
+  # } else {
+  #     productQuantities.put(product, quantity);
+  # }
+  # }
 
   @java """
   private final List<ProductQuantity> items = new ArrayList<>();

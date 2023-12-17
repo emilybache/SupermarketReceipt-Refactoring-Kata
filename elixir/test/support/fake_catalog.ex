@@ -1,8 +1,7 @@
 defmodule FakeCatalog do
-  alias Supermarket.Model.SupermarketCatalog
   defstruct products: %{}, prices: %{}
 
-  defimpl SupermarketCatalog do
+  defimpl Supermarket.Model.SupermarketCatalog do
     def add_product(catalog, product, price) do
       catalog
       |> Map.update!(:products, &Map.put(&1, product.name, product))

@@ -2,17 +2,27 @@ defmodule Supermarket.Model.SupermarketTest do
   use ExUnit.Case, async: true
   import Approvals
 
+  alias Supermarket.Model.SupermarketCatalog
+  alias Supermarket.Model.Product
   alias Supermarket.Model.ShoppingCart
   alias Supermarket.Model.Teller
 
+  @toothbrush %Product{name: "toothbrush", unit: :each}
+
   setup do
-    catalog = %FakeCatalog{}
+    catalog = %FakeCatalog{} |> SupermarketCatalog.add_product(@toothbrush, 0.99)
     teller = Teller.new(catalog)
     the_cart = %ShoppingCart{}
-    %{teller: teller, cart: the_cart}
+    %{teller: teller, the_cart: the_cart}
   end
 
-  approve "an empty shopping cart should cost nothing", %{teller: teller, cart: the_cart} do
+  approve "an empty shopping cart should cost nothing", %{teller: teller, the_cart: the_cart} do
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
+  approve "one normal item", %{teller: teller, the_cart: the_cart} do
+    ShoppingCart.add_item(the_cart, @toothbrush)
     receipt = Teller.checks_out_articles_from(teller, the_cart)
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end
@@ -49,19 +59,6 @@ defmodule Supermarket.Model.SupermarketTest do
           cherryTomatoes = new Product("cherry tomato box", ProductUnit.EACH);
           catalog.addProduct(cherryTomatoes, 0.69);
 
-      }
-
-      @Test
-      public void an_empty_shopping_cart_should_cost_nothing() {
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
-      }
-
-      @Test
-      public void one_normal_item() {
-          theCart.addItem(toothbrush);
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
       }
 
       @Test
