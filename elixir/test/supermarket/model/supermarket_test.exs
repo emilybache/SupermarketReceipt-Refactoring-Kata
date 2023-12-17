@@ -8,9 +8,14 @@ defmodule Supermarket.Model.SupermarketTest do
   alias Supermarket.Model.Teller
 
   @toothbrush Product.new("toothbrush", :each)
+  @rice Product.new("rice", :each)
 
   setup do
-    catalog = FakeCatalog.new() |> SupermarketCatalog.add_product(@toothbrush, 0.99)
+    catalog =
+      FakeCatalog.new()
+      |> SupermarketCatalog.add_product(@toothbrush, 0.99)
+      |> SupermarketCatalog.add_product(@rice, 2.99)
+
     teller = Teller.new(catalog)
     the_cart = ShoppingCart.new()
     %{teller: teller, the_cart: the_cart}
@@ -23,6 +28,16 @@ defmodule Supermarket.Model.SupermarketTest do
 
   approve "one normal item", %{teller: teller, the_cart: the_cart} do
     the_cart = ShoppingCart.add_item(the_cart, @toothbrush)
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
+  approve "two normal items", %{teller: teller, the_cart: the_cart} do
+    the_cart =
+      the_cart
+      |> ShoppingCart.add_item(@toothbrush)
+      |> ShoppingCart.add_item(@rice)
+
     receipt = Teller.checks_out_articles_from(teller, the_cart)
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end
@@ -59,14 +74,6 @@ defmodule Supermarket.Model.SupermarketTest do
           cherryTomatoes = new Product("cherry tomato box", ProductUnit.EACH);
           catalog.addProduct(cherryTomatoes, 0.69);
 
-      }
-
-      @Test
-      public void two_normal_items() {
-          theCart.addItem(toothbrush);
-          theCart.addItem(rice);
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
       }
 
       @Test

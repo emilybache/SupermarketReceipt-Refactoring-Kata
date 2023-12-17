@@ -14,7 +14,9 @@ defmodule Supermarket.Model.Teller do
     product_quantities = the_cart.items
 
     receipt =
-      Enum.reduce(product_quantities, receipt, fn pq, receipt ->
+      product_quantities
+      |> Enum.reverse()
+      |> Enum.reduce(receipt, fn pq, receipt ->
         p = pq.product
         quantity = pq.quantity
         unit_price = SupermarketCatalog.get_unit_price(teller.catalog, p)
