@@ -1,6 +1,6 @@
 defmodule Supermarket.Model.Teller do
+  alias Supermarket.Model.SupermarketCatalog
   alias Supermarket.Model.ShoppingCart
-  alias Supermarket.Model.Catalog
   alias Supermarket.Model.Receipt
 
   defstruct [:catalog, :offers]
@@ -10,14 +10,14 @@ defmodule Supermarket.Model.Teller do
   end
 
   def checks_out_articles_from(teller, the_cart) do
-    receipt = %Receipt{}
+    receipt = Receipt.new()
     product_quantities = the_cart.items
 
     receipt =
       Enum.reduce(product_quantities, receipt, fn pq, receipt ->
         p = pq.product
         quantity = pq.quantity
-        unit_price = Catalog.get_unit_price(teller.catalog, p)
+        unit_price = SupermarketCatalog.get_unit_price(teller.catalog, p)
         price = quantity * unit_price
         Receipt.add_product(receipt, p, quantity, unit_price, price)
       end)

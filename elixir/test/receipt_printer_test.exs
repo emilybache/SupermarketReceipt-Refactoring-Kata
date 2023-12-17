@@ -6,11 +6,11 @@ defmodule ReceiptPrinterTest do
   alias Supermarket.Model.Product
   alias Supermarket.Model.Receipt
 
-  @toothbrush %Product{name: "toothbrush", unit: :each}
-  @apples %Product{name: "apples", unit: :kilo}
+  @toothbrush Product.new("toothbrush", :each)
+  @apples Product.new("apples", :kilo)
 
   setup do
-    %{receipt: %Receipt{}}
+    %{receipt: Receipt.new()}
   end
 
   approve "one line item", %{receipt: receipt} do
@@ -38,13 +38,7 @@ defmodule ReceiptPrinterTest do
   end
 
   approve "discounts", %{receipt: receipt} do
-    receipt =
-      Receipt.add_discount(receipt, %Discount{
-        product: @apples,
-        description: "3 for 2",
-        discount_amount: -0.99
-      })
-
+    receipt = Receipt.add_discount(receipt, Discount.new(@apples, "3 for 2", -0.99))
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end
 
@@ -54,11 +48,7 @@ defmodule ReceiptPrinterTest do
       |> Receipt.add_product(@toothbrush, 1, 0.99, 0.99)
       |> Receipt.add_product(@toothbrush, 2, 0.99, 2 * 0.99)
       |> Receipt.add_product(@apples, 0.75, 1.99, 1.99 * 0.75)
-      |> Receipt.add_discount(%Discount{
-        product: @toothbrush,
-        description: "3 for 2",
-        discount_amount: -0.99
-      })
+      |> Receipt.add_discount(Discount.new(@toothbrush, "3 for 2", -0.99))
 
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end

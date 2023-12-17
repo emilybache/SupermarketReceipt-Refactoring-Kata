@@ -1,7 +1,9 @@
 defmodule Supermarket.Model.ShoppingCart do
   alias Supermarket.Model.ProductQuantity
 
-  defstruct items: []
+  defstruct [:items]
+
+  def new, do: %__MODULE__{items: []}
 
   def handle_offers(cart, receipt, offers, catalog) do
     receipt

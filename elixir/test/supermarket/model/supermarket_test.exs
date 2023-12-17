@@ -7,12 +7,12 @@ defmodule Supermarket.Model.SupermarketTest do
   alias Supermarket.Model.ShoppingCart
   alias Supermarket.Model.Teller
 
-  @toothbrush %Product{name: "toothbrush", unit: :each}
+  @toothbrush Product.new("toothbrush", :each)
 
   setup do
-    catalog = %FakeCatalog{} |> SupermarketCatalog.add_product(@toothbrush, 0.99)
+    catalog = FakeCatalog.new() |> SupermarketCatalog.add_product(@toothbrush, 0.99)
     teller = Teller.new(catalog)
-    the_cart = %ShoppingCart{}
+    the_cart = ShoppingCart.new()
     %{teller: teller, the_cart: the_cart}
   end
 

@@ -1,16 +1,12 @@
 defmodule Supermarket.Model.Receipt do
   alias Supermarket.Model.ReceiptItem
 
-  defstruct items: [], discounts: []
+  defstruct [:items, :discounts]
+
+  def new, do: %__MODULE__{items: [], discounts: []}
 
   def add_product(receipt, product, quantity, price, total_price) do
-    item = %ReceiptItem{
-      product: product,
-      quantity: quantity,
-      price: price,
-      total_price: total_price
-    }
-
+    item = ReceiptItem.new(product, quantity, price, total_price)
     Map.update!(receipt, :items, &[item | &1])
   end
 

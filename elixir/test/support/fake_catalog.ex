@@ -1,5 +1,7 @@
 defmodule FakeCatalog do
-  defstruct products: %{}, prices: %{}
+  defstruct [:products, :prices]
+
+  def new, do: %__MODULE__{products: %{}, prices: %{}}
 
   defimpl Supermarket.Model.SupermarketCatalog do
     def add_product(catalog, product, price) do
