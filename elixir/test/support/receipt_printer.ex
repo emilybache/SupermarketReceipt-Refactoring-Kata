@@ -18,10 +18,12 @@ defmodule ReceiptPrinter do
     |> append_price_breakdown_unless_single_unit(item)
   end
 
-  defp append_price_breakdown_unless_single_unit(line, %{quantity: 1} = _item), do: line
-
   defp append_price_breakdown_unless_single_unit(line, item) do
-    "#{line}\n  #{present_price(item.price)} * #{present_quantity(item)}"
+    if item.quantity == 1 do
+      line
+    else
+      "#{line}\n  #{present_price(item.price)} * #{present_quantity(item)}"
+    end
   end
 
   defp present_discount(discount, columns) do

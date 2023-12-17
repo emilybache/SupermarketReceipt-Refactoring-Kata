@@ -5,10 +5,6 @@ defmodule Supermarket.Model.ShoppingCart do
 
   def new, do: %__MODULE__{items: []}
 
-  def handle_offers(cart, receipt, offers, catalog) do
-    receipt
-  end
-
   def add_item(cart, product) do
     add_item_quantity(cart, product, 1.0)
   end
@@ -16,6 +12,10 @@ defmodule Supermarket.Model.ShoppingCart do
   defp add_item_quantity(cart, product, quantity) do
     cart
     |> Map.update!(:items, &[ProductQuantity.new(product, quantity) | &1])
+  end
+
+  def handle_offers(cart, receipt, offers, catalog) do
+    receipt
   end
 
   # items.add(new ProductQuantity(product, quantity));

@@ -22,7 +22,7 @@ defmodule Supermarket.Model.SupermarketTest do
   end
 
   approve "one normal item", %{teller: teller, the_cart: the_cart} do
-    ShoppingCart.add_item(the_cart, @toothbrush)
+    the_cart = ShoppingCart.add_item(the_cart, @toothbrush)
     receipt = Teller.checks_out_articles_from(teller, the_cart)
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end
