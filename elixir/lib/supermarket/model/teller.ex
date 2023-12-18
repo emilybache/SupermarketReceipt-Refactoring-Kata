@@ -1,12 +1,17 @@
 defmodule Supermarket.Model.Teller do
-  alias Supermarket.Model.SupermarketCatalog
-  alias Supermarket.Model.ShoppingCart
+  alias Supermarket.Model.Offer
   alias Supermarket.Model.Receipt
+  alias Supermarket.Model.ShoppingCart
+  alias Supermarket.Model.SupermarketCatalog
 
   defstruct [:catalog, :offers]
 
   def new(catalog) do
     %__MODULE__{catalog: catalog, offers: %{}}
+  end
+
+  def add_special_offer(teller, offer_type, product, argument) do
+    Map.update!(teller, :offers, &Map.put(&1, product, Offer.new(offer_type, product, argument)))
   end
 
   def checks_out_articles_from(teller, the_cart) do
@@ -26,41 +31,4 @@ defmodule Supermarket.Model.Teller do
 
     ShoppingCart.handle_offers(the_cart, receipt, teller.offers, teller.catalog)
   end
-
-  @java """
-  package dojo.supermarket.model;
-
-  import java.util.HashMap;
-  import java.util.List;
-  import java.util.Map;
-
-  public class Teller {
-
-      private final SupermarketCatalog catalog;
-      private final Map<Product, Offer> offers = new HashMap<>();
-
-      public Teller(SupermarketCatalog catalog) {
-          this.catalog = catalog;
-      }
-
-      public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-          offers.put(product, new Offer(offerType, product, argument));
-      }
-
-      public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
-          Receipt receipt = new Receipt();
-          List<ProductQuantity> productQuantities = theCart.getItems();
-          for (ProductQuantity pq: productQuantities) {
-              Product p = pq.getProduct();
-              double quantity = pq.getQuantity();
-              double unitPrice = catalog.getUnitPrice(p);
-              double price = quantity * unitPrice;
-              receipt.addProduct(p, quantity, unitPrice, price);
-          }
-          theCart.handleOffers(receipt, offers, catalog);
-
-          return receipt;
-      }
-  }
-  """
 end

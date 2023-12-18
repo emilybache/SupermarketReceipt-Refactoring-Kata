@@ -18,7 +18,7 @@ defmodule Supermarket.Model.SupermarketTest do
 
     teller = Teller.new(catalog)
     the_cart = ShoppingCart.new()
-    %{teller: teller, the_cart: the_cart}
+    %{catalog: catalog, teller: teller, the_cart: the_cart}
   end
 
   approve "an empty shopping cart should cost nothing", %{teller: teller, the_cart: the_cart} do
@@ -37,6 +37,65 @@ defmodule Supermarket.Model.SupermarketTest do
       the_cart
       |> ShoppingCart.add_item(@toothbrush)
       |> ShoppingCart.add_item(@rice)
+
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
+  approve "buy two get one free", %{catalog: catalog, teller: teller, the_cart: the_cart} do
+    the_cart =
+      the_cart
+      |> ShoppingCart.add_item(@toothbrush)
+      |> ShoppingCart.add_item(@toothbrush)
+      |> ShoppingCart.add_item(@toothbrush)
+
+    teller =
+      Teller.add_special_offer(
+        teller,
+        :three_for_two,
+        @toothbrush,
+        SupermarketCatalog.get_unit_price(catalog, @toothbrush)
+      )
+
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
+  approve "buy two get one free but insufficient in basket", %{
+    catalog: catalog,
+    teller: teller,
+    the_cart: the_cart
+  } do
+    the_cart = ShoppingCart.add_item(the_cart, @toothbrush)
+
+    teller =
+      Teller.add_special_offer(
+        teller,
+        :three_for_two,
+        @toothbrush,
+        SupermarketCatalog.get_unit_price(catalog, @toothbrush)
+      )
+
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
+  approve "buy five get one free", %{catalog: catalog, teller: teller, the_cart: the_cart} do
+    the_cart =
+      the_cart
+      |> ShoppingCart.add_item(@toothbrush)
+      |> ShoppingCart.add_item(@toothbrush)
+      |> ShoppingCart.add_item(@toothbrush)
+      |> ShoppingCart.add_item(@toothbrush)
+      |> ShoppingCart.add_item(@toothbrush)
+
+    teller =
+      Teller.add_special_offer(
+        teller,
+        :three_for_two,
+        @toothbrush,
+        SupermarketCatalog.get_unit_price(catalog, @toothbrush)
+      )
 
     receipt = Teller.checks_out_articles_from(teller, the_cart)
     verify ReceiptPrinter.print_receipt(receipt, 40)
@@ -74,35 +133,6 @@ defmodule Supermarket.Model.SupermarketTest do
           cherryTomatoes = new Product("cherry tomato box", ProductUnit.EACH);
           catalog.addProduct(cherryTomatoes, 0.69);
 
-      }
-
-      @Test
-      public void buy_two_get_one_free() {
-          theCart.addItem(toothbrush);
-          theCart.addItem(toothbrush);
-          theCart.addItem(toothbrush);
-          teller.addSpecialOffer(SpecialOfferType.THREE_FOR_TWO, toothbrush, catalog.getUnitPrice(toothbrush));
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
-      }
-
-      @Test
-      public void buy_two_get_one_free_but_insufficient_in_basket() {
-          theCart.addItem(toothbrush);
-          teller.addSpecialOffer(SpecialOfferType.THREE_FOR_TWO, toothbrush, catalog.getUnitPrice(toothbrush));
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
-      }
-      @Test
-      public void buy_five_get_one_free() {
-          theCart.addItem(toothbrush);
-          theCart.addItem(toothbrush);
-          theCart.addItem(toothbrush);
-          theCart.addItem(toothbrush);
-          theCart.addItem(toothbrush);
-          teller.addSpecialOffer(SpecialOfferType.THREE_FOR_TWO, toothbrush, catalog.getUnitPrice(toothbrush));
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
       }
 
       @Test

@@ -1,9 +1,13 @@
 defmodule Supermarket.Model.ShoppingCart do
+  require IEx
+  alias Supermarket.Model.Discount
   alias Supermarket.Model.ProductQuantity
+  alias Supermarket.Model.Receipt
+  alias Supermarket.Model.SupermarketCatalog
 
-  defstruct [:items]
+  defstruct [:items, :product_quantities]
 
-  def new, do: %__MODULE__{items: []}
+  def new, do: %__MODULE__{items: [], product_quantities: %{}}
 
   def add_item(cart, product) do
     add_item_quantity(cart, product, 1.0)
@@ -12,87 +16,83 @@ defmodule Supermarket.Model.ShoppingCart do
   defp add_item_quantity(cart, product, quantity) do
     cart
     |> Map.update!(:items, &[ProductQuantity.new(product, quantity) | &1])
+    |> Map.update!(:product_quantities, fn product_quantities ->
+      if Map.has_key?(product_quantities, product) do
+        Map.put(product_quantities, product, product_quantities[product] + quantity)
+      else
+        Map.put(product_quantities, product, quantity)
+      end
+    end)
   end
 
   def handle_offers(cart, receipt, offers, catalog) do
-    receipt
+    cart.product_quantities
+    |> Map.keys()
+    |> Enum.reduce(receipt, fn p, receipt ->
+      quantity = cart.product_quantities[p]
+
+      if Map.has_key?(offers, p) do
+        offer = offers[p]
+        unit_price = SupermarketCatalog.get_unit_price(catalog, p)
+        quantity_as_int = trunc(quantity)
+        discount = nil
+        x = 1
+
+        {discount, x} =
+          cond do
+            offer.offer_type == :three_for_two ->
+              {discount, 3}
+
+            offer.offer_type == :two_for_amount ->
+              if quantity_as_int > 2 do
+                int_division = div(quantity_as_int, x)
+                price_per_unit = offer.argument * int_division
+                the_total = quantity_as_int * 2 * unit_price
+                total = price_per_unit + the_total
+                discount_n = unit_price * quantity - total
+                {Discount.new(p, "2 for #{offer.argument}", -discount_n), 2}
+              else
+                {discount, 2}
+              end
+
+            true ->
+              {discount, 2}
+          end
+
+        x = if offer.offer_type == :five_for_amount, do: 5, else: x
+        number_of_xs = div(quantity_as_int, x)
+
+        discount =
+          cond do
+            offer.offer_type == :three_for_two and quantity_as_int > 2 ->
+              discount_amount =
+                quantity * unit_price -
+                  (number_of_xs * 2 * unit_price + Integer.mod(quantity_as_int, 3) * unit_price)
+
+              Discount.new(p, "3 for 2", -discount_amount)
+
+            offer.offer_type == :ten_percent_discount ->
+              Discount.new(
+                p,
+                "#{offer.argument}% off",
+                -quantity * unit_price * offer.argument / 100.0
+              )
+
+            offer.offer_type == :five_for_amount and quantity_as_int >= 5 ->
+              discount_total =
+                unit_price * quantity -
+                  (offer.argument * number_of_xs + Integer.mod(quantity_as_int, 5) * unit_price)
+
+              Discount.new(p, "#{x} for #{offer.argument}", -discount_total)
+
+            true ->
+              discount
+          end
+
+        if !is_nil(discount), do: Receipt.add_discount(receipt, discount), else: receipt
+      else
+        receipt
+      end
+    end)
   end
-
-  # items.add(new ProductQuantity(product, quantity));
-  # if (productQuantities.containsKey(product)) {
-  #     productQuantities.put(product, productQuantities.get(product) + quantity);
-  # } else {
-  #     productQuantities.put(product, quantity);
-  # }
-  # }
-
-  @java """
-  private final List<ProductQuantity> items = new ArrayList<>();
-  private final Map<Product, Double> productQuantities = new HashMap<>();
-
-  List<ProductQuantity> getItems() {
-      return Collections.unmodifiableList(items);
-  }
-
-  void addItem(Product product) {
-      addItemQuantity(product, 1.0);
-  }
-
-  Map<Product, Double> productQuantities() {
-      return Collections.unmodifiableMap(productQuantities);
-  }
-
-  public void addItemQuantity(Product product, double quantity) {
-      items.add(new ProductQuantity(product, quantity));
-      if (productQuantities.containsKey(product)) {
-          productQuantities.put(product, productQuantities.get(product) + quantity);
-      } else {
-          productQuantities.put(product, quantity);
-      }
-  }
-
-  void handleOffers(Receipt receipt, Map<Product, Offer> offers, SupermarketCatalog catalog) {
-      for (Product p: productQuantities().keySet()) {
-          double quantity = productQuantities.get(p);
-          if (offers.containsKey(p)) {
-              Offer offer = offers.get(p);
-              double unitPrice = catalog.getUnitPrice(p);
-              int quantityAsInt = (int) quantity;
-              Discount discount = null;
-              int x = 1;
-              if (offer.offerType == SpecialOfferType.THREE_FOR_TWO) {
-                  x = 3;
-
-              } else if (offer.offerType == SpecialOfferType.TWO_FOR_AMOUNT) {
-                  x = 2;
-                  if (quantityAsInt >= 2) {
-                      int intDivision = quantityAsInt / x;
-                      double pricePerUnit = offer.argument * intDivision;
-                      double theTotal = (quantityAsInt % 2) * unitPrice;
-                      double total = pricePerUnit + theTotal;
-                      double discountN = unitPrice * quantity - total;
-                      discount = new Discount(p, "2 for " + offer.argument, -discountN);
-                  }
-
-              } if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT) {
-                  x = 5;
-              }
-              int numberOfXs = quantityAsInt / x;
-              if (offer.offerType == SpecialOfferType.THREE_FOR_TWO && quantityAsInt > 2) {
-                  double discountAmount = quantity * unitPrice - ((numberOfXs * 2 * unitPrice) + quantityAsInt % 3 * unitPrice);
-                  discount = new Discount(p, "3 for 2", -discountAmount);
-              }
-              if (offer.offerType == SpecialOfferType.TEN_PERCENT_DISCOUNT) {
-                  discount = new Discount(p, offer.argument + "% off", -quantity * unitPrice * offer.argument / 100.0);
-              }
-              if (offer.offerType == SpecialOfferType.FIVE_FOR_AMOUNT && quantityAsInt >= 5) {
-                  double discountTotal = unitPrice * quantity - (offer.argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-                  discount = new Discount(p, x + " for " + offer.argument, -discountTotal);
-              }
-              if (discount != null)
-                  receipt.addDiscount(discount);
-          }
-      }
-  }
-  """
 end
