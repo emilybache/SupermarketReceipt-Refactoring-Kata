@@ -13,7 +13,7 @@ defmodule Supermarket.Model.ShoppingCart do
     add_item_quantity(cart, product, 1.0)
   end
 
-  defp add_item_quantity(cart, product, quantity) do
+  def add_item_quantity(cart, product, quantity) do
     cart
     |> Map.update!(:items, &[ProductQuantity.new(product, quantity) | &1])
     |> Map.update!(:product_quantities, fn product_quantities ->

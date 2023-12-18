@@ -9,12 +9,14 @@ defmodule Supermarket.Model.SupermarketTest do
 
   @toothbrush Product.new("toothbrush", :each)
   @rice Product.new("rice", :each)
+  @apples Product.new("apples", :kilo)
 
   setup do
     catalog =
       FakeCatalog.new()
       |> SupermarketCatalog.add_product(@toothbrush, 0.99)
       |> SupermarketCatalog.add_product(@rice, 2.99)
+      |> SupermarketCatalog.add_product(@apples, 1.99)
 
     teller = Teller.new(catalog)
     the_cart = ShoppingCart.new()
@@ -97,6 +99,12 @@ defmodule Supermarket.Model.SupermarketTest do
         SupermarketCatalog.get_unit_price(catalog, @toothbrush)
       )
 
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
+  approve "loose weight product", %{teller: teller, the_cart: the_cart} do
+    the_cart = ShoppingCart.add_item_quantity(the_cart, @apples, 0.5)
     receipt = Teller.checks_out_articles_from(teller, the_cart)
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end

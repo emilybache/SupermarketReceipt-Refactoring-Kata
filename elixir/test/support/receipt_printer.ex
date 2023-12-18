@@ -6,7 +6,8 @@ defmodule ReceiptPrinter do
       receipt.items |> Enum.reverse() |> Enum.map(&[present_receipt_item(&1, columns), "\n"]),
       receipt.discounts |> Enum.reverse() |> Enum.map(&[present_discount(&1, columns), "\n"]),
       "\n",
-      present_total(receipt, columns)
+      present_total(receipt, columns),
+      "\n"
     ])
   end
 

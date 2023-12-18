@@ -1,7 +1,6 @@
 defmodule Approvals do
   @moduledoc """
-  A lightweight approval test helper, that uses the same files for expected
-  values as the java version of the kata.
+  A lightweight approval test helper.
 
   To write an approval test, simply import this module, use `approve` instead
   of `test`, and `verify` a value instead of adding an assertion. The file
