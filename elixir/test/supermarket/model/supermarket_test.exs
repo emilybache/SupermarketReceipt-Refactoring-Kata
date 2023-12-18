@@ -109,6 +109,13 @@ defmodule Supermarket.Model.SupermarketTest do
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end
 
+  approve "percent discount", %{teller: teller, the_cart: the_cart} do
+    the_cart = ShoppingCart.add_item(the_cart, @rice)
+    teller = Teller.add_special_offer(teller, :ten_percent_discount, @rice, 10.0)
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
   @java """
   package dojo.supermarket.model;
 
@@ -141,21 +148,6 @@ defmodule Supermarket.Model.SupermarketTest do
           cherryTomatoes = new Product("cherry tomato box", ProductUnit.EACH);
           catalog.addProduct(cherryTomatoes, 0.69);
 
-      }
-
-      @Test
-      public void loose_weight_product() {
-          theCart.addItemQuantity(apples, .5);
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
-      }
-
-      @Test
-      public void percent_discount() {
-          theCart.addItem(rice);
-          teller.addSpecialOffer(SpecialOfferType.TEN_PERCENT_DISCOUNT, rice, 10.0);
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
       }
 
       @Test
