@@ -10,6 +10,7 @@ defmodule Supermarket.Model.SupermarketTest do
   @toothbrush Product.new("toothbrush", :each)
   @rice Product.new("rice", :each)
   @apples Product.new("apples", :kilo)
+  @cherry_tomatoes Product.new("cherry tomato box", :each)
 
   setup do
     catalog =
@@ -17,6 +18,7 @@ defmodule Supermarket.Model.SupermarketTest do
       |> SupermarketCatalog.add_product(@toothbrush, 0.99)
       |> SupermarketCatalog.add_product(@rice, 2.99)
       |> SupermarketCatalog.add_product(@apples, 1.99)
+      |> SupermarketCatalog.add_product(@cherry_tomatoes, 0.69)
 
     teller = Teller.new(catalog)
     the_cart = ShoppingCart.new()
@@ -116,6 +118,24 @@ defmodule Supermarket.Model.SupermarketTest do
     verify ReceiptPrinter.print_receipt(receipt, 40)
   end
 
+  approve "x for y discount", %{teller: teller, the_cart: the_cart} do
+    the_cart =
+      the_cart
+      |> ShoppingCart.add_item(@cherry_tomatoes)
+      |> ShoppingCart.add_item(@cherry_tomatoes)
+
+    teller = Teller.add_special_offer(teller, :two_for_amount, @cherry_tomatoes, 0.99)
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
+  approve "x for y discount with insufficient in basket", %{teller: teller, the_cart: the_cart} do
+    the_cart = ShoppingCart.add_item(the_cart, @cherry_tomatoes)
+    teller = Teller.add_special_offer(teller, :two_for_amount, @cherry_tomatoes, 0.99)
+    receipt = Teller.checks_out_articles_from(teller, the_cart)
+    verify ReceiptPrinter.print_receipt(receipt, 40)
+  end
+
   @java """
   package dojo.supermarket.model;
 
@@ -148,23 +168,6 @@ defmodule Supermarket.Model.SupermarketTest do
           cherryTomatoes = new Product("cherry tomato box", ProductUnit.EACH);
           catalog.addProduct(cherryTomatoes, 0.69);
 
-      }
-
-      @Test
-      public void xForY_discount() {
-          theCart.addItem(cherryTomatoes);
-          theCart.addItem(cherryTomatoes);
-          teller.addSpecialOffer(SpecialOfferType.TWO_FOR_AMOUNT, cherryTomatoes,.99);
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
-      }
-
-      @Test
-      public void xForY_discount_with_insufficient_in_basket() {
-          theCart.addItem(cherryTomatoes);
-          teller.addSpecialOffer(SpecialOfferType.TWO_FOR_AMOUNT, cherryTomatoes,.99);
-          Receipt receipt = teller.checksOutArticlesFrom(theCart);
-          Approvals.verify(new ReceiptPrinter(40).printReceipt(receipt));
       }
 
       @Test
