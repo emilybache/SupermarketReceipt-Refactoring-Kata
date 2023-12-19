@@ -46,10 +46,10 @@ defmodule ReceiptPrinter do
   defp present_price(price), do: :io_lib.format("~.2f", [price]) |> to_string()
 
   def present_quantity(item) do
-    if item.product.unit == :each do
-      item.quantity
-    else
-      :io_lib.format("~.3f", [item.quantity]) |> to_string()
+    cond do
+      item.product.unit == :each -> item.quantity
+      is_integer(item.quantity) -> "#{item.quantity}.000"
+      is_float(item.quantity) -> :io_lib.format("~.3f", [item.quantity]) |> to_string()
     end
   end
 end
