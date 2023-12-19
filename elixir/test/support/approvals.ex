@@ -29,11 +29,13 @@ defmodule Approvals do
   defmacro approve(name, context \\ Macro.escape(%{}), expr) do
     quote do
       test unquote(name), unquote(context) = %{module: approvals_module, test: approvals_test} do
+        approvals_dir = Path.join(~w[test support approvals])
+
         var!(approvals_file) =
           approvals_module
           |> Macro.underscore()
           |> Path.join(approvals_test |> to_string |> String.replace(~r/\W/, "_"))
-          |> Path.expand("test/support/approvals")
+          |> Path.expand(approvals_dir)
 
         unquote(expr)
       end
