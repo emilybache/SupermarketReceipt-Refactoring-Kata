@@ -1,0 +1,5 @@
+toothbrush                          8.91
+  0.99 * 9
+5 for 4 (toothbrush)               -0.95
+
+Total:                              7.96

@@ -1,32 +1,61 @@
-import pytest
+import approvaltests
 
-from model_objects import Product, SpecialOfferType, ProductUnit
-from shopping_cart import ShoppingCart
+from model_objects import SpecialOfferType
+from receipt_printer import ReceiptPrinter
 from teller import Teller
-from tests.fake_catalog import FakeCatalog
 
 
-def test_ten_percent_discount():
-    catalog = FakeCatalog()
-    toothbrush = Product("toothbrush", ProductUnit.EACH)
-    catalog.add_product(toothbrush, 0.99)
+def test_basic_functionality(catalog_with_toothbrush_and_apple, apple_product, shopping_cart):
+    teller = Teller(catalog_with_toothbrush_and_apple)
+    shopping_cart.add_item_quantity(apple_product, 2.5)
 
-    apples = Product("apples", ProductUnit.KILO)
-    catalog.add_product(apples, 1.99)
+    receipt = teller.checks_out_articles_from(shopping_cart)
 
-    teller = Teller(catalog)
-    teller.add_special_offer(SpecialOfferType.TEN_PERCENT_DISCOUNT, toothbrush, 10.0)
+    string_receipt = ReceiptPrinter().print_receipt(receipt)
 
-    cart = ShoppingCart()
-    cart.add_item_quantity(apples, 2.5)
+    approvaltests.verify(string_receipt)
 
-    receipt = teller.checks_out_articles_from(cart)
 
-    assert 4.975 == pytest.approx(receipt.total_price(), 0.01)
-    assert [] == receipt.discounts
-    assert 1 == len(receipt.items)
-    receipt_item = receipt.items[0]
-    assert apples == receipt_item.product
-    assert 1.99 == receipt_item.price
-    assert 2.5 * 1.99 == pytest.approx(receipt_item.total_price, 0.01)
-    assert 2.5 == receipt_item.quantity
+def test_ten_percent_discount(catalog_with_toothbrush, toothbrush_product, shopping_cart):
+    teller = Teller(catalog_with_toothbrush)
+    teller.add_special_offer(SpecialOfferType.TEN_PERCENT_DISCOUNT, toothbrush_product, 10.0)
+
+    shopping_cart.add_item_quantity(toothbrush_product, 2.5)
+    receipt = teller.checks_out_articles_from(shopping_cart)
+    string_receipt = ReceiptPrinter().print_receipt(receipt)
+
+    approvaltests.verify(string_receipt)
+
+
+def test_three_for_two_discount(catalog_with_toothbrush, toothbrush_product, shopping_cart):
+    teller = Teller(catalog_with_toothbrush)
+    teller.add_special_offer(SpecialOfferType.THREE_FOR_TWO, toothbrush_product, 2)
+
+    shopping_cart.add_item_quantity(toothbrush_product, 3)
+    receipt = teller.checks_out_articles_from(shopping_cart)
+    string_receipt = ReceiptPrinter().print_receipt(receipt)
+
+    approvaltests.verify(string_receipt)
+
+
+def test_two_items_for_reduced_price_discount(catalog_with_toothbrush, toothbrush_product, shopping_cart):
+    teller = Teller(catalog_with_toothbrush)
+    teller.add_special_offer(SpecialOfferType.TWO_FOR_AMOUNT, toothbrush_product, 0.99)
+
+    shopping_cart.add_item_quantity(toothbrush_product, 2)
+    receipt = teller.checks_out_articles_from(shopping_cart)
+    string_receipt = ReceiptPrinter().print_receipt(receipt)
+
+    approvaltests.verify(string_receipt)
+
+
+def test_five_items_for_reduced_price_discount(catalog_with_toothbrush, toothbrush_product, shopping_cart):
+    teller = Teller(catalog_with_toothbrush)
+    teller.add_special_offer(SpecialOfferType.FIVE_FOR_AMOUNT, toothbrush_product, 4)
+
+    shopping_cart.add_item_quantity(toothbrush_product, 9)
+    receipt = teller.checks_out_articles_from(shopping_cart)
+    string_receipt = ReceiptPrinter().print_receipt(receipt)
+
+    approvaltests.verify(string_receipt)
+
