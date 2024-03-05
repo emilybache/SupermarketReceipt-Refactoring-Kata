@@ -28,7 +28,7 @@ you get 10% off the total for those items. For example you could make a bundle o
 
 ## New feature: HTML receipt
 
-Currently we print a traditional ticket receipt. Now beeing a modern business we'd
+Currently we print a traditional ticket receipt. Now being a modern business we'd
 like to be able to print or send a HTML version of the same receipt. All the data 
 and number formatting should be the same. However the layout should be html. 
 You don't have to worry about the HTML template - a designer will care of that - but 
