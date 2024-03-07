@@ -1,3 +1,5 @@
+_Support this and all my katas via [Patreon](https://www.patreon.com/EmilyBache)_
+
 # The Supermarket Receipt Refactoring Kata
 
 Watch the ["Detangle Bad Code Challenge"](https://youtu.be/EWB-VhEUoHE) introduction to this exercise.
