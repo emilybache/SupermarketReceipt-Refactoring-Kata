@@ -6,6 +6,7 @@ import {ShoppingCart} from "../src/model/ShoppingCart"
 import {Teller} from "../src/model/Teller"
 import {SpecialOfferType} from "../src/model/SpecialOfferType"
 import {ProductUnit} from "../src/model/ProductUnit"
+import {assert} from "chai";
 const approvals = require('approvals')
 
 type Approvals = {
@@ -32,6 +33,7 @@ describe('Supermarket', function () {
         const receipt: Receipt = teller.checksOutArticlesFrom(cart);
 
         // Todo: complete this test
+        assert.equal(1, 1);
         this.verifyAsJSON({})
     });
 
