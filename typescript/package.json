@@ -12,16 +12,16 @@
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/mocha": "^5.2.5",
-    "approvals": "^3.0.2",
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0"
+    "@types/mocha": "^10.0.6",
+    "approvals": "^6.2.4",
+    "chai": "^5.1.0",
+    "mocha": "^10.3.0"
   },
   "dependencies": {
     "@types/lodash": "^4.14.119",
-    "@types/node": "^10.12.18",
+    "@types/node": "^20.11.25",
     "lodash": "^4.17.19",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.2.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
   }
 }
