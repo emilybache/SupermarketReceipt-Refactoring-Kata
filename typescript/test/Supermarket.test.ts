@@ -7,17 +7,9 @@ import {Teller} from "../src/model/Teller"
 import {SpecialOfferType} from "../src/model/SpecialOfferType"
 import {ProductUnit} from "../src/model/ProductUnit"
 import {assert} from "chai";
-const approvals = require('approvals')
 
-type Approvals = {
-    verify: (s: string) => void
-    verifyAsJSON: (o: Object) => void
-}
-describe('Supermarket', function () {
-
-    approvals.mocha()
-    it('Ten percent discount', function (this: any) {
-
+describe('Supermarket', () => {
+    it('Ten percent discount', () => {
         // ARRANGE
         const catalog: SupermarketCatalog = new FakeCatalog();
         const toothbrush: Product = new Product("toothbrush", ProductUnit.Each);
@@ -25,11 +17,11 @@ describe('Supermarket', function () {
         const apples: Product = new Product("apples", ProductUnit.Kilo);
         catalog.addProduct(apples, 1.99);
 
-        const cart: ShoppingCart = new ShoppingCart();
-        cart.addItemQuantity(apples, 2.5);
-
         const teller: Teller = new Teller(catalog);
         teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
+
+        const cart: ShoppingCart = new ShoppingCart();
+        cart.addItemQuantity(apples, 2.5);
 
         // ACT
         const receipt: Receipt = teller.checksOutArticlesFrom(cart);
@@ -43,7 +35,5 @@ describe('Supermarket', function () {
         assert.equal(receiptItem.price, 1.99);
         assert.approximately(receiptItem.totalPrice, 2.5*1.99, 0.01);
         assert.equal(receiptItem.quantity, 2.5);
-        this.verifyAsJSON({})
     });
-
 });
