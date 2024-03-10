@@ -16,8 +16,9 @@ type Approvals = {
 describe('Supermarket', function () {
 
     approvals.mocha()
-    it('TODO decide what to specify', function (this: any) {
+    it('Ten percent discount', function (this: any) {
 
+        // ARRANGE
         const catalog: SupermarketCatalog = new FakeCatalog();
         const toothbrush: Product = new Product("toothbrush", ProductUnit.Each);
         catalog.addProduct(toothbrush, 0.99);
@@ -30,10 +31,18 @@ describe('Supermarket', function () {
         const teller: Teller = new Teller(catalog);
         teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, toothbrush, 10.0);
 
+        // ACT
         const receipt: Receipt = teller.checksOutArticlesFrom(cart);
 
-        // Todo: complete this test
-        assert.equal(1, 1);
+        // ASSERT
+        assert.approximately(receipt.getTotalPrice(), 4.975, 0.01);
+        assert.isEmpty(receipt.getDiscounts());
+        assert.equal(receipt.getItems().length, 1);
+        const receiptItem = receipt.getItems()[0];
+        assert.equal(receiptItem.product, apples);
+        assert.equal(receiptItem.price, 1.99);
+        assert.approximately(receiptItem.totalPrice, 2.5*1.99, 0.01);
+        assert.equal(receiptItem.quantity, 2.5);
         this.verifyAsJSON({})
     });
 
