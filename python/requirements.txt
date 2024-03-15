@@ -1,4 +1,5 @@
+pytest
 approvaltests
 python-dateutil
 pytest-approvaltests
-
+coverage
