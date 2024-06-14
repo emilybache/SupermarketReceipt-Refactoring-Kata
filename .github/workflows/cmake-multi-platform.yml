@@ -5,8 +5,14 @@ name: CMake on multiple platforms
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - cpp/**
+      - .github/workflows/cmake-multi-platform.yml
   pull_request:
     branches: [ "main" ]
+    paths:
+      - cpp/**
+      - .github/workflows/cmake-multi-platform.yml
 
 jobs:
   build:
