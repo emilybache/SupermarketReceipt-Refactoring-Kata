@@ -18,7 +18,7 @@
    :three-for-two
    :two-for-amount
    :five-for-amount
-   :the-receipts-product
+   :item-product
    :total-price
    :item-quantity
    :item-price
