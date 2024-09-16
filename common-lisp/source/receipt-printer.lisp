@@ -20,7 +20,7 @@
 
 (defmethod print-receipt-item ((a-printer receipt-printer) (an-item receipt-item))
   (let* ((total-price-printed (print-price a-printer (item-total-price an-item)))
-         (name (product-name (the-receipts-product an-item)))
+         (name (product-name (item-product an-item)))
          (line (format-line-with-whitespace a-printer name total-price-printed)))
     (unless (= 1 (item-quantity an-item))
       (setf line (format nil " ~A * ~A\n" (print-price a-printer (item-price an-item))
