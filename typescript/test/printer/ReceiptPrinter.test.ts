@@ -6,6 +6,9 @@ import {Discount} from "../../src/model/Discount"
 const approvals = require('approvals')
 
 type Approvals = { verify: (a: string) => void }
+const approvalConfig = {
+    appendEOL: false
+};
 
 describe('ReceiptPrinter', () => {
 
@@ -25,19 +28,19 @@ describe('ReceiptPrinter', () => {
 
     it('oneLineItem', function (this: any) {
         receipt.addProduct(toothbrush, 1, 0.99, 0.99);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
     it('quantityTwo', function (this: any) {
         receipt.addProduct(toothbrush, 2, 0.99, 0.99 * 2);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
     it('looseWeight', function (this: any) {
         receipt.addProduct(apples, 2.3, 1.99, 1.99 * 2.3);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -45,13 +48,13 @@ describe('ReceiptPrinter', () => {
 
         receipt.addProduct(toothbrush, 1, 0.99, 2 * 0.99);
         receipt.addProduct(apples, 0.75, 1.99, 1.99 * 0.75);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
     it('discounts', function (this: any) {
         receipt.addDiscount(new Discount(apples, "3 for 2", 0.99));
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -60,6 +63,6 @@ describe('ReceiptPrinter', () => {
         receipt.addProduct(toothbrush, 2, 0.99, 2 * 0.99);
         receipt.addProduct(apples, 0.75, 1.99, 1.99 * 0.75);
         receipt.addDiscount(new Discount(toothbrush, "3 for 2", 0.99));
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 });
