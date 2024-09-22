@@ -10,9 +10,9 @@
 
 (defmethod print-receipt ((a-printer receipt-printer) (a-receipt receipt))
   (let ((result ""))
-    (loop for item in (receipt-items a-receipt) do
+    (loop for item in (reverse (receipt-items a-receipt)) do
       (setf result (concatenate 'string result (print-receipt-item a-printer item))))
-    (loop for discount in (receipt-discounts a-receipt) do
+    (loop for discount in (reverse (receipt-discounts a-receipt)) do
       (setf result (concatenate 'string result (print-discount a-printer discount))))
     (setf result (format nil "~A~%" result))
     (setf result (concatenate 'string result (present-total a-printer a-receipt)))
@@ -23,8 +23,9 @@
          (name (product-name (item-product an-item)))
          (line (format-line-with-whitespace a-printer name total-price-printed)))
     (unless (= 1.0 (item-quantity an-item))
-      (setf line (format nil " ~A * ~A~%" (print-price a-printer (item-price an-item))
-                                          (print-quantity a-printer an-item))))
+      (setf line (format nil "~A  ~A * ~A~%" line
+                         (print-price a-printer (item-price an-item))
+                         (print-quantity a-printer an-item))))
     line))
 
 (defmethod format-line-with-whitespace ((a-printer receipt-printer) (a-name string) (a-value string))
@@ -45,7 +46,7 @@
       (format nil "~3$" (item-quantity an-item))))
 
 (defmethod print-discount ((a-printer receipt-printer) (a-discount discount))
-  (let ((name (format nil "~A (~A)" (discount-description a-discount) (product-name (discounted-product a-discount))))
+  (let ((name (format nil "~A(~A)" (discount-description a-discount) (product-name (discounted-product a-discount))))
         (value (print-price a-printer (discount-amount a-discount))))
     (format-line-with-whitespace a-printer name value)))
 

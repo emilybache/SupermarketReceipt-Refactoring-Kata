@@ -12,10 +12,12 @@
    :teller
    :add-special-offer
    :checks-out-articles-from
+   :discount
    :receipt
    :receipt-items
    :receipt-discounts
    :add-product-to-receipt
+   :add-discount
    :ten-percent-discount
    :three-for-two
    :two-for-amount
