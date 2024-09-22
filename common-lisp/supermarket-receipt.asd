@@ -23,7 +23,8 @@
 	:version "1.0.0"
 	:depends-on ("supermarket-receipt" "parachute" "cl-mock")
 	:pathname "tests/"
-	:components ((:file "package")
-               (:file "fake-catalog")
-		           (:file "tests" :depends-on ("package")))
-	:perform (test-op (o c) (symbol-call :parachute :test :supermarket-receipt/tests)))
+	:components ((:file "fake-catalog")
+		           (:file "supermarket-receipt-testsuite" :depends-on ("fake-catalog"))
+               (:file "receipt-printer-testsuite" :depends-on ("fake-catalog")))
+	:perform (test-op (o c) (symbol-call :parachute :test '(:supermarket-receipt/testsuite
+                                                          :supermarket-receipt/receipt-printer-testsuite))))

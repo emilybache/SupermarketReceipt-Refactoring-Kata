@@ -27,4 +27,6 @@
    :catalog-products
    :catalog-prices
    :add-product-to-catalog
-   :unit-price))
+   :unit-price
+   :receipt-printer
+   :print-receipt))

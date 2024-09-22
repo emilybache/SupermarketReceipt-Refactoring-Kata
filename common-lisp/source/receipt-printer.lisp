@@ -14,7 +14,7 @@
       (setf result (concatenate 'string result (print-receipt-item a-printer item))))
     (loop for discount in (receipt-discounts a-receipt) do
       (setf result (concatenate 'string result (print-discount a-printer discount))))
-    (setf result (concatenate 'string result "\n"))
+    (setf result (format nil "~A~%" result))
     (setf result (concatenate 'string result (present-total a-printer a-receipt)))
     result))
 
@@ -23,17 +23,17 @@
          (name (product-name (item-product an-item)))
          (line (format-line-with-whitespace a-printer name total-price-printed)))
     (unless (= 1 (item-quantity an-item))
-      (setf line (format nil " ~A * ~A\n" (print-price a-printer (item-price an-item))
-                         (print-quantity a-printer (item-quantity an-item)))))
+      (setf line (format nil " ~A * ~A~%" (print-price a-printer (item-price an-item))
+                                          (print-quantity a-printer (item-quantity an-item)))))
     line))
 
 (defmethod format-line-with-whitespace ((a-printer receipt-printer) (a-name string) (a-value string))
   (let* ((line a-name)
          (whitespace-size (- (printer-columns a-printer) (length a-name) (length a-value))))
-    (loop for index from 0 to whitespace-size do
+    (loop for index from 1 to whitespace-size do
           (setf line (concatenate 'string line " ")))
     (setf line (concatenate 'string line a-value))
-    (setf line (concatenate 'string line "\n"))
+    (setf line (format nil "~A~%" line))
     line))
 
 (defmethod print-price ((a-printer receipt-printer) (a-price single-float))

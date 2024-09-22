@@ -1,6 +1,15 @@
 ;;;; fake-catalog.lisp
 
-(in-package :supermarket-receipt/tests)
+(in-package :common-lisp-user)
+
+(defpackage :supermarket-receipt/fake-catalog
+  (:use :common-lisp
+        :supermarket-receipt)
+  (:export :fake-catalog
+           :add-product-to-catalog
+           :unit-price))
+
+(in-package :supermarket-receipt/fake-catalog)
 
 (defclass fake-catalog (supermarket-catalog)
   ())
