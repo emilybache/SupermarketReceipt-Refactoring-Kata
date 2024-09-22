@@ -22,9 +22,9 @@
   (let* ((total-price-printed (print-price a-printer (item-total-price an-item)))
          (name (product-name (item-product an-item)))
          (line (format-line-with-whitespace a-printer name total-price-printed)))
-    (unless (= 1 (item-quantity an-item))
+    (unless (= 1.0 (item-quantity an-item))
       (setf line (format nil " ~A * ~A~%" (print-price a-printer (item-price an-item))
-                                          (print-quantity a-printer (item-quantity an-item)))))
+                                          (print-quantity a-printer an-item))))
     line))
 
 (defmethod format-line-with-whitespace ((a-printer receipt-printer) (a-name string) (a-value string))
@@ -40,7 +40,7 @@
   (format nil "~2$" a-price))
 
 (defmethod print-quantity ((a-printer receipt-printer) (an-item receipt-item))
-  (if (eq 'each (product-unit (item-product an-item)))
+  (if (eq 'each (the-product-unit (item-product an-item)))
       (format nil "~d" (floor (item-quantity an-item)))
       (format nil "~3$" (item-quantity an-item))))
 
