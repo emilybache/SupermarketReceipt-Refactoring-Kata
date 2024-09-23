@@ -12,6 +12,10 @@ import AsyncFunc = Mocha.AsyncFunc
 const approvals = require('approvals')
 
 type Approvals = { verify: (a: string) => void }
+const approvalConfig = {
+    appendEOL: false
+};
+
 describe('Supermarket', function () {
 
     approvals.mocha()
@@ -44,14 +48,14 @@ describe('Supermarket', function () {
 
     it('an_empty_shopping_cart_should_cost_nothing', function (this: any) {
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     });
 
 
     it('one_normal_item',function (this: any) {
         theCart.addItem(toothbrush);
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -59,7 +63,7 @@ describe('Supermarket', function () {
         theCart.addItem(toothbrush);
         theCart.addItem(rice);
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -71,7 +75,7 @@ describe('Supermarket', function () {
         const receipt = teller.checksOutArticlesFrom(theCart);
         expect(receipt.getDiscounts()).lengthOf(1)
 
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -83,14 +87,14 @@ describe('Supermarket', function () {
         theCart.addItem(toothbrush);
         teller.addSpecialOffer(SpecialOfferType.ThreeForTwo, toothbrush, catalog.getUnitPrice(toothbrush));
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify (new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify (new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
     it('loose_weight_product',function (this: any) {
         theCart.addItemQuantity(apples, .5);
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -100,7 +104,7 @@ describe('Supermarket', function () {
         const receipt = teller.checksOutArticlesFrom(theCart);
         expect(receipt.getDiscounts()).lengthOf(1)
 
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -111,21 +115,21 @@ describe('Supermarket', function () {
         const receipt = teller.checksOutArticlesFrom(theCart);
         expect(receipt.getDiscounts()).lengthOf(1)
 
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
     it('FiveForY_discount', function (this: any) {
         theCart.addItemQuantity(apples, 5);
         teller.addSpecialOffer(SpecialOfferType.FiveForAmount, apples, 6.99);
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     });
 
     it('FiveForY_discount_withSix',function (this: any) {
         theCart.addItemQuantity(apples, 6);
         teller.addSpecialOffer(SpecialOfferType.FiveForAmount, apples, 6.99);
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -133,7 +137,7 @@ describe('Supermarket', function () {
         theCart.addItemQuantity(apples, 16);
         teller.addSpecialOffer(SpecialOfferType.FiveForAmount, apples, 6.99);
         const receipt = teller.checksOutArticlesFrom(theCart);
-        this.verify(new ReceiptPrinter(40).printReceipt(receipt));
+        this.verify(new ReceiptPrinter(40).printReceipt(receipt), approvalConfig);
     })
 
 
@@ -143,7 +147,7 @@ describe('Supermarket', function () {
         const receipt = teller.checksOutArticlesFrom(theCart);
 
         let receiptPrinter = new ReceiptPrinter(40)
-        this.verify(receiptPrinter.printReceipt(receipt));
+        this.verify(receiptPrinter.printReceipt(receipt), approvalConfig);
     })
 
 });
