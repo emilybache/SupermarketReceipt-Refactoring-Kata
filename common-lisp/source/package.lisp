@@ -7,13 +7,19 @@
    :product-name
    :special-offer-type
    :product-unit
+   :each
+   :kilo
    :shopping-cart
    :add-item-quantity
    :teller
    :add-special-offer
    :checks-out-articles-from
+   :discount
+   :receipt
    :receipt-items
    :receipt-discounts
+   :add-product-to-receipt
+   :add-discount
    :ten-percent-discount
    :three-for-two
    :two-for-amount
@@ -27,4 +33,6 @@
    :catalog-products
    :catalog-prices
    :add-product-to-catalog
-   :unit-price))
+   :unit-price
+   :receipt-printer
+   :print-receipt))
