@@ -2,13 +2,15 @@
 
 (in-package :supermarket-receipt)
 
+(deftype product-unit () '(member each kilo))
+
 (defclass product ()
         ((name :initarg :name
                :type string
                :accessor product-name)
          (unit :initarg :unit
                :type product-unit
-               :accessor product-unit)))
+               :accessor the-product-unit)))
 
 (defclass product-quantity ()
         ((product :initarg :product
@@ -17,8 +19,6 @@
          (quantity :initarg :quantity
                    :type single-float
                    :accessor quantity)))
-
-(deftype product-unit () '(member each kilo))
 
 (deftype special-offer-type () '(member three-for-two ten-percent-discount two-for-amount five-for-amount))
 
