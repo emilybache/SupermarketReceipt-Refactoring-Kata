@@ -1,7 +1,6 @@
 #ifndef CPP_TELLER_H
 #define CPP_TELLER_H
 
-
 #include <map>
 #include "SupermarketCatalog.h"
 #include "Offer.h"
