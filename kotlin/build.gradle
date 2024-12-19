@@ -3,7 +3,7 @@ plugins {
 }
 
 ext {
-    junitVersion = "5.4.0"
+    junitVersion = "5.11.4"
 }
 
 group 'org.codingdojo'
@@ -18,8 +18,8 @@ test {
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
 kotlin {
