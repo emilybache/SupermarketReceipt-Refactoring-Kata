@@ -1,3 +1,5 @@
+using System;
+
 namespace SupermarketReceipt
 {
     public enum SpecialOfferType
@@ -10,16 +12,17 @@ namespace SupermarketReceipt
 
     public class Offer
     {
-        private Product _product;
-
         public Offer(SpecialOfferType offerType, Product product, double argument)
         {
             OfferType = offerType;
-            Argument = argument;
-            _product = product;
+            Product = product ?? throw new ArgumentNullException(nameof(product), "Product cannot be null.");
+            Argument = argument < 0
+                ? throw new ArgumentException("Argument must be non-negative.", nameof(argument))
+                : argument;
         }
 
         public SpecialOfferType OfferType { get; }
+        public Product Product { get; }
         public double Argument { get; }
     }
 }
