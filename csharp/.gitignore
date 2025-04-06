@@ -3,3 +3,5 @@ bin
 obj
 packages
 *.sln.DotSettings.user
+/Coverage/
+*/TestResults/

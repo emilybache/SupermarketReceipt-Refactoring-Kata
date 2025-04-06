@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt", "SupermarketReceipt\SupermarketReceipt.csproj", "{B384010A-E2A8-4720-A622-DC49A1CC76D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupermarketReceipt", "SupermarketReceipt\SupermarketReceipt.csproj", "{B384010A-E2A8-4720-A622-DC49A1CC76D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt.Test", "SupermarketReceipt.Test\SupermarketReceipt.Test.csproj", "{B8789108-5351-4785-836A-6E00C6AF3596}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SupermarketReceipt.Test", "SupermarketReceipt.Test\SupermarketReceipt.Test.csproj", "{B8789108-5351-4785-836A-6E00C6AF3596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
