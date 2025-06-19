@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace SupermarketReceipt.Test
 {
@@ -26,14 +27,14 @@ namespace SupermarketReceipt.Test
             var receipt = teller.ChecksOutArticlesFrom(cart);
 
             // ASSERT
-            Assert.AreEqual(4.975, receipt.GetTotalPrice());
+            Assert.That(receipt.GetTotalPrice().Equals(4.975));
             CollectionAssert.IsEmpty(receipt.GetDiscounts());
-            Assert.AreEqual(1, receipt.GetItems().Count);
+            Assert.That(receipt.GetItems().Count.Equals(1));
             var receiptItem = receipt.GetItems()[0];
-            Assert.AreEqual(apples, receiptItem.Product);
-            Assert.AreEqual(1.99, receiptItem.Price);
-            Assert.AreEqual(2.5 * 1.99, receiptItem.TotalPrice);
-            Assert.AreEqual(2.5, receiptItem.Quantity);
+            Assert.That(receiptItem.Product.Equals(apples));
+            Assert.That(receiptItem.Price.Equals(1.99));
+            Assert.That(receiptItem.TotalPrice.Equals(2.5 * 1.99));
+            Assert.That(receiptItem.Quantity.Equals(2.5));
         }
     }
 }
