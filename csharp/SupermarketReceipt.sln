@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt", "SupermarketReceipt\SupermarketReceipt.csproj", "{B384010A-E2A8-4720-A622-DC49A1CC76D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt.Test", "SupermarketReceipt.Test\SupermarketReceipt.Test.csproj", "{B8789108-5351-4785-836A-6E00C6AF3596}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt.NUnit.Test", "SupermarketReceipt.NUnit.Test\SupermarketReceipt.NUnit.Test.csproj", "{B8789108-5351-4785-836A-6E00C6AF3596}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupermarketReceipt.XUnit.Test", "SupermarketReceipt.XUnit.Test\SupermarketReceipt.XUnit.Test.csproj", "{ABFE6348-27E7-4E92-8265-5B97FF660629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B8789108-5351-4785-836A-6E00C6AF3596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8789108-5351-4785-836A-6E00C6AF3596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8789108-5351-4785-836A-6E00C6AF3596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABFE6348-27E7-4E92-8265-5B97FF660629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABFE6348-27E7-4E92-8265-5B97FF660629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABFE6348-27E7-4E92-8265-5B97FF660629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABFE6348-27E7-4E92-8265-5B97FF660629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,7 @@ using NUnit;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 
-namespace SupermarketReceipt.Test
+namespace SupermarketReceipt.NUnit.Test
 {
     public class SupermarketNUnitTest
     {

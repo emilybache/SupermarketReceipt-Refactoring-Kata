@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Xunit;
+using Assert = Xunit.Assert;
 
-namespace SupermarketReceipt.Test
+namespace SupermarketReceipt.XUnit.Test
 {
     public class SupermarketXUnitTest
     {
