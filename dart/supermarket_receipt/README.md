@@ -25,5 +25,5 @@
 
 ## Display coverage in VS Code
 
-Open Command Palette (Ctrl + Shift + P), select Coverage Gutters: Display Coverage (Ctrl + Shift + 7)
-In user settings.json, add "coverage-gutters.showLineCoverage": true
+* Open Command Palette (Ctrl + Shift + P), select Coverage Gutters: Display Coverage (Ctrl + Shift + 7)
+* In user settings.json, add "coverage-gutters.showLineCoverage": true
