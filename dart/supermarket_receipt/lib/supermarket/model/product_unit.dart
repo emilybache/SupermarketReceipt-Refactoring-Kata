@@ -1,0 +1,4 @@
+enum ProductUnit {
+  KILO,
+  EACH
+}
