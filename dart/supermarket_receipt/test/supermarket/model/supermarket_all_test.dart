@@ -6,6 +6,7 @@ import 'package:supermarket_receipt/supermarket/model/shopping_cart.dart';
 import 'package:supermarket_receipt/supermarket/model/special_offer_type.dart';
 import 'package:supermarket_receipt/supermarket/model/supermarket_catalog.dart';
 import 'package:supermarket_receipt/supermarket/model/teller.dart';
+import 'package:supermarket_receipt/supermarket/receipt_printer.dart';
 import 'package:test/test.dart';
 
 import '../fake_katalog.dart';
@@ -203,4 +204,11 @@ void main() {
       printReceipt('noDiscount', receipt);
     });
   });
+}
+
+void printReceipt(String name, Receipt receipt) {
+    ReceiptPrinter receiptPrinter = ReceiptPrinter();
+    String receiptPresentation = receiptPrinter.printReceipt(receipt);
+    print(name);
+    print(receiptPresentation);
 }

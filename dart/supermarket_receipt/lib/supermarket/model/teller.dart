@@ -5,7 +5,6 @@ import 'package:supermarket_receipt/supermarket/model/receipt.dart';
 import 'package:supermarket_receipt/supermarket/model/shopping_cart.dart';
 import 'package:supermarket_receipt/supermarket/model/special_offer_type.dart';
 import 'package:supermarket_receipt/supermarket/model/supermarket_catalog.dart';
-import 'package:supermarket_receipt/supermarket/receipt_printer.dart';
 
 class Teller {
 
@@ -32,11 +31,4 @@ class Teller {
 
     return receipt;
   }
-}
-
-void printReceipt(String name, Receipt receipt) {
-    ReceiptPrinter receiptPrinter = ReceiptPrinter();
-    String receiptPresentation = receiptPrinter.printReceipt(receipt);
-    print(name);
-    print(receiptPresentation);
 }
