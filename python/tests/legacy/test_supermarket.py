@@ -1,9 +1,9 @@
 import pytest
 
-from ..model_objects import Product, ProductUnit, SpecialOfferType
-from ..shopping_cart import ShoppingCart
-from ..teller import Teller
-from .fake_catalog import FakeCatalog
+from python.domain.model_objects import Product, ProductUnit, SpecialOfferType
+from python.shopping_cart import ShoppingCart
+from python.teller import Teller
+from python.tests.fake_catalog import FakeCatalog
 
 
 class TestSupermarketBasicFunctionality:

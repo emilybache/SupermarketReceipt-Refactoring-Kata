@@ -1,12 +1,12 @@
-from ..model_objects import (
+from python.domain.model_objects import (
     Product,
     SpecialOfferType,
     ProductUnit
 )
-from ..receipt_printer import ReceiptPrinter
-from ..shopping_cart import ShoppingCart
-from ..teller import Teller
-from .fake_catalog import FakeCatalog
+from python.infrastructure.receipt_printer import ReceiptPrinter
+from python.shopping_cart import ShoppingCart
+from python.teller import Teller
+from python.tests.fake_catalog import FakeCatalog
 
 
 class TestReceiptPrinter:

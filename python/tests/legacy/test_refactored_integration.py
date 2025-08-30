@@ -1,8 +1,8 @@
 import pytest
-from ..model_objects import Product, SpecialOfferType, ProductUnit
-from ..shopping_cart import ShoppingCart
-from ..teller import Teller
-from ..tests.fake_catalog import FakeCatalog
+from python.domain.model_objects import Product, SpecialOfferType, ProductUnit
+from python.shopping_cart import ShoppingCart
+from python.teller import Teller
+from python.tests.fake_catalog import FakeCatalog
 
 
 class TestRefactoredSupermarket:
