@@ -1,4 +1,3 @@
-
 class SupermarketCatalog:
 
     def add_product(self, product, price):
