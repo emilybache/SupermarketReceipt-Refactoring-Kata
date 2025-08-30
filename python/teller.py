@@ -1,36 +1,70 @@
-from .model_objects import Offer
-from .receipt import Receipt
+from python.services.checkout_service import CheckoutService
 
 
 class Teller:
-    """Handles the checkout process"""
+    """
+    Handles the checkout process at the point of sale.
+
+    This class serves as a facade for the checkout process,
+    delegating the actual business logic to the CheckoutService.
+    """
 
     def __init__(self, catalog):
-        self.catalog = catalog
-        self.offers = {}
+        self.checkout_service = CheckoutService(catalog)
 
     def add_special_offer(self, offer_type, product, argument):
-        """Add a special offer for a product"""
-        self.offers[product] = Offer(offer_type, product, argument)
+        """
+        Add a special offer for a product.
+
+        Args:
+            offer_type: SpecialOfferType enum value
+            product: Product to apply the offer to
+            argument: Offer-specific argument (percentage, amount, etc.)
+        """
+        self.checkout_service.add_special_offer(offer_type, product, argument)
+
+    def remove_special_offer(self, product):
+        """
+        Remove special offer for a product.
+
+        Args:
+            product: Product to remove offer from
+        """
+        self.checkout_service.remove_special_offer(product)
+
+    def get_special_offers(self):
+        """Get all current special offers"""
+        return self.checkout_service.get_special_offers()
 
     def checks_out_articles_from(self, shopping_cart):
-        """Process checkout for items in the shopping cart"""
-        receipt = Receipt()
+        """
+        Process checkout for items in the shopping cart.
 
-        # Add all items to receipt
-        self._add_items_to_receipt(receipt, shopping_cart.items)
+        This is the main method that processes a shopping cart
+        and returns a receipt with all items and applicable discounts.
 
-        # Apply discounts
-        shopping_cart.apply_discounts(receipt, self.offers, self.catalog)
+        Args:
+            shopping_cart: ShoppingCart object containing items to purchase
 
-        return receipt
+        Returns:
+            Receipt object with all items, discounts, and total
+        """
+        return self.checkout_service.checkout(shopping_cart)
 
-    def _add_items_to_receipt(self, receipt, items):
-        """Add all items from cart to receipt with prices"""
-        for product_quantity in items:
-            product = product_quantity.product
-            quantity = product_quantity.quantity
-            unit_price = self.catalog.unit_price(product)
-            total_price = quantity * unit_price
+    def calculate_total_before_discounts(self, shopping_cart):
+        """
+        Calculate total price before any discounts are applied.
 
-            receipt.add_product(product, quantity, unit_price, total_price)
+        Useful for showing customers how much they're saving.
+
+        Args:
+            shopping_cart: ShoppingCart object
+
+        Returns:
+            float: Total price before discounts
+        """
+        return self.checkout_service.calculate_total_before_discounts(shopping_cart)
+
+    def get_available_discount_types(self):
+        """Get list of all available discount types"""
+        return self.checkout_service.get_available_discount_types()
