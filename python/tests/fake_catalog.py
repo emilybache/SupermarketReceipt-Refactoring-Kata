@@ -1,4 +1,4 @@
-from ..catalog import SupermarketCatalog
+from python.domain.catalog import SupermarketCatalog
 
 
 class FakeCatalog(SupermarketCatalog):
