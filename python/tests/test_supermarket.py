@@ -1,32 +1,82 @@
 import pytest
 
-from model_objects import Product, SpecialOfferType, ProductUnit
-from shopping_cart import ShoppingCart
-from teller import Teller
-from tests.fake_catalog import FakeCatalog
+from ..model_objects import Product, ProductUnit, SpecialOfferType
+from ..shopping_cart import ShoppingCart
+from ..teller import Teller
+from .fake_catalog import FakeCatalog
 
 
-def test_ten_percent_discount():
-    catalog = FakeCatalog()
-    toothbrush = Product("toothbrush", ProductUnit.EACH)
-    catalog.add_product(toothbrush, 0.99)
+class TestSupermarketBasicFunctionality:
+    """Test basic supermarket functionality without discounts"""
 
-    apples = Product("apples", ProductUnit.KILO)
-    catalog.add_product(apples, 1.99)
+    def setup_method(self):
+        self.catalog = FakeCatalog()
+        self.teller = Teller(self.catalog)
 
-    teller = Teller(catalog)
-    teller.add_special_offer(SpecialOfferType.TEN_PERCENT_DISCOUNT, toothbrush, 10.0)
+        # Setup common products
+        self.toothbrush = Product("toothbrush", ProductUnit.EACH)
+        self.apples = Product("apples", ProductUnit.KILO)
+        self.rice = Product("rice", ProductUnit.EACH)
+        self.toothpaste = Product("toothpaste", ProductUnit.EACH)
+        self.cherry_tomatoes = Product("cherry tomatoes", ProductUnit.EACH)
 
-    cart = ShoppingCart()
-    cart.add_item_quantity(apples, 2.5)
+        self.catalog.add_product(self.toothbrush, 0.99)
+        self.catalog.add_product(self.apples, 1.99)
+        self.catalog.add_product(self.rice, 2.49)
+        self.catalog.add_product(self.toothpaste, 1.79)
+        self.catalog.add_product(self.cherry_tomatoes, 0.69)
 
-    receipt = teller.checks_out_articles_from(cart)
+    def test_empty_cart(self):
+        cart = ShoppingCart()
+        receipt = self.teller.checks_out_articles_from(cart)
 
-    assert 4.975 == pytest.approx(receipt.total_price(), 0.01)
-    assert [] == receipt.discounts
-    assert 1 == len(receipt.items)
-    receipt_item = receipt.items[0]
-    assert apples == receipt_item.product
-    assert 1.99 == receipt_item.price
-    assert 2.5 * 1.99 == pytest.approx(receipt_item.total_price, 0.01)
-    assert 2.5 == receipt_item.quantity
+        assert receipt.total_price() == 0
+        assert len(receipt.items) == 0
+        assert len(receipt.discounts) == 0
+
+    def test_single_item_each_unit(self):
+        cart = ShoppingCart()
+        cart.add_item(self.toothbrush)
+        receipt = self.teller.checks_out_articles_from(cart)
+
+        assert receipt.total_price() == 0.99
+        assert len(receipt.items) == 1
+        assert receipt.items[0].product == self.toothbrush
+        assert receipt.items[0].quantity == 1.0
+        assert receipt.items[0].price == 0.99
+        assert receipt.items[0].total_price == 0.99
+
+    def test_single_item_kilo_unit(self):
+        cart = ShoppingCart()
+        cart.add_item_quantity(self.apples, 2.5)
+        receipt = self.teller.checks_out_articles_from(cart)
+
+        assert receipt.total_price() == pytest.approx(4.975, 0.01)
+        assert len(receipt.items) == 1
+        assert receipt.items[0].product == self.apples
+        assert receipt.items[0].quantity == 2.5
+        assert receipt.items[0].price == 1.99
+
+    def test_multiple_different_items(self):
+        cart = ShoppingCart()
+        cart.add_item(self.toothbrush)
+        cart.add_item_quantity(self.apples, 1.5)
+        cart.add_item(self.toothpaste)
+
+        receipt = self.teller.checks_out_articles_from(cart)
+
+        expected_total = 0.99 + (1.5 * 1.99) + 1.79
+        assert receipt.total_price() == pytest.approx(expected_total, 0.01)
+        assert len(receipt.items) == 3
+
+    def test_multiple_same_items(self):
+        cart = ShoppingCart()
+        cart.add_item(self.toothbrush)
+        cart.add_item(self.toothbrush)
+        cart.add_item(self.toothbrush)
+
+        receipt = self.teller.checks_out_articles_from(cart)
+
+        # Should have 3 separate line items
+        assert len(receipt.items) == 3
+        assert receipt.total_price() == pytest.approx(2.97, 0.01)
