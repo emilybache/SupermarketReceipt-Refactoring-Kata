@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import math
-from .model_objects import Discount, SpecialOfferType
+from python.domain.model_objects import Discount, SpecialOfferType
 
 
 class DiscountStrategy(ABC):

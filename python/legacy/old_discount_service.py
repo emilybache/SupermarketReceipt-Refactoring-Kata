@@ -1,4 +1,4 @@
-from .discount_strategies import DiscountStrategyFactory
+from python.legacy.old_discount_strategies import DiscountStrategyFactory
 
 
 class DiscountService:
