@@ -1,10 +1,11 @@
-from model_objects import ProductUnit
+from .model_objects import ProductUnit
+
 
 class ReceiptPrinter:
 
     def __init__(self, columns=40):
         self.columns = columns
-  
+
     def print_receipt(self, receipt):
         result = ""
         for item in receipt.items:
