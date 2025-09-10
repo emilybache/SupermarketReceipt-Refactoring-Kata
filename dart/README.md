@@ -5,17 +5,17 @@
 * Get Dart SDK from https://dart.dev/get-dart
 * Install (unpack, set environment variable)
 * When using in VSCode, install the Dart extension (dartcode.org)
-* In VSCode, open the project directory: supermarket\_receipt
+* In VSCode, open the project directory: dart
 
 ## Run test in console
 
-* `cd supermarket_receipt`
+* `cd dart`
 * `dart run test` or `dart run test/supermarket/model/supermarket_test.dart`
 
 ## Run with coverage
 
 * In VSCode, install the extension Coverage Gutters
-* `cd supermarket_receipt`
+* `cd dart`
 * `dart run coverage:test_with_coverage`
 
 ## Run one single test with coverage
