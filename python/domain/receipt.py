@@ -1,4 +1,3 @@
-
 class ReceiptItem:
     def __init__(self, product, quantity, price, total_price):
         self.product = product

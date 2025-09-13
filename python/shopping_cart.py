@@ -1,68 +1,79 @@
-import math
-
-from model_objects import ProductQuantity, SpecialOfferType, Discount
+from python.domain.model_objects import ProductQuantity
 
 
 class ShoppingCart:
+    """
+    Represents a shopping cart containing items to be purchased.
+
+    This class is responsible for:
+    - Managing items in the cart
+    - Providing access to cart contents
+    - Basic validation of cart operations
+    """
 
     def __init__(self):
         self._items = []
-        self._product_quantities = {}
 
     @property
     def items(self):
-        return self._items
+        """Get list of all items in the cart as ProductQuantity objects"""
+        return self._items[:]
 
     def add_item(self, product):
+        """
+        Add a single item to the cart.
+
+        Args:
+            product: Product to add
+        """
         self.add_item_quantity(product, 1.0)
 
-    @property
-    def product_quantities(self):
-        return self._product_quantities
-
     def add_item_quantity(self, product, quantity):
+        """
+        Add a product with specified quantity to the cart.
+
+        Args:
+            product: Product to add
+            quantity: Quantity of the product
+
+        Raises:
+            ValueError: If quantity is negative or product is None
+        """
+        if product is None:
+            raise ValueError("Product cannot be None")
+
+        if quantity < 0:
+            raise ValueError("Quantity cannot be negative")
+
+        # Allow zero quantity for edge cases, but validate it's not negative
         self._items.append(ProductQuantity(product, quantity))
-        if product in self._product_quantities.keys():
-            self._product_quantities[product] = self._product_quantities[product] + quantity
-        else:
-            self._product_quantities[product] = quantity
 
-    def handle_offers(self, receipt, offers, catalog):
-        for p in self._product_quantities.keys():
-            quantity = self._product_quantities[p]
-            if p in offers.keys():
-                offer = offers[p]
-                unit_price = catalog.unit_price(p)
-                quantity_as_int = int(quantity)
-                discount = None
-                x = 1
-                if offer.offer_type == SpecialOfferType.THREE_FOR_TWO:
-                    x = 3
+    def remove_item(self, product):
+        """
+        Remove all instances of a product from the cart.
 
-                elif offer.offer_type == SpecialOfferType.TWO_FOR_AMOUNT:
-                    x = 2
-                    if quantity_as_int >= 2:
-                        total = offer.argument * (quantity_as_int / x) + quantity_as_int % 2 * unit_price
-                        discount_n = unit_price * quantity - total
-                        discount = Discount(p, "2 for " + str(offer.argument), -discount_n)
+        Args:
+            product: Product to remove
 
-                if offer.offer_type == SpecialOfferType.FIVE_FOR_AMOUNT:
-                    x = 5
+        Returns:
+            int: Number of items removed
+        """
+        initial_count = len(self._items)
+        self._items = [item for item in self._items if item.product != product]
+        return initial_count - len(self._items)
 
-                number_of_x = math.floor(quantity_as_int / x)
-                if offer.offer_type == SpecialOfferType.THREE_FOR_TWO and quantity_as_int > 2:
-                    discount_amount = quantity * unit_price - (
-                                (number_of_x * 2 * unit_price) + quantity_as_int % 3 * unit_price)
-                    discount = Discount(p, "3 for 2", -discount_amount)
+    def clear(self):
+        """Remove all items from the cart"""
+        self._items.clear()
 
-                if offer.offer_type == SpecialOfferType.TEN_PERCENT_DISCOUNT:
-                    discount = Discount(p, str(offer.argument) + "% off",
-                                        -quantity * unit_price * offer.argument / 100.0)
+    def is_empty(self):
+        """Check if the cart is empty"""
+        return len(self._items) == 0
 
-                if offer.offer_type == SpecialOfferType.FIVE_FOR_AMOUNT and quantity_as_int >= 5:
-                    discount_total = unit_price * quantity - (
-                                offer.argument * number_of_x + quantity_as_int % 5 * unit_price)
-                    discount = Discount(p, str(x) + " for " + str(offer.argument), -discount_total)
+    def get_item_count(self):
+        """Get total number of line items in the cart"""
+        return len(self._items)
 
-                if discount:
-                    receipt.add_discount(discount)
+    def get_products(self):
+        """Get set of unique products in the cart"""
+        return set(item.product for item in self._items)
