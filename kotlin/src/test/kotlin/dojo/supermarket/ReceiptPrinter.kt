@@ -1,19 +1,19 @@
-package supermarket
+package dojo.supermarket
 
 import supermarket.model.ProductUnit
 import supermarket.model.Receipt
 import supermarket.model.ReceiptItem
-import java.util.*
+import java.util.Locale
 
 class ReceiptPrinter @JvmOverloads constructor(private val columns: Int = 40) {
 
     fun printReceipt(receipt: Receipt): String {
         val result = StringBuilder()
         for (item in receipt.getItems()) {
-            val price = String.format(Locale.UK, "%.2f", item.totalPrice)
+            val price = String.Companion.format(Locale.UK, "%.2f", item.totalPrice)
             val quantity = presentQuantity(item)
             val name = item.product.name
-            val unitPrice = String.format(Locale.UK, "%.2f", item.price)
+            val unitPrice = String.Companion.format(Locale.UK, "%.2f", item.price)
 
             val whitespaceSize = this.columns - name.length - price.length
             var line = name + getWhitespace(whitespaceSize) + price + "\n"
@@ -25,7 +25,7 @@ class ReceiptPrinter @JvmOverloads constructor(private val columns: Int = 40) {
         }
         for (discount in receipt.getDiscounts()) {
             val productPresentation = discount.product.name
-            val pricePresentation = String.format(Locale.UK, "%.2f", discount.discountAmount)
+            val pricePresentation = String.Companion.format(Locale.UK, "%.2f", discount.discountAmount)
             val description = discount.description
             result.append(description)
             result.append("(")
@@ -37,7 +37,7 @@ class ReceiptPrinter @JvmOverloads constructor(private val columns: Int = 40) {
             result.append("\n")
         }
         result.append("\n")
-        val pricePresentation = String.format(Locale.UK, "%.2f", receipt.totalPrice as Double)
+        val pricePresentation = String.Companion.format(Locale.UK, "%.2f", receipt.totalPrice as Double)
         val total = "Total: "
         val whitespace = getWhitespace(this.columns - total.length - pricePresentation.length)
         result.append(total).append(whitespace).append(pricePresentation)
@@ -48,7 +48,7 @@ class ReceiptPrinter @JvmOverloads constructor(private val columns: Int = 40) {
         return if (ProductUnit.Each.equals(item.product.unit))
             String.format("%x", item.quantity.toInt())
         else
-            String.format(Locale.UK, "%.3f", item.quantity)
+            String.Companion.format(Locale.UK, "%.3f", item.quantity)
     }
 
     private fun getWhitespace(whitespaceSize: Int): String {

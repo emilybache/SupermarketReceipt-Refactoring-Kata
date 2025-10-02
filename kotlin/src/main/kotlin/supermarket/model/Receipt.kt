@@ -6,7 +6,7 @@ class Receipt {
     private val items = ArrayList<ReceiptItem>()
     private val discounts = ArrayList<Discount>()
 
-    val totalPrice: Double?
+    val totalPrice: Double
         get() {
             var total = 0.0
             for (item in this.items) {
