@@ -4,6 +4,8 @@ import {Receipt} from "./model/Receipt"
 
 export class ReceiptPrinter {
 
+    private readonly EOL = process.platform === "win32" ? "\r\n" : "\n";
+
     public constructor(private readonly columns: number = 40) {
     }
 
@@ -16,10 +18,10 @@ export class ReceiptPrinter {
             let unitPrice = this.format2Decimals(item.price);
 
             let whitespaceSize = this.columns - name.length - price.length;
-            let line = name + ReceiptPrinter.getWhitespace(whitespaceSize) + price + "\n";
+            let line = name + ReceiptPrinter.getWhitespace(whitespaceSize) + price + this.EOL;
 
             if (item.quantity != 1) {
-                line += "  " + unitPrice + " * " + quantity + "\n";
+                line += "  " + unitPrice + " * " + quantity + this.EOL;
             }
             result += line;
         }
@@ -34,9 +36,9 @@ export class ReceiptPrinter {
             result += ReceiptPrinter.getWhitespace(this.columns - 3 - productPresentation.length - description.length - pricePresentation.length);
             result += "-";
             result += pricePresentation;
-            result += "\n";
+            result += this.EOL;
         }
-        result += "\n";
+        result += this.EOL;
         let pricePresentation = this.format2Decimals(receipt.getTotalPrice());
         let total = "Total: ";
         let whitespace = ReceiptPrinter.getWhitespace(this.columns - total.length - pricePresentation.length);
