@@ -1,4 +1,2 @@
 approvaltests
 python-dateutil
-pytest-approvaltests
-
