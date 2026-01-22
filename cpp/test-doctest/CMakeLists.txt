@@ -13,7 +13,7 @@ FetchContent_MakeAvailable(DocTest)
 FetchContent_Declare(
         ApprovalTests
         GIT_REPOSITORY https://github.com/approvals/ApprovalTests.cpp
-        GIT_TAG        v.10.12.2)
+        GIT_TAG        v.10.13.0)
 FetchContent_MakeAvailable(ApprovalTests)
 
 add_executable(${TEST_NAME})
