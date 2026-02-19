@@ -2,36 +2,30 @@ package dojo.supermarket.model;
 
 import dojo.supermarket.ReceiptPrinter;
 import org.approvaltests.Approvals;
-import org.approvaltests.reporters.JunitReporter;
-import org.approvaltests.reporters.UseReporter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SupermarketTest {
-    private SupermarketCatalog catalog;
-    private Teller teller;
-    private ShoppingCart theCart;
-    private Product toothbrush;
-    private Product rice;
-    private Product apples;
-    private Product cherryTomatoes;
+    private SupermarketCatalog catalog = new FakeCatalog();
+    private Teller teller = new Teller(catalog);
+    private ShoppingCart theCart = new ShoppingCart();
+    private Product toothbrush = new Product("toothbrush", ProductUnit.Each);
+    private Product rice = new Product("rice", ProductUnit.Each);
+    private Product apples = withQuantityType(new Product("apples", ProductUnit.Kilo), " KG");
+
+    private Product withQuantityType(Product  product, String quantityType) {
+        product.setQuantityType(quantityType);
+        return product;
+    }
+
+    private Product cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
 
     @BeforeEach
     public void setUp() {
-        catalog = new FakeCatalog();
-        teller = new Teller(catalog);
-        theCart = new ShoppingCart();
-
-        toothbrush = new Product("toothbrush", ProductUnit.Each);
         catalog.addProduct(toothbrush, 0.99);
-        rice = new Product("rice", ProductUnit.Each);
         catalog.addProduct(rice, 2.99);
-        apples = new Product("apples", ProductUnit.Kilo);
-        apples.setQuantityType(" KG");
         catalog.addProduct(apples, 1.99);
-        cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
         catalog.addProduct(cherryTomatoes, 0.69);
-
     }
 
     @Test
