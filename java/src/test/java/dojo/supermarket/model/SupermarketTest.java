@@ -7,19 +7,18 @@ import org.junit.jupiter.api.Test;
 
 class SupermarketTest {
 
-    private SupermarketCatalog catalog = new FakeCatalog();
-    private Teller teller = new Teller(catalog);
-    private ShoppingCart theCart = new ShoppingCart();
-    private Product toothbrush = new Product("toothbrush", ProductUnit.Each);
-    private Product rice = new Product("rice", ProductUnit.Each);
-    private Product apples = withQuantityType(new Product("apples", ProductUnit.Kilo), " KG");
+    private final SupermarketCatalog catalog = new FakeCatalog();
+    private final Teller teller = new Teller(catalog);
+    private final ShoppingCart theCart = new ShoppingCart();
+    private final Product toothbrush = new Product("toothbrush", ProductUnit.Each);
+    private final Product rice = new Product("rice", ProductUnit.Each);
+    private final Product apples = withQuantityType(new Product("apples", ProductUnit.Kilo), " KG");
+    private final Product cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
 
-    private Product withQuantityType(Product  product, String quantityType) {
+    private static Product withQuantityType(Product  product, String quantityType) {
         product.setQuantityType(quantityType);
         return product;
     }
-
-    private Product cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
 
     @BeforeEach
     void setUp() {
