@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 public class ReceiptPrinterTest {
 
-    Product toothbrush = new Product("toothbrush", ProductUnit.Each);
-    Product apples = new Product("apples", ProductUnit.Kilo);
+    Product toothbrush = new Product("toothbrush", ProductUnit.EACH);
+    Product apples = new Product("apples", ProductUnit.KILO);
     Receipt receipt = new Receipt();
 
     @Test
