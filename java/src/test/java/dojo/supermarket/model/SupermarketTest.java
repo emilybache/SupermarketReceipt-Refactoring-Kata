@@ -10,10 +10,10 @@ class SupermarketTest {
     private final SupermarketCatalog catalog = new FakeCatalog();
     private final Teller teller = new Teller(catalog);
     private final ShoppingCart theCart = new ShoppingCart();
-    private final Product toothbrush = new Product("toothbrush", ProductUnit.Each);
-    private final Product rice = new Product("rice", ProductUnit.Each);
-    private final Product apples = new Product("apples", ProductUnit.Kilo);
-    private final Product cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
+    private final Product toothbrush = new Product("toothbrush", ProductUnit.EACH);
+    private final Product rice = new Product("rice", ProductUnit.EACH);
+    private final Product apples = new Product("apples", ProductUnit.KILO);
+    private final Product cherryTomatoes = new Product("cherry tomato box", ProductUnit.EACH);
 
     @BeforeEach
     void setUp() {
