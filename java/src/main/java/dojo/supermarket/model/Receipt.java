@@ -10,14 +10,8 @@ public class Receipt {
     private final List<Discount> discounts = new ArrayList<>();
 
     public double getTotalPrice() {
-        double total = 0.0;
-        for (ReceiptItem item : items) {
-            total += item.getTotalPrice();
-        }
-        for (Discount discount : discounts) {
-            total += discount.getDiscountAmount();
-        }
-        return total;
+        return items.stream().mapToDouble(ReceiptItem::totalPrice).sum() //
+                + discounts.stream().mapToDouble(Discount::discountAmount).sum();
     }
 
     public void addProduct(Product p, double quantity, double price, double totalPrice) {
