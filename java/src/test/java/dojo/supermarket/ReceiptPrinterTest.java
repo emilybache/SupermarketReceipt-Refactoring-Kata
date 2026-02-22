@@ -6,7 +6,7 @@ import org.approvaltests.core.Options;
 import org.approvaltests.scrubbers.RegExScrubber;
 import org.junit.jupiter.api.Test;
 
-class ReceiptPrinterTest {
+public class ReceiptPrinterTest {
 
     private final Product toothbrush = new Product("toothbrush", ProductUnit.EACH);
     private final Product apples = new Product("apples", ProductUnit.KILO);
