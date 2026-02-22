@@ -4,18 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Receipt {
-    private List<ReceiptItem> items = new ArrayList<>();
-    private List<Discount> discounts = new ArrayList<>();
+    private final List<ReceiptItem> items = new ArrayList<>();
+    private final List<Discount> discounts = new ArrayList<>();
 
     public Double getTotalPrice() {
-        double total = 0.0;
-        for (ReceiptItem item : this.items) {
-            total += item.getTotalPrice();
-        }
-        for (Discount discount : this.discounts) {
-            total += discount.getDiscountAmount();
-        }
-        return total;
+        return this.items.stream().mapToDouble(ReceiptItem::totalPrice).sum()
+                + this.discounts.stream().mapToDouble(Discount::discountAmount).sum();
     }
 
     public void addProduct(Product p, double quantity, double price, double totalPrice) {
