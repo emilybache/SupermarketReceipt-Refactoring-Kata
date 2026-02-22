@@ -21,8 +21,8 @@ public class Teller {
         Receipt receipt = new Receipt();
         List<ProductQuantity> productQuantities = theCart.getItems();
         for (ProductQuantity pq: productQuantities) {
-            Product p = pq.getProduct();
-            double quantity = pq.getQuantity();
+            Product p = pq.product();
+            double quantity = pq.quantity();
             double unitPrice = this.catalog.getUnitPrice(p);
             double price = quantity * unitPrice;
             receipt.addProduct(p, quantity, unitPrice, price);

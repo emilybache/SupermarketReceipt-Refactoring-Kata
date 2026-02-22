@@ -10,6 +10,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     </properties>
 
 
