@@ -63,20 +63,20 @@ public class ReceiptPrinter {
     }
 
     private String presentReceiptItem(ReceiptItem item) {
-        String totalPricePresentation = presentPrice(item.getTotalPrice());
-        String name = item.getProduct().getName();
+        String totalPricePresentation = presentPrice(item.totalPrice());
+        String name = item.product().name();
 
         String line = formatLineWithWhitespace(name, totalPricePresentation);
 
-        if (item.getQuantity() != 1) {
-            line += "  " + presentPrice(item.getPrice()) + " * " + presentQuantity(item) + "\n";
+        if (item.quantity() != 1) {
+            line += "  " + presentPrice(item.price()) + " * " + presentQuantity(item) + "\n";
         }
         return line;
     }
 
     private String presentDiscount(Discount discount) {
-        String name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
-        String value = presentPrice(discount.getDiscountAmount());
+        String name = discount.description() + "(" + discount.product().name() + ")";
+        String value = presentPrice(discount.discountAmount());
 
         return formatLineWithWhitespace(name, value);
     }
@@ -91,9 +91,7 @@ public class ReceiptPrinter {
         StringBuilder line = new StringBuilder();
         line.append(name);
         int whitespaceSize = this.columns - name.length() - value.length();
-        for (int i = 0; i < whitespaceSize; i++) {
-            line.append(" ");
-        }
+        line.append(" ".repeat(Math.max(0, whitespaceSize)));
         line.append(value);
         line.append('\n');
         return line.toString();
@@ -104,9 +102,9 @@ public class ReceiptPrinter {
     }
 
     private static String presentQuantity(ReceiptItem item) {
-        return ProductUnit.EACH.equals(item.getProduct().getUnit())
-                ? String.format("%x%s", (int)item.getQuantity(), item.getQuantityType())
-                : String.format(Locale.UK, "%.3f%s", item.getQuantity(), item.getQuantityType());
+        return ProductUnit.EACH.equals(item.product().unit())
+                ? String.format("%x%s", (int)item.quantity(), item.getQuantityType())
+                : String.format(Locale.UK, "%.3f%s", item.quantity(), item.getQuantityType());
     }
 
 }
