@@ -6,11 +6,11 @@ import org.approvaltests.core.Options;
 import org.approvaltests.scrubbers.RegExScrubber;
 import org.junit.jupiter.api.Test;
 
-public class ReceiptPrinterTest {
+class ReceiptPrinterTest {
 
-    Product toothbrush = new Product("toothbrush", ProductUnit.EACH);
-    Product apples = new Product("apples", ProductUnit.KILO);
-    Receipt receipt = new Receipt();
+    private final Product toothbrush = new Product("toothbrush", ProductUnit.EACH);
+    private final Product apples = new Product("apples", ProductUnit.KILO);
+    private final Receipt receipt = new Receipt();
 
     public static void verifyReceipt(Receipt receipt) {
         String printedReceipt = new ReceiptPrinter(40).printReceipt(receipt);
@@ -19,25 +19,25 @@ public class ReceiptPrinterTest {
     }
 
     @Test
-    public void oneLineItem() {
+    void oneLineItem() {
         receipt.addProduct(toothbrush, 1, 0.99, 0.99);
         verifyReceipt(receipt);
     }
 
     @Test
-    public void quantityTwo() {
+    void quantityTwo() {
         receipt.addProduct(toothbrush, 2, 0.99,0.99 * 2);
         verifyReceipt(receipt);
     }
 
     @Test
-    public void looseWeight() {
+    void looseWeight() {
         receipt.addProduct(apples, 2.3, 1.99,1.99 * 2.3);
         verifyReceipt(receipt);
     }
 
     @Test
-    public void total() {
+    void total() {
 
         receipt.addProduct(toothbrush, 1, 0.99, 2*0.99);
         receipt.addProduct(apples, 0.75, 1.99, 1.99*0.75);
@@ -45,13 +45,13 @@ public class ReceiptPrinterTest {
     }
 
     @Test
-    public void discounts() {
+    void discounts() {
         receipt.addDiscount(new Discount(apples, "3 for 2", -0.99));
         verifyReceipt(receipt);
     }
 
     @Test
-    public void printWholeReceipt() {
+    void printWholeReceipt() {
         receipt.addProduct(toothbrush, 1, 0.99, 0.99);
         receipt.addProduct(toothbrush, 2, 0.99, 2*0.99);
         receipt.addProduct(apples, 0.75, 1.99, 1.99*0.75);
