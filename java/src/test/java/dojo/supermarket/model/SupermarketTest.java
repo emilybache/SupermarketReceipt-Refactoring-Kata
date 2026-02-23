@@ -8,12 +8,12 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SupermarketTest {
+class SupermarketTest {
 
     // Todo: test all kinds of discounts are applied properly
 
     @Test
-    public void tenPercentDiscount() {
+    void tenPercentDiscount() {
         SupermarketCatalog catalog = new FakeCatalog();
         Product toothbrush = new Product("toothbrush", ProductUnit.Each);
         catalog.addProduct(toothbrush, 0.99);
