@@ -1,4 +1,5 @@
-from model_objects import ProductUnit
+from ..entities.product import ProductUnit
+
 
 class ReceiptPrinter:
 

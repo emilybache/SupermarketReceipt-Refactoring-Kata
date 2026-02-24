@@ -1,12 +1,11 @@
-from domain import (
+from ..entities import (
     SpecialOfferType,
     ThreeForTwoOffer,
     TwoForAmountOffer,
     FiveForAmountOffer,
     TenPercentDiscountOffer,
     BundleOffer,
-    Receipt,
-    ShoppingCart
+    Receipt
 )
 
 
@@ -30,10 +29,13 @@ class Teller:
         if offer_class:
             self.offers[product] = offer_class(product, argument)
     
-    def add_bundle_offer(self, products, discount_percentage):
-        """Add a bundle offer for multiple products"""
-        bundle = BundleOffer(products, discount_percentage)
-        self.bundle_offers.append(bundle)
+    def add_offer(self, offer):
+        """Add any offer polymorphically"""
+        if isinstance(offer, BundleOffer):
+            self.bundle_offers.append(offer)
+        else:
+            # Regular offers are keyed by product
+            self.offers[offer.product] = offer
 
     def checks_out_articles_from(self, the_cart):
         receipt = Receipt()

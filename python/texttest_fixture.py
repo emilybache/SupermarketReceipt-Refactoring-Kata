@@ -7,11 +7,7 @@ texttest -a sr -d .
 import sys,csv
 from pathlib import Path
 
-from model_objects import Product, SpecialOfferType, ProductUnit
-from receipt_printer import ReceiptPrinter
-from shopping_cart import ShoppingCart
-from teller import Teller
-from tests.fake_catalog import FakeCatalog
+from domain import Product, SpecialOfferType, ProductUnit, ShoppingCart, ReceiptPrinter, Teller, FakeCatalog
 
 
 def read_catalog(catalog_file):

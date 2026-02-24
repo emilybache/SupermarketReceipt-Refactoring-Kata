@@ -1,4 +1,4 @@
-from domain import ProductQuantity
+from ..entities.product import ProductQuantity
 
 
 class ShoppingCart:

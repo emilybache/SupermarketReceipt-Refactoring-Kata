@@ -1,0 +1,85 @@
+1. Creating tests for covering all the features
+
+- Created 25 Comprehensive Test Cases covering:
+
+    - All 4 offer types (3-for-2, 2-for-amount, 5-for-amount, 10% discount)
+    - Bundle offers (6 test cases for the new feature)
+    - Edge cases and boundary conditions
+    - Multiple products with different offers
+    - Mixed scenarios (products with and without offers)
+    - Basic cart operations
+
+2. Identified and Fixed Code Smells:
+
+    - Long Method: Reduced handle_offers() from 42 lines to 8 lines (81% reduction)
+    - Feature Envy: Moved discount calculation logic into Offer classes
+    - Duplicate Code: Eliminated repeated calculation patterns
+    - Magic Numbers: Encapsulated in class names and logic
+    - Switch Statements: Replaced type checking with polymorphism
+    - Primitive Obsession: Improved with Pythonic idioms (dict.get(), generator expressions)
+
+3. Applied Design Patterns:
+
+    - Strategy Pattern: Polymorphic Offer classes (including BundleOffer)
+    - Template Method: Abstract base class with concrete implementations
+    - Factory Pattern: Teller creates appropriate offer instances
+    - Tell, Don't Ask: Objects perform operations rather than exposing data
+
+4. Refactored Code:
+    - Created abstract Offer base class
+    - Implemented 5 concrete offer classes: 
+        * ThreeForTwoOffer
+        * TwoForAmountOffer
+        * FiveForAmountOffer
+        * TenPercentDiscountOffer
+        * BundleOffer (new feature)
+    - Simplified ShoppingCart.handle_offers() to delegate to polymorphic offers
+    - Applied Pythonic improvements (dict.get(), sum with generators)
+    - Unified offer management with polymorphic add_offer() method
+
+5. Added New Bundle Offer Feature:
+    - Implemented BundleOffer class for discounting product bundles
+    - When buying all items in a bundle, customer gets percentage off total
+    - Only complete bundles are discounted
+    - Works with multiple bundles (e.g., buy 2 sets, get 2 discounts)
+    - Integrated seamlessly with existing offer system
+    - 6 comprehensive test cases covering all bundle scenarios
+
+6. Restructured Domain Folder Architecture:
+
+    Final structure:
+    domain/
+    ├── __init__.py
+    ├── entities/
+    │   ├── __init__.py
+    │   ├── product.py (Product, ProductUnit, ProductQuantity)
+    │   ├── special_offer_type.py (SpecialOfferType enum)
+    │   ├── discount.py (Discount)
+    │   ├── receipt.py (Receipt, ReceiptItem)
+    │   └── offers/
+    │       ├── __init__.py
+    │       ├── offer.py (Offer abstract base class)
+    │       ├── three_for_two_offer.py
+    │       ├── two_for_amount_offer.py
+    │       ├── five_for_amount_offer.py
+    │       ├── ten_percent_discount_offer.py
+    │       └── bundle_offer.py
+    └── infrastructure/
+        ├── __init__.py
+        ├── catalog.py (SupermarketCatalog)
+        ├── fake_catalog.py (FakeCatalog for testing)
+        ├── teller.py (Teller)
+        ├── shopping_cart.py (ShoppingCart)
+        └── receipt_printer.py (ReceiptPrinter)
+
+    Benefits:
+    - Clear separation of concerns (entities vs infrastructure)
+    - Domain entities isolated from infrastructure code
+    - Offers grouped as a cohesive subdomain
+    - Easy to navigate and maintain
+    - Follows Domain-Driven Design principles
+
+
+===========================================================================================================
+END OF REPORT
+===========================================================================================================

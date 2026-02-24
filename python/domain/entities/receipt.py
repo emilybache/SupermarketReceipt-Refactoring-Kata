@@ -13,12 +13,10 @@ class Receipt:
         self._discounts = []
 
     def total_price(self):
-        total = 0
-        for item in self.items:
-            total += item.total_price
-        for discount in self.discounts:
-            total += discount.discount_amount
-        return total
+        """Calculate total price including items and discounts"""
+        items_total = sum(item.total_price for item in self.items)
+        discounts_total = sum(discount.discount_amount for discount in self.discounts)
+        return items_total + discounts_total
 
     def add_product(self, product, quantity, price, total_price):
         self._items.append(ReceiptItem(product, quantity, price, total_price))
