@@ -1,24 +1,30 @@
+from .offer import Offer
 from ..discount import Discount
 
 
-class BundleOffer:
+class BundleOffer(Offer):
     """Bundle discount - buy all items in bundle, get percentage off total"""
+    
     def __init__(self, products, discount_percentage):
         self.products = products  # List of products in the bundle
         self.discount_percentage = discount_percentage
     
-    def calculate_discount(self, product_quantities, catalog):
+    def applies_to_product(self, product):
+        """Bundle offer applies to all products in the bundle"""
+        return product in self.products
+    
+    def calculate_discount(self, cart, catalog):
         """Calculate bundle discount based on complete bundles in cart.
         
         Args:
-            product_quantities: Dict[Product, float] - products and quantities in cart
+            cart: ShoppingCart - the shopping cart with product quantities
             catalog: SupermarketCatalog - to get unit prices
             
         Returns:
             Discount object or None if no complete bundle exists
         """
         # Find how many complete bundles we can make
-        complete_bundles = self._count_complete_bundles(product_quantities)
+        complete_bundles = self._count_complete_bundles(cart.product_quantities)
         
         if complete_bundles == 0:
             return None

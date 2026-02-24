@@ -23,19 +23,13 @@ class ShoppingCart:
         self._items.append(ProductQuantity(product, quantity))
         self._product_quantities[product] = self._product_quantities.get(product, 0) + quantity
 
-    def handle_offers(self, receipt, offers, bundle_offers, catalog):
-        """Apply offers to products in the cart"""
-        for product, quantity in self._product_quantities.items():
-            if product in offers:
-                offer = offers[product]
-                unit_price = catalog.unit_price(product)
-                discount = offer.calculate_discount(quantity, unit_price)
-                
-                if discount:
-                    receipt.add_discount(discount)
+    def handle_offers(self, receipt, offers, catalog):
+        """Apply all offers to products in the cart.
         
-        # Handle bundle offers
-        for bundle in bundle_offers:
-            discount = bundle.calculate_discount(self._product_quantities, catalog)
+        All offers are now treated uniformly through polymorphism.
+        Each offer knows how to calculate its own discount based on cart contents.
+        """
+        for offer in offers:
+            discount = offer.calculate_discount(self, catalog)
             if discount:
                 receipt.add_discount(discount)
