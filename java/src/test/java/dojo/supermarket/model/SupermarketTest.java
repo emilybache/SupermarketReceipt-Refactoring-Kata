@@ -33,7 +33,7 @@ class SupermarketTest {
         assertEquals(4.975, receipt.getTotalPrice(), 0.01);
         assertEquals(Collections.emptyList(), receipt.getDiscounts());
         assertEquals(1, receipt.getItems().size());
-        ReceiptItem receiptItem = receipt.getItems().getFirst();
+        ReceiptItem receiptItem = receipt.getItems().get(0);
         assertEquals(apples, receiptItem.product());
         assertEquals(1.99, receiptItem.price());
         assertEquals(2.5*1.99, receiptItem.totalPrice());
