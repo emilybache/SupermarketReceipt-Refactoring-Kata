@@ -10,5 +10,6 @@ This is just my notepad for setting priorities in the project backlog.
 - [x] Ensure initial build successful
 - [x] Ensure initial tests pass successfully
 - [x] Generate test coverage
+- [x] Organize files in test project
 - [ ] TBD...
 - [ ] Zip includes `.git`
