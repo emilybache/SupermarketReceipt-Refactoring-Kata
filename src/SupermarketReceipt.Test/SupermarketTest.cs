@@ -15,7 +15,7 @@ namespace SupermarketReceipt.Test
         private Product _rice;
         private Product _apples;
         private Product _cherryTomatoes;
-        
+
         public SupermarketTest()
         {
             _catalog = new FakeCatalog();
@@ -32,16 +32,16 @@ namespace SupermarketReceipt.Test
             _catalog.AddProduct(_cherryTomatoes, 0.69);
 
         }
-        
+
         [Fact]
-        public Task an_empty_shopping_cart_should_cost_nothing()
+        public Task AnEmptyShoppingCartShouldCostNothing()
         {
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
             return Verifier.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
         }
 
         [Fact]
-        public Task one_normal_item()
+        public Task OneNormalItem()
         {
             _theCart.AddItem(_toothbrush);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
@@ -49,7 +49,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task two_normal_items()
+        public Task TwoNormalItems()
         {
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_rice);
@@ -58,7 +58,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task buy_two_get_one_free()
+        public Task BuyTwoGetOneFree()
         {
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
@@ -69,7 +69,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task buy_five_get_one_free()
+        public Task BuyFiveGetOneFree()
         {
             _theCart.AddItem(_toothbrush);
             _theCart.AddItem(_toothbrush);
@@ -82,7 +82,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task loose_weight_product()
+        public Task LooseWeightProduct()
         {
             _theCart.AddItemQuantity(_apples, .5);
             Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
@@ -90,7 +90,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task percent_discount()
+        public Task PercentDiscount()
         {
             _theCart.AddItem(_rice);
             _teller.AddSpecialOffer(SpecialOfferType.TenPercentDiscount, _rice, 10.0);
@@ -99,7 +99,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task xForY_discount()
+        public Task XForYDiscount()
         {
             _theCart.AddItem(_cherryTomatoes);
             _theCart.AddItem(_cherryTomatoes);
@@ -109,7 +109,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task FiveForY_discount()
+        public Task FiveForYDiscount()
         {
             _theCart.AddItemQuantity(_apples, 5);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
@@ -118,7 +118,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task FiveForY_discount_withSix()
+        public Task FiveForYDiscountWithSix()
         {
             _theCart.AddItemQuantity(_apples, 6);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
@@ -127,7 +127,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task FiveForY_discount_withSixteen()
+        public Task FiveForYDiscountWithSixteen()
         {
             _theCart.AddItemQuantity(_apples, 16);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);
@@ -136,7 +136,7 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task FiveForY_discount_withFour()
+        public Task FiveForYDiscountWithFour()
         {
             _theCart.AddItemQuantity(_apples, 4);
             _teller.AddSpecialOffer(SpecialOfferType.FiveForAmount, _apples, 6.99);

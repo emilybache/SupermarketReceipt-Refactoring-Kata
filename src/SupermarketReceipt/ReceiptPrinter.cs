@@ -26,7 +26,7 @@ namespace SupermarketReceipt
             {
                 string receiptItem = PrintReceiptItem(item);
                 result.Append(receiptItem);
-                
+
             }
 
             foreach (var discount in receipt.GetDiscounts())
@@ -69,14 +69,15 @@ namespace SupermarketReceipt
 
             return line;
         }
-        
+
 
         private string FormatLineWithWhitespace(string name, string value)
         {
             var line = new StringBuilder();
             line.Append(name);
             int whitespaceSize = this._columns - name.Length - value.Length;
-            for (int i = 0; i < whitespaceSize; i++) {
+            for (int i = 0; i < whitespaceSize; i++)
+            {
                 line.Append(" ");
             }
             line.Append(value);
@@ -92,9 +93,9 @@ namespace SupermarketReceipt
         private static string PrintQuantity(ReceiptItem item)
         {
             return ProductUnit.Each == item.Product.Unit
-                ? ((int) item.Quantity).ToString()
+                ? ((int)item.Quantity).ToString()
                 : item.Quantity.ToString("N3", Culture);
         }
-        
+
     }
 }

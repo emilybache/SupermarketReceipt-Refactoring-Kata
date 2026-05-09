@@ -13,28 +13,28 @@ namespace SupermarketReceipt.Test
         Receipt _receipt = new Receipt();
 
         [Fact]
-        public Task oneLineItem()
+        public Task OneLineItem()
         {
             _receipt.AddProduct(_toothbrush, 1, 0.99, 0.99);
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
-        
+
         [Fact]
-        public Task quantityTwo()
+        public Task QuantityTwo()
         {
             _receipt.AddProduct(_toothbrush, 2, 0.99, 0.99 * 2);
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
-        
+
         [Fact]
-        public Task looseWeight()
+        public Task LooseWeight()
         {
             _receipt.AddProduct(_apples, 2.3, 1.99, 1.99 * 2.3);
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
 
         [Fact]
-        public Task total()
+        public Task Total()
         {
 
             _receipt.AddProduct(_toothbrush, 1, 0.99, 2 * 0.99);
@@ -43,14 +43,14 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
-        public Task discounts()
+        public Task Discounts()
         {
             _receipt.AddDiscount(new Discount(_apples, "3 for 2", 0.99));
             return Verifier.Verify(new ReceiptPrinter().PrintReceipt(_receipt));
         }
 
         [Fact]
-        public Task printWholeReceipt()
+        public Task PrintWholeReceipt()
         {
             _receipt.AddProduct(_toothbrush, 1, 0.99, 0.99);
             _receipt.AddProduct(_toothbrush, 2, 0.99, 2 * 0.99);

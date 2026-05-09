@@ -1,0 +1,1 @@
+dotnet format src\SupermarketReceipt.sln style --no-restore --severity warn
