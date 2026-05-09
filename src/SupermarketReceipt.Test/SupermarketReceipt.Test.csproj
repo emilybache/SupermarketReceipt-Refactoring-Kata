@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="coverlet.collector" Version="6.0.4">
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	    <PrivateAssets>all</PrivateAssets>
+	  </PackageReference>
 	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
 	  <PackageReference Include="NUnit" Version="3.13.3" />
 	  <PackageReference Include="Verify.NUnit" Version="19.14.1" />
