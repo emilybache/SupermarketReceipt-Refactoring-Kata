@@ -12,5 +12,6 @@ This is just my notepad for setting priorities in the project backlog.
 - [x] Generate test coverage
 - [x] Organize files in test project
 - [x] Fix 2 testing libraries
+- [x] Upgrade out of support .NET SDK and vulnerable dependencies
 - [ ] TBD...
 - [ ] Zip includes `.git`
