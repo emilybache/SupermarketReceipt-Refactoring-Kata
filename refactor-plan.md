@@ -1,4 +1,4 @@
-# Plan TODO:
+`# Plan TODO:
 
 ## Purpose
 
@@ -16,11 +16,6 @@ This is just my notepad for setting priorities in the project backlog.
 - [x] Adding new unit should be simpler - not checking where enum used\
 - [x] Product knows its unit price
 - [x] Adding SpecialOfferType is simpler
-- [ ] TBD...
+- [x] Redistribute files across folders/namespaces to make it more discoverable
+- [x] Renameimg
 - [ ] Zip includes `.git`
-
-
-## Ideas
-
-- Would be nice separetly tests concern of printing from calculating Offer with discounts ??
-- Change double to decimal for calculating monay
