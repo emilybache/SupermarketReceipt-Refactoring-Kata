@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace SupermarketReceipt;
 
@@ -7,12 +6,16 @@ public class ShoppingCart
 {
     private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
     private readonly Dictionary<Product, Quantity> _productQuantities = new Dictionary<Product, Quantity>();
-    private static readonly CultureInfo s_culture = CultureInfo.CreateSpecificCulture("en-GB");
 
 
     public List<ProductQuantity> GetItems()
     {
         return new List<ProductQuantity>(_items);
+    }
+
+    public Dictionary<Product, Quantity> GetProductQuantities()
+    {
+        return new Dictionary<Product, Quantity>(_productQuantities);
     }
 
     public void AddItem(Product product)
@@ -37,56 +40,4 @@ public class ShoppingCart
         }
     }
 
-    public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, ISupermarketCatalog catalog)
-    {
-        foreach (var product in _productQuantities.Keys)
-        {
-            var quantity = _productQuantities[product].Amount;
-            var quantityAsInt = (int)quantity;
-            if (offers.ContainsKey(product))
-            {
-                var offer = offers[product];
-                var unitPrice = catalog.GetUnitPrice(product);
-                Discount discount = null;
-                var offerQuantity = 1;
-                if (offer.OfferType == SpecialOfferType.ThreeForTwo)
-                {
-                    offerQuantity = 3;
-                }
-                else if (offer.OfferType == SpecialOfferType.TwoForAmount)
-                {
-                    offerQuantity = 2;
-                    if (quantityAsInt >= 2)
-                    {
-                        var total = offer.Argument * (quantityAsInt / offerQuantity) + quantityAsInt % 2 * unitPrice;
-                        var discountAmount = unitPrice * quantity - total;
-                        discount = new Discount(product, "2 for " + PrintPrice(offer.Argument), -discountAmount);
-                    }
-                }
-
-                if (offer.OfferType == SpecialOfferType.FiveForAmount) offerQuantity = 5;
-                var numberOfOffers = quantityAsInt / offerQuantity;
-                if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
-                {
-                    var discountAmount = quantity * unitPrice - (numberOfOffers * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
-                    discount = new Discount(product, "3 for 2", -discountAmount);
-                }
-
-                if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
-                if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
-                {
-                    var discountTotal = unitPrice * quantity - (offer.Argument * numberOfOffers + quantityAsInt % 5 * unitPrice);
-                    discount = new Discount(product, offerQuantity + " for " + PrintPrice(offer.Argument), -discountTotal);
-                }
-
-                if (discount != null)
-                    receipt.AddDiscount(discount);
-            }
-        }
-    }
-
-    private string PrintPrice(double price)
-    {
-        return price.ToString("N2", s_culture);
-    }
 }
