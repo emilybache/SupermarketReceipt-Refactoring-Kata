@@ -62,7 +62,7 @@ public class SupermarketTest
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
-        _teller.AddSpecialOffer(new ThreeForTwoOfferPolicy(), _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+        _teller.AddSpecialOffer(new ThreeForTwoOfferPolicy(), _toothbrush);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }
@@ -75,7 +75,7 @@ public class SupermarketTest
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
-        _teller.AddSpecialOffer(new ThreeForTwoOfferPolicy(), _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+        _teller.AddSpecialOffer(new ThreeForTwoOfferPolicy(), _toothbrush);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }
@@ -92,7 +92,7 @@ public class SupermarketTest
     public Task PercentDiscount()
     {
         _theCart.AddItem(_rice);
-        _teller.AddSpecialOffer(new TenPercentDiscountPolicy(), _rice, 10.0);
+        _teller.AddSpecialOffer(new TenPercentDiscountPolicy(10.0), _rice);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }
@@ -102,7 +102,7 @@ public class SupermarketTest
     {
         _theCart.AddItem(_cherryTomatoes);
         _theCart.AddItem(_cherryTomatoes);
-        _teller.AddSpecialOffer(new TwoForAmountOfferPolicy(), _cherryTomatoes, .99);
+        _teller.AddSpecialOffer(new TwoForAmountOfferPolicy(.99), _cherryTomatoes);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }
@@ -111,7 +111,7 @@ public class SupermarketTest
     public Task FiveForYDiscount()
     {
         _theCart.AddItemQuantity(_apples, 5);
-        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(), _apples, 6.99);
+        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }
@@ -120,7 +120,7 @@ public class SupermarketTest
     public Task FiveForYDiscountWithSix()
     {
         _theCart.AddItemQuantity(_apples, 6);
-        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(), _apples, 6.99);
+        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }
@@ -129,7 +129,7 @@ public class SupermarketTest
     public Task FiveForYDiscountWithSixteen()
     {
         _theCart.AddItemQuantity(_apples, 16);
-        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(), _apples, 6.99);
+        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }
@@ -138,7 +138,7 @@ public class SupermarketTest
     public Task FiveForYDiscountWithFour()
     {
         _theCart.AddItemQuantity(_apples, 4);
-        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(), _apples, 6.99);
+        _teller.AddSpecialOffer(new FiveForAmountOfferPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
         return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
     }

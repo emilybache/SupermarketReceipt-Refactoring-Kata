@@ -12,9 +12,14 @@ public class Teller
         _catalog = catalog;
     }
 
-    public void AddSpecialOffer(ISpecialOfferPolicy policy, Product product, double argument)
+    /// <summary>
+    /// Registers a special offer for a product.
+    /// </summary>
+    /// <param name="policy">The policy containing the offer type and any offer-specific values, such as percentage or bundle price.</param>
+    /// <param name="product">The product the offer applies to.</param>
+    public void AddSpecialOffer(ISpecialOfferPolicy policy, Product product)
     {
-        _offers[product] = new Offer(policy, product, argument);
+        _offers[product] = new Offer(policy, product);
     }
 
     public Receipt ChecksOutArticlesFrom(ShoppingCart cart)
