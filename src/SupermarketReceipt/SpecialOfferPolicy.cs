@@ -4,18 +4,11 @@ namespace SupermarketReceipt;
 
 public interface ISpecialOfferPolicy
 {
-    bool CanApply(SpecialOfferType offerType);
-
     Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice);
 }
 
 public class ThreeForTwoOfferPolicy : ISpecialOfferPolicy
 {
-    public bool CanApply(SpecialOfferType offerType)
-    {
-        return offerType == SpecialOfferType.ThreeForTwo;
-    }
-
     public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
     {
         var quantityAsInt = (int)quantity.Amount;
@@ -34,11 +27,6 @@ public class ThreeForTwoOfferPolicy : ISpecialOfferPolicy
 
 public class TenPercentDiscountPolicy : ISpecialOfferPolicy
 {
-    public bool CanApply(SpecialOfferType offerType)
-    {
-        return offerType == SpecialOfferType.TenPercentDiscount;
-    }
-
     public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
     {
         var discountAmount = quantity.Amount * unitPrice * offer.Argument / 100.0;
@@ -50,11 +38,6 @@ public class TenPercentDiscountPolicy : ISpecialOfferPolicy
 public class TwoForAmountOfferPolicy : ISpecialOfferPolicy
 {
     private static readonly CultureInfo s_culture = CultureInfo.CreateSpecificCulture("en-GB");
-
-    public bool CanApply(SpecialOfferType offerType)
-    {
-        return offerType == SpecialOfferType.TwoForAmount;
-    }
 
     public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
     {
@@ -79,11 +62,6 @@ public class TwoForAmountOfferPolicy : ISpecialOfferPolicy
 public class FiveForAmountOfferPolicy : ISpecialOfferPolicy
 {
     private static readonly CultureInfo s_culture = CultureInfo.CreateSpecificCulture("en-GB");
-
-    public bool CanApply(SpecialOfferType offerType)
-    {
-        return offerType == SpecialOfferType.FiveForAmount;
-    }
 
     public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
     {

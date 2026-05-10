@@ -5,22 +5,16 @@ namespace SupermarketReceipt;
 public class Teller
 {
     private readonly ISupermarketCatalog _catalog;
-    private readonly IOfferDiscountCalculator _offerDiscountCalculator;
     private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
 
-    public Teller(ISupermarketCatalog catalog) : this(catalog, SpecialOfferDiscountCalculator.CreateDefault())
-    {
-    }
-
-    public Teller(ISupermarketCatalog catalog, IOfferDiscountCalculator offerDiscountCalculator)
+    public Teller(ISupermarketCatalog catalog)
     {
         _catalog = catalog;
-        _offerDiscountCalculator = offerDiscountCalculator;
     }
 
-    public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
+    public void AddSpecialOffer(ISpecialOfferPolicy policy, Product product, double argument)
     {
-        _offers[product] = new Offer(offerType, product, argument);
+        _offers[product] = new Offer(policy, product, argument);
     }
 
     public Receipt ChecksOutArticlesFrom(ShoppingCart cart)
@@ -52,7 +46,7 @@ public class Teller
             }
 
             var unitPrice = _catalog.GetUnitPrice(product);
-            var discount = _offerDiscountCalculator.GetDiscount(offer, productQuantity.Value, unitPrice);
+            var discount = offer.Policy.GetDiscount(offer, productQuantity.Value, unitPrice);
             if (discount != null)
             {
                 receipt.AddDiscount(discount);
