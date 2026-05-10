@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace SupermarketReceipt;
 
+/// <summary>
+/// Calculate quantities of products.
+/// </summary>
 public class ShoppingCart
 {
     private readonly List<ProductQuantity> _items = new List<ProductQuantity>();

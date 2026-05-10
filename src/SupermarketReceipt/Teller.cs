@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace SupermarketReceipt;
 
-public class Teller
+/// <summary>
+/// It does distribute deductions of price across cart items. 
+/// </summary>
+public class Teller(ISupermarketCatalog catalog)
 {
-    private readonly ISupermarketCatalog _catalog;
+    private readonly ISupermarketCatalog _catalog = catalog;
     private readonly Dictionary<Product, IDiscountPolicy> _discountPoliciesByProduct = [];
-
-    public Teller(ISupermarketCatalog catalog)
-    {
-        _catalog = catalog;
-    }
 
     /// <summary>
     /// Registers a special offer for a product.
@@ -32,8 +30,8 @@ public class Teller
             var product = productQuantity.Product;
             var quantity = productQuantity.Quantity;
             var unitPrice = _catalog.GetUnitPrice(product);
-            var price = quantity.Amount * unitPrice;
-            receipt.AddProduct(product, quantity, unitPrice, price);
+            var productPrice = quantity.Amount * unitPrice;
+            receipt.AddProduct(product, quantity, unitPrice, productPrice);
         }
 
         AddDiscounts(cart, receipt);
