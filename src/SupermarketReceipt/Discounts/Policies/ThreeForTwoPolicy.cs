@@ -1,9 +1,9 @@
-namespace SupermarketReceipt.Offers;
+namespace SupermarketReceipt.Discounts.Policies;
 
 /// <summary>
 /// Applies a buy-three-pay-for-two discount.
 /// </summary>
-public class ThreeForTwoOfferPolicy : ISpecialOfferPolicy
+public class ThreeForTwoPolicy : IDiscountPolicy
 {
     public Discount GetDiscount(Product product, Quantity quantity, double unitPrice)
     {

@@ -1,9 +1,9 @@
-namespace SupermarketReceipt.Offers;
+namespace SupermarketReceipt.Discounts.Policies;
 
 /// <summary>
 /// Applies a percentage discount to the total product price.
 /// </summary>
-public class TenPercentDiscountPolicy : ISpecialOfferPolicy
+public class TenPercentPolicy : IDiscountPolicy
 {
     private readonly double _percentage;
 
@@ -11,7 +11,7 @@ public class TenPercentDiscountPolicy : ISpecialOfferPolicy
     /// Creates a percentage discount policy.
     /// </summary>
     /// <param name="percentage">The discount percentage, for example 10 for ten percent off.</param>
-    public TenPercentDiscountPolicy(double percentage)
+    public TenPercentPolicy(double percentage)
     {
         _percentage = percentage;
     }

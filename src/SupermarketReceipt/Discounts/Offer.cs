@@ -1,13 +1,13 @@
-namespace SupermarketReceipt;
+namespace SupermarketReceipt.Discounts;
 
 /// <summary>
-/// Configures a product-specific special offer by pairing the product with the policy that calculates its discount.
+/// Binds product and policy.
 /// </summary>
 public class Offer
 {
-    private readonly ISpecialOfferPolicy _policy;
+    private readonly IDiscountPolicy _policy;
 
-    public Offer(ISpecialOfferPolicy policy, Product product)
+    public Offer(IDiscountPolicy policy, Product product)
     {
         _policy = policy;
         Product = product;
@@ -20,3 +20,4 @@ public class Offer
         return _policy.GetDiscount(Product, quantity, unitPrice);
     }
 }
+// todo: refactor as this looks like not proper place

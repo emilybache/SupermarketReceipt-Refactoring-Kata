@@ -1,11 +1,11 @@
 using System.Globalization;
 
-namespace SupermarketReceipt.Offers;
+namespace SupermarketReceipt.Discounts.Policies;
 
 /// <summary>
 /// Applies a fixed price when buying five units of a product.
 /// </summary>
-public class FiveForAmountOfferPolicy : ISpecialOfferPolicy
+public class FiveForAmountPolicy : IDiscountPolicy
 {
     private static readonly CultureInfo s_culture = CultureInfo.CreateSpecificCulture("en-GB");
     private readonly double _offerPrice;
@@ -14,7 +14,7 @@ public class FiveForAmountOfferPolicy : ISpecialOfferPolicy
     /// Creates a five-for-price policy.
     /// </summary>
     /// <param name="offerPrice">The total price charged for each group of five products.</param>
-    public FiveForAmountOfferPolicy(double offerPrice)
+    public FiveForAmountPolicy(double offerPrice)
     {
         _offerPrice = offerPrice;
     }

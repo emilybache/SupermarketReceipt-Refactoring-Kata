@@ -1,9 +1,9 @@
-namespace SupermarketReceipt;
+namespace SupermarketReceipt.Discounts;
 
 /// <summary>
-/// Calculates the discount for a configured special offer.
+/// Calculates the discount for a configured promotion.
 /// </summary>
-public interface ISpecialOfferPolicy
+public interface IDiscountPolicy
 {
     /// <summary>
     /// Returns the discount for the offer, or null when the offer does not apply to the purchased quantity.
