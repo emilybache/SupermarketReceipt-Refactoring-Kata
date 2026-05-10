@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using SupermarketReceipt.Discounts.Policies;
+using SupermarketReceipt.Printing;
 using VerifyXunit;
 using Xunit;
 
@@ -37,7 +38,7 @@ public class SupermarketTest
     public Task AnEmptyShoppingCartShouldCostNothing()
     {
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
@@ -45,7 +46,7 @@ public class SupermarketTest
     {
         _theCart.AddItem(_toothbrush);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
@@ -54,7 +55,7 @@ public class SupermarketTest
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_rice);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
@@ -63,9 +64,9 @@ public class SupermarketTest
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
-        _teller.AddSpecialOffer(new ThreeForTwoPolicy(), _toothbrush);
+        _teller.AddDiscountByProduct(new ThreeForTwoPolicy(), _toothbrush);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
@@ -76,9 +77,9 @@ public class SupermarketTest
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
         _theCart.AddItem(_toothbrush);
-        _teller.AddSpecialOffer(new ThreeForTwoPolicy(), _toothbrush);
+        _teller.AddDiscountByProduct(new ThreeForTwoPolicy(), _toothbrush);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
@@ -86,16 +87,16 @@ public class SupermarketTest
     {
         _theCart.AddItemQuantity(_apples, .5);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
     public Task PercentDiscount()
     {
         _theCart.AddItem(_rice);
-        _teller.AddSpecialOffer(new TenPercentPolicy(10.0), _rice);
+        _teller.AddDiscountByProduct(new TenPercentPolicy(10.0), _rice);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
@@ -103,44 +104,44 @@ public class SupermarketTest
     {
         _theCart.AddItem(_cherryTomatoes);
         _theCart.AddItem(_cherryTomatoes);
-        _teller.AddSpecialOffer(new TwoForAmountPolicy(.99), _cherryTomatoes);
+        _teller.AddDiscountByProduct(new TwoForAmountPolicy(.99), _cherryTomatoes);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
     public Task FiveForYDiscount()
     {
         _theCart.AddItemQuantity(_apples, 5);
-        _teller.AddSpecialOffer(new FiveForAmountPolicy(6.99), _apples);
+        _teller.AddDiscountByProduct(new FiveForAmountPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
     public Task FiveForYDiscountWithSix()
     {
         _theCart.AddItemQuantity(_apples, 6);
-        _teller.AddSpecialOffer(new FiveForAmountPolicy(6.99), _apples);
+        _teller.AddDiscountByProduct(new FiveForAmountPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
     public Task FiveForYDiscountWithSixteen()
     {
         _theCart.AddItemQuantity(_apples, 16);
-        _teller.AddSpecialOffer(new FiveForAmountPolicy(6.99), _apples);
+        _teller.AddDiscountByProduct(new FiveForAmountPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 
     [Fact]
     public Task FiveForYDiscountWithFour()
     {
         _theCart.AddItemQuantity(_apples, 4);
-        _teller.AddSpecialOffer(new FiveForAmountPolicy(6.99), _apples);
+        _teller.AddDiscountByProduct(new FiveForAmountPolicy(6.99), _apples);
         Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
-        return Verifier.Verify(new ReceiptPrinter().PrintReceipt(receipt));
+        return Verifier.Verify(new StringReceiptPrinter().PrintReceipt(receipt));
     }
 }

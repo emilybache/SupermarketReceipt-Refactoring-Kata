@@ -2,21 +2,21 @@ using System.Globalization;
 using System.Text;
 using SupermarketReceipt.Discounts;
 
-namespace SupermarketReceipt;
+namespace SupermarketReceipt.Printing;
 
-public class ReceiptPrinter
+public class StringReceiptPrinter : IReceiptPrinter
 {
     private static readonly CultureInfo s_culture = CultureInfo.CreateSpecificCulture("en-GB");
 
     private readonly int _columns;
 
 
-    public ReceiptPrinter(int columns)
+    public StringReceiptPrinter(int columns)
     {
         _columns = columns;
     }
 
-    public ReceiptPrinter() : this(40)
+    public StringReceiptPrinter() : this(40)
     {
     }
 
@@ -70,7 +70,6 @@ public class ReceiptPrinter
 
         return line;
     }
-
 
     private string FormatLineWithWhitespace(string name, string value)
     {

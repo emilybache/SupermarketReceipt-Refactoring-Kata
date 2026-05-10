@@ -16,7 +16,7 @@ public class Teller(ISupermarketCatalog catalog)
     /// </summary>
     /// <param name="policy">The policy containing the offer type and any offer-specific values, such as percentage or bundle price.</param>
     /// <param name="product">The product the offer applies to.</param>
-    public void AddSpecialOffer(IDiscountPolicy policy, Product product)
+    public void AddDiscountByProduct(IDiscountPolicy policy, Product product)
     {
         _discountPoliciesByProduct[product] = policy;
     }
