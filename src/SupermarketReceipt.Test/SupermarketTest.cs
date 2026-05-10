@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using SupermarketReceipt.Offers;
 using VerifyXunit;
 using Xunit;
 

@@ -5,12 +5,18 @@ namespace SupermarketReceipt;
 /// </summary>
 public class Offer
 {
+    private readonly ISpecialOfferPolicy _policy;
+
     public Offer(ISpecialOfferPolicy policy, Product product)
     {
-        Policy = policy;
+        _policy = policy;
         Product = product;
     }
 
-    public ISpecialOfferPolicy Policy { get; }
     public Product Product { get; }
+
+    public Discount GetDiscount(Quantity quantity, double unitPrice)
+    {
+        return _policy.GetDiscount(Product, quantity, unitPrice);
+    }
 }

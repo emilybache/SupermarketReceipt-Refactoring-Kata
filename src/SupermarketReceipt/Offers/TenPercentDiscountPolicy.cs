@@ -16,10 +16,10 @@ public class TenPercentDiscountPolicy : ISpecialOfferPolicy
         _percentage = percentage;
     }
 
-    public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
+    public Discount GetDiscount(Product product, Quantity quantity, double unitPrice)
     {
         var discountAmount = quantity.Amount * unitPrice * _percentage / 100.0;
 
-        return new Discount(offer.Product, _percentage + "% off", -discountAmount);
+        return new Discount(product, _percentage + "% off", -discountAmount);
     }
 }

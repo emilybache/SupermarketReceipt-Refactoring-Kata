@@ -19,7 +19,7 @@ public class FiveForAmountOfferPolicy : ISpecialOfferPolicy
         _offerPrice = offerPrice;
     }
 
-    public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
+    public Discount GetDiscount(Product product, Quantity quantity, double unitPrice)
     {
         var quantityAsInt = (int)quantity.Amount;
         if (quantityAsInt < 5)
@@ -30,7 +30,7 @@ public class FiveForAmountOfferPolicy : ISpecialOfferPolicy
         var numberOfOffers = quantityAsInt / 5;
         var discountTotal = unitPrice * quantity.Amount - (_offerPrice * numberOfOffers + quantityAsInt % 5 * unitPrice);
 
-        return new Discount(offer.Product, "5 for " + PrintPrice(_offerPrice), -discountTotal);
+        return new Discount(product, "5 for " + PrintPrice(_offerPrice), -discountTotal);
     }
 
     private static string PrintPrice(double price)

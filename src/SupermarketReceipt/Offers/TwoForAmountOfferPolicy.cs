@@ -19,7 +19,7 @@ public class TwoForAmountOfferPolicy : ISpecialOfferPolicy
         _offerPrice = offerPrice;
     }
 
-    public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
+    public Discount GetDiscount(Product product, Quantity quantity, double unitPrice)
     {
         var quantityAsInt = (int)quantity.Amount;
         if (quantityAsInt < 2)
@@ -30,7 +30,7 @@ public class TwoForAmountOfferPolicy : ISpecialOfferPolicy
         var total = _offerPrice * (quantityAsInt / 2) + quantityAsInt % 2 * unitPrice;
         var discountAmount = unitPrice * quantity.Amount - total;
 
-        return new Discount(offer.Product, "2 for " + PrintPrice(_offerPrice), -discountAmount);
+        return new Discount(product, "2 for " + PrintPrice(_offerPrice), -discountAmount);
     }
 
     private static string PrintPrice(double price)

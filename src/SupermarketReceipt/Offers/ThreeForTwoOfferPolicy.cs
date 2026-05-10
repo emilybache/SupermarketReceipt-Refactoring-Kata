@@ -5,7 +5,7 @@ namespace SupermarketReceipt.Offers;
 /// </summary>
 public class ThreeForTwoOfferPolicy : ISpecialOfferPolicy
 {
-    public Discount GetDiscount(Offer offer, Quantity quantity, double unitPrice)
+    public Discount GetDiscount(Product product, Quantity quantity, double unitPrice)
     {
         var quantityAsInt = (int)quantity.Amount;
         if (quantityAsInt <= 2)
@@ -17,6 +17,6 @@ public class ThreeForTwoOfferPolicy : ISpecialOfferPolicy
         var total = numberOfOffers * 2 * unitPrice + quantityAsInt % 3 * unitPrice;
         var discountAmount = quantity.Amount * unitPrice - total;
 
-        return new Discount(offer.Product, "3 for 2", -discountAmount);
+        return new Discount(product, "3 for 2", -discountAmount);
     }
 }

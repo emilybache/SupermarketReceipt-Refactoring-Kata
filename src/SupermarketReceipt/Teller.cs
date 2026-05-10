@@ -51,7 +51,7 @@ public class Teller
             }
 
             var unitPrice = _catalog.GetUnitPrice(product);
-            var discount = offer.Policy.GetDiscount(offer, productQuantity.Value, unitPrice);
+            var discount = offer.GetDiscount(productQuantity.Value, unitPrice);
             if (discount != null)
             {
                 receipt.AddDiscount(discount);
