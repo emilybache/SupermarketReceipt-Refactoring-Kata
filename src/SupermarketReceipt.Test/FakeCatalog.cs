@@ -1,21 +1,20 @@
 using System.Collections.Generic;
 
-namespace SupermarketReceipt
+namespace SupermarketReceipt;
+
+public class FakeCatalog : ISupermarketCatalog
 {
-    public class FakeCatalog : ISupermarketCatalog
+    private readonly IDictionary<string, double> _prices = new Dictionary<string, double>();
+    private readonly IDictionary<string, Product> _products = new Dictionary<string, Product>();
+
+    public void AddProduct(Product product, double price)
     {
-        private readonly IDictionary<string, double> _prices = new Dictionary<string, double>();
-        private readonly IDictionary<string, Product> _products = new Dictionary<string, Product>();
+        _products.Add(product.Name, product);
+        _prices.Add(product.Name, price);
+    }
 
-        public void AddProduct(Product product, double price)
-        {
-            _products.Add(product.Name, product);
-            _prices.Add(product.Name, price);
-        }
-
-        public double GetUnitPrice(Product product)
-        {
-            return _prices[product.Name];
-        }
+    public double GetUnitPrice(Product product)
+    {
+        return _prices[product.Name];
     }
 }

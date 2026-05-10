@@ -1,25 +1,24 @@
-namespace SupermarketReceipt
+namespace SupermarketReceipt;
+
+public enum SpecialOfferType
 {
-    public enum SpecialOfferType
+    ThreeForTwo,
+    TenPercentDiscount,
+    TwoForAmount,
+    FiveForAmount
+}
+
+public class Offer
+{
+    private Product _product;
+
+    public Offer(SpecialOfferType offerType, Product product, double argument)
     {
-        ThreeForTwo,
-        TenPercentDiscount,
-        TwoForAmount,
-        FiveForAmount
+        OfferType = offerType;
+        Argument = argument;
+        _product = product;
     }
 
-    public class Offer
-    {
-        private Product _product;
-
-        public Offer(SpecialOfferType offerType, Product product, double argument)
-        {
-            OfferType = offerType;
-            Argument = argument;
-            _product = product;
-        }
-
-        public SpecialOfferType OfferType { get; }
-        public double Argument { get; }
-    }
+    public SpecialOfferType OfferType { get; }
+    public double Argument { get; }
 }
