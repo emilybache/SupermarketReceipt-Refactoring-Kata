@@ -37,18 +37,4 @@ public class Receipt
     }
 }
 
-public class ReceiptItem
-{
-    public ReceiptItem(Product product, Quantity quantity, double price, double totalPrice)
-    {
-        Product = product;
-        Quantity = quantity;
-        Price = price;
-        TotalPrice = totalPrice;
-    }
-
-    public Product Product { get; }
-    public double Price { get; }
-    public double TotalPrice { get; }
-    public Quantity Quantity { get; }
-}
+public record ReceiptItem(Product Product, Quantity Quantity, double Price, double TotalPrice);
