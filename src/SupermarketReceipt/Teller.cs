@@ -6,7 +6,7 @@ namespace SupermarketReceipt;
 public class Teller
 {
     private readonly ISupermarketCatalog _catalog;
-    private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
+    private readonly Dictionary<Product, IDiscountPolicy> _discountPoliciesByProduct = [];
 
     public Teller(ISupermarketCatalog catalog)
     {
@@ -20,7 +20,7 @@ public class Teller
     /// <param name="product">The product the offer applies to.</param>
     public void AddSpecialOffer(IDiscountPolicy policy, Product product)
     {
-        _offers[product] = new Offer(policy, product);
+        _discountPoliciesByProduct[product] = policy;
     }
 
     public Receipt ChecksOutArticlesFrom(ShoppingCart cart)
@@ -46,13 +46,13 @@ public class Teller
         foreach (var productQuantity in cart.GetProductQuantities())
         {
             var product = productQuantity.Key;
-            if (!_offers.TryGetValue(product, out var offer))
+            if (!_discountPoliciesByProduct.TryGetValue(product, out var policy))
             {
                 continue;
             }
 
             var unitPrice = _catalog.GetUnitPrice(product);
-            var discount = offer.GetDiscount(productQuantity.Value, unitPrice);
+            var discount = policy.GetDiscount(product, productQuantity.Value, unitPrice);
             if (discount != null)
             {
                 receipt.AddDiscount(discount);
