@@ -7,12 +7,19 @@ public class ShoppingCart
     private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
     private readonly Dictionary<Product, Quantity> _productQuantities = new Dictionary<Product, Quantity>();
 
-
+    /// <summary>
+    /// Gets the items for presentation.
+    /// </summary>
+    /// <returns></returns>
     public List<ProductQuantity> GetItems()
     {
         return new List<ProductQuantity>(_items);
     }
 
+    /// <summary>
+    /// Gets the product quantities for discount calculation.
+    /// </summary>
+    /// <returns></returns>
     public Dictionary<Product, Quantity> GetProductQuantities()
     {
         return new Dictionary<Product, Quantity>(_productQuantities);
@@ -22,7 +29,6 @@ public class ShoppingCart
     {
         AddItemQuantity(product, 1.0);
     }
-
 
     public void AddItemQuantity(Product product, double quantity)
     {
@@ -39,5 +45,4 @@ public class ShoppingCart
             _productQuantities.Add(product, productQuantity);
         }
     }
-
 }

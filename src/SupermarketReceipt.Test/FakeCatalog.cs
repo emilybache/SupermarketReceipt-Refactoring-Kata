@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace SupermarketReceipt;
@@ -9,6 +10,9 @@ public class FakeCatalog : ISupermarketCatalog
 
     public void AddProduct(Product product, double price)
     {
+        if (_products.ContainsKey(product.Name))
+            throw new ArgumentOutOfRangeException(nameof(product), "Can't add product with the same name.");
+
         _products.Add(product.Name, product);
         _prices.Add(product.Name, price);
     }
