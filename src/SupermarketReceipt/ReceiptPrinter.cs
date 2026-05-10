@@ -62,7 +62,7 @@ public class ReceiptPrinter
         string totalPrice = PrintPrice(item.TotalPrice);
         string name = item.Product.Name;
         string line = FormatLineWithWhitespace(name, totalPrice);
-        if (item.Quantity != 1)
+        if (item.Quantity.Amount != 1)
         {
             line += "  " + PrintPrice(item.Price) + " * " + PrintQuantity(item) + "\n";
         }
@@ -92,8 +92,6 @@ public class ReceiptPrinter
 
     private static string PrintQuantity(ReceiptItem item)
     {
-        return ProductUnit.Each == item.Product.Unit
-            ? ((int)item.Quantity).ToString()
-            : item.Quantity.ToString("N3", Culture);
+        return item.Quantity.Format(Culture);
     }
 }

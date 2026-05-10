@@ -6,7 +6,7 @@ namespace SupermarketReceipt
     public class ShoppingCart
     {
         private readonly List<ProductQuantity> _items = new List<ProductQuantity>();
-        private readonly Dictionary<Product, double> _productQuantities = new Dictionary<Product, double>();
+        private readonly Dictionary<Product, Quantity> _productQuantities = new Dictionary<Product, Quantity>();
         private static readonly CultureInfo Culture = CultureInfo.CreateSpecificCulture("en-GB");
 
 
@@ -23,28 +23,30 @@ namespace SupermarketReceipt
 
         public void AddItemQuantity(Product product, double quantity)
         {
-            _items.Add(new ProductQuantity(product, quantity));
+            var productQuantity = new Quantity(quantity, product.Unit);
+            _items.Add(new ProductQuantity(product, productQuantity));
             if (_productQuantities.ContainsKey(product))
             {
-                var newAmount = _productQuantities[product] + quantity;
-                _productQuantities[product] = newAmount;
+                var currentQuantity = _productQuantities[product];
+                var newQuantity = currentQuantity with { Amount = currentQuantity.Amount + productQuantity.Amount };
+                _productQuantities[product] = newQuantity;
             }
             else
             {
-                _productQuantities.Add(product, quantity);
+                _productQuantities.Add(product, productQuantity);
             }
         }
 
         public void HandleOffers(Receipt receipt, Dictionary<Product, Offer> offers, SupermarketCatalog catalog)
         {
-            foreach (var p in _productQuantities.Keys)
+            foreach (var product in _productQuantities.Keys)
             {
-                var quantity = _productQuantities[p];
+                var quantity = _productQuantities[product].Amount;
                 var quantityAsInt = (int)quantity;
-                if (offers.ContainsKey(p))
+                if (offers.ContainsKey(product))
                 {
-                    var offer = offers[p];
-                    var unitPrice = catalog.GetUnitPrice(p);
+                    var offer = offers[product];
+                    var unitPrice = catalog.GetUnitPrice(product);
                     Discount discount = null;
                     var x = 1;
                     if (offer.OfferType == SpecialOfferType.ThreeForTwo)
@@ -58,7 +60,7 @@ namespace SupermarketReceipt
                         {
                             var total = offer.Argument * (quantityAsInt / x) + quantityAsInt % 2 * unitPrice;
                             var discountN = unitPrice * quantity - total;
-                            discount = new Discount(p, "2 for " + PrintPrice(offer.Argument), -discountN);
+                            discount = new Discount(product, "2 for " + PrintPrice(offer.Argument), -discountN);
                         }
                     }
 
@@ -67,14 +69,14 @@ namespace SupermarketReceipt
                     if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
                     {
                         var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
-                        discount = new Discount(p, "3 for 2", -discountAmount);
+                        discount = new Discount(product, "3 for 2", -discountAmount);
                     }
 
-                    if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(p, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
+                    if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
                     if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                     {
                         var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-                        discount = new Discount(p, x + " for " + PrintPrice(offer.Argument), -discountTotal);
+                        discount = new Discount(product, x + " for " + PrintPrice(offer.Argument), -discountTotal);
                     }
 
                     if (discount != null)

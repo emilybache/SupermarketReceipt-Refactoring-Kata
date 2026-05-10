@@ -15,7 +15,7 @@ public class Receipt
         return total;
     }
 
-    public void AddProduct(Product p, double quantity, double price, double totalPrice)
+    public void AddProduct(Product p, Quantity quantity, double price, double totalPrice)
     {
         _items.Add(new ReceiptItem(p, quantity, price, totalPrice));
     }
@@ -38,7 +38,7 @@ public class Receipt
 
 public class ReceiptItem
 {
-    public ReceiptItem(Product p, double quantity, double price, double totalPrice)
+    public ReceiptItem(Product p, Quantity quantity, double price, double totalPrice)
     {
         Product = p;
         Quantity = quantity;
@@ -49,5 +49,5 @@ public class ReceiptItem
     public Product Product { get; }
     public double Price { get; }
     public double TotalPrice { get; }
-    public double Quantity { get; }
+    public Quantity Quantity { get; }
 }
