@@ -10,7 +10,7 @@ public class ThreeForTwoPolicy : IDiscountPolicy
         var quantityAsInt = (int)quantity.Amount;
         if (quantityAsInt <= 2)
         {
-            return null;
+            return Discount.None;
         }
 
         var numberOfOffers = quantityAsInt / 3;

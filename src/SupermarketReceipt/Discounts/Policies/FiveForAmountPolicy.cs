@@ -24,7 +24,7 @@ public class FiveForAmountPolicy : IDiscountPolicy
         var quantityAsInt = (int)quantity.Amount;
         if (quantityAsInt < 5)
         {
-            return null;
+            return Discount.None;
         }
 
         var numberOfOffers = quantityAsInt / 5;

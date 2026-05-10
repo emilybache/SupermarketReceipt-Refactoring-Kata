@@ -53,7 +53,7 @@ public class Teller
 
             var unitPrice = _catalog.GetUnitPrice(product);
             var discount = policy.GetDiscount(product, productQuantity.Value, unitPrice);
-            if (discount != null)
+            if (!discount.IsNone)
             {
                 receipt.AddDiscount(discount);
             }

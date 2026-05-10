@@ -24,7 +24,7 @@ public class TwoForAmountPolicy : IDiscountPolicy
         var quantityAsInt = (int)quantity.Amount;
         if (quantityAsInt < 2)
         {
-            return null;
+            return Discount.None;
         }
 
         var total = _offerPrice * (quantityAsInt / 2) + quantityAsInt % 2 * unitPrice;
