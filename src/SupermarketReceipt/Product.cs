@@ -27,8 +27,8 @@ public class ProductQuantity
 
 public sealed class ProductUnit
 {
-    public static readonly ProductUnit Kilo = new ProductUnit("kilo", (amount, culture) => amount.ToString("N3", culture));
-    public static readonly ProductUnit Each = new ProductUnit("each", (amount, culture) => ((int)amount).ToString(culture));
+    public static readonly ProductUnit Kilo = new("kilo", (amount, culture) => amount.ToString("N3", culture));
+    public static readonly ProductUnit Each = new("each", (amount, culture) => ((int)amount).ToString(culture));
 
     private readonly Func<double, CultureInfo, string> _quantityFormatter;
 
