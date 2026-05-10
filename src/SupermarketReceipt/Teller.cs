@@ -4,10 +4,10 @@ namespace SupermarketReceipt
 {
     public class Teller
     {
-        private readonly SupermarketCatalog _catalog;
+        private readonly ISupermarketCatalog _catalog;
         private readonly Dictionary<Product, Offer> _offers = new Dictionary<Product, Offer>();
 
-        public Teller(SupermarketCatalog catalog)
+        public Teller(ISupermarketCatalog catalog)
         {
             _catalog = catalog;
         }
@@ -17,20 +17,20 @@ namespace SupermarketReceipt
             _offers[product] = new Offer(offerType, product, argument);
         }
 
-        public Receipt ChecksOutArticlesFrom(ShoppingCart theCart)
+        public Receipt ChecksOutArticlesFrom(ShoppingCart cart)
         {
             var receipt = new Receipt();
-            var productQuantities = theCart.GetItems();
-            foreach (var pq in productQuantities)
+            var productQuantities = cart.GetItems();
+            foreach (var productQuantity in productQuantities)
             {
-                var p = pq.Product;
-                var quantity = pq.Quantity;
-                var unitPrice = _catalog.GetUnitPrice(p);
+                var product = productQuantity.Product;
+                var quantity = productQuantity.Quantity;
+                var unitPrice = _catalog.GetUnitPrice(product);
                 var price = quantity.Amount * unitPrice;
-                receipt.AddProduct(p, quantity, unitPrice, price);
+                receipt.AddProduct(product, quantity, unitPrice, price);
             }
 
-            theCart.HandleOffers(receipt, _offers, _catalog);
+            cart.HandleOffers(receipt, _offers, _catalog);
 
             return receipt;
         }
