@@ -9,7 +9,7 @@
 	  <RunSettingsFilePath>$(MSBuildProjectDirectory)\Properties\verify.runsettings</RunSettingsFilePath>
 
 
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
