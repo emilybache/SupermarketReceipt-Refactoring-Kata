@@ -103,7 +103,7 @@ def test_novo_cadastro_para_o_mesmo_produto_substitui_a_oferta_anterior(teller, 
     assert recibo.total_price() == pytest.approx(20.00)
 
 
-def test_produto_com_oferta_recebe_no_maximo_um_desconto_por_checkout(teller, escova):
+def test_oferta_cinco_por_valor_gera_um_desconto_no_checkout(teller, escova):
     teller.add_special_offer(CINCO_POR_VALOR, escova, 40.0)
 
     recibo = fechar_compra(teller, (escova, 12))
@@ -215,10 +215,15 @@ def test_dois_por_valor_com_quantidade_par(teller, escova, quantidade, desconto_
 def test_dois_por_valor_com_quantidade_impar_defeito_legado(
         teller, escova, quantidade, desconto_legado, total_legado):
         
-    """Defeito do legado: com quantidade ímpar, "2 por valor" cobra a mais.
+    """Defeito legado: determinadas quantidades ímpares fazem a oferta
+    aumentar o valor final da compra.
 
-    Com 3 unidades a 10,00 e a oferta "2 por 15,00", o certo seria 25,00, mas o legado
-    cobra 32,50, mais que os 30,00 sem oferta.
+    Com 3 unidades a R$ 10,00 e a oferta "2 por R$ 15,00",
+    o cliente deveria pagar R$ 25,00, considerando duas unidades
+    promocionais e uma unidade restante.
+
+    Entretanto, o legado cobra R$ 32,50, valor superior aos
+    R$ 30,00 que seriam cobrados sem a oferta.
     """
     teller.add_special_offer(DOIS_POR_VALOR, escova, 15.0)
 
@@ -261,12 +266,18 @@ def test_cinco_por_valor(teller, escova, quantidade, desconto_esperado, total_es
 ])
 def test_promocao_por_grupo_com_quantidade_fracionaria_legado(
         teller, maca, oferta, argumento, quantidade, desconto_legado, total_legado):
-    """O número de grupos usa a parte inteira da quantidade, como o invariante 8 prevê.
+    """Defeito legado: nas promoções por grupo efetivamente ativadas,
+    a fração restante pode deixar de ser cobrada.
 
-    Divergência com o mesmo invariante: a fração que sobra NÃO é cobrada. Em 3,5 kg a
-    R$ 2,00 com "3 por 2", o cliente paga 4,00 (dois quilos) e os 0,5 kg restantes saem
-    de graça, em vez de custarem 1,00. O teste fixa o valor real do legado.
+    O legado utiliza a parte inteira da quantidade para calcular
+    os grupos promocionais e, em determinadas situações, não
+    considera o restante fracionário no valor final.
+
+    Exemplo: em 3,5 kg a R$ 2,00, com a oferta "3 por 2",
+    o cliente paga R$ 4,00, embora os 0,5 kg restantes
+    devessem acrescentar R$ 1,00 ao valor da compra.
     """
+
     teller.add_special_offer(oferta, maca, argumento)
 
     recibo = fechar_compra(teller, (maca, quantidade))
