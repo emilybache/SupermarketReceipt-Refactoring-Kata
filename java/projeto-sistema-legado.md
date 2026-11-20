@@ -8,9 +8,9 @@
 
 #### Apresentação da Equipe
 
-| Nome | Matrícula | E-mail | Usuário GitHub |
-|---|---|---|---|
-| Sérgio Lopes Júnior | 200026817 | sergio.lopes@ucsal.edu.br | sergiolj |
+| Nome                | Matrícula | E-mail                    | Usuário GitHub |
+| ------------------- | --------- | ------------------------- | -------------- |
+| Sérgio Lopes Júnior | 200026817 | sergio.lopes@ucsal.edu.br | sergiolj       |
 
 #### Origem do Sistema Legado
 
@@ -73,23 +73,23 @@ Repositório possui:
 > **Legenda:** 🟦 record · 🟥 enum · 🟨 classe · 🟪 interface · 🟩 classe de teste
 > *(no documento original, as linhas são coloridas por tipo)*
 
-| **Classe** | **Tipo** | **Funcionalidade** | **Primeiras impressões** |
-|---|---|---|---|
-| `Discount` | 🟦 record | armazena produto e desconto | Simples e sem responsabilidades |
-| `Offer` | 🟦 record | armazena produto e tipo de oferta | Simples e sem responsabilidades |
-| `Product` | 🟦 record | armazena produto e tipo de unidade | Simples e sem responsabilidades |
-| `ProductQuantity` | 🟦 record | armazena produto e quantidade | Simples e sem responsabilidades |
-| `ProductUnit` | 🟥 enum | classifica o tipo da unidade | Simples e sem responsabilidades |
-| `Receipt` | 🟨 classe | armazena itens e descontos e calcula totais da nota fiscal | Média complexidade com responsabilidades confusas |
-| `ReceiptItem` | 🟦 record | armazena produto quantidade, preço unitário e total | Simples e sem responsabilidades |
-| `ShoppingCart` | 🟨 classe | processa lista de produtos e descontos | Alta complexidade com responsabilidades confusas |
-| `SpecialOfferType` | 🟥 enum | classifica tipos de ofertas | Simples e sem responsabilidades |
-| `SuperMarketCatalog` | 🟪 interface | define métodos para um catálogo de produtos | Simples |
-| `Teller` | 🟨 classe | recebe um catálogo de produtos e emite uma nota fiscal | Média complexidade e com responsabilidades confusas |
-| `PackageSettings` | 🟨 classe | arquivo de configuração para um tipo de relatório de testes | Simples e sem implementação |
-| `ReceiptPrinter` | 🟨 classe | processa a nota fiscal para gerar uma saída através de métodos encadeados | Alta complexidade pelo encadeamento de métodos (Method Chaining code smell) |
-| `FakeCatalog` | 🟩 classe (test) | implementador da interface SuperMarketCatalog usado para os testes | Simples |
-| `SuperMarketTest` | 🟩 classe (test) | testa o resultado da nota fiscal após os produtos serem processados por outras classes | Média complexidade e com apenas um teste de oferta implementado. |
+| **Classe**           | **Tipo**        | **Funcionalidade**                                                                     | **Primeiras impressões**                                                    |
+| -------------------- | --------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `Discount`           | 🟦 record        | armazena produto e desconto                                                            | Simples e sem responsabilidades                                             |
+| `Offer`              | 🟦 record        | armazena produto e tipo de oferta                                                      | Simples e sem responsabilidades                                             |
+| `Product`            | 🟦 record        | armazena produto e tipo de unidade                                                     | Simples e sem responsabilidades                                             |
+| `ProductQuantity`    | 🟦 record        | armazena produto e quantidade                                                          | Simples e sem responsabilidades                                             |
+| `ProductUnit`        | 🟥 enum          | classifica o tipo da unidade                                                           | Simples e sem responsabilidades                                             |
+| `Receipt`            | 🟨 classe        | armazena itens e descontos e calcula totais da nota fiscal                             | Média complexidade com responsabilidades confusas                           |
+| `ReceiptItem`        | 🟦 record        | armazena produto quantidade, preço unitário e total                                    | Simples e sem responsabilidades                                             |
+| `ShoppingCart`       | 🟨 classe        | processa lista de produtos e descontos                                                 | Alta complexidade com responsabilidades confusas                            |
+| `SpecialOfferType`   | 🟥 enum          | classifica tipos de ofertas                                                            | Simples e sem responsabilidades                                             |
+| `SuperMarketCatalog` | 🟪 interface     | define métodos para um catálogo de produtos                                            | Simples                                                                     |
+| `Teller`             | 🟨 classe        | recebe um catálogo de produtos e emite uma nota fiscal                                 | Média complexidade e com responsabilidades confusas                         |
+| `PackageSettings`    | 🟨 classe        | arquivo de configuração para um tipo de relatório de testes                            | Simples e sem implementação                                                 |
+| `ReceiptPrinter`     | 🟨 classe        | processa a nota fiscal para gerar uma saída através de métodos encadeados              | Alta complexidade pelo encadeamento de métodos (Method Chaining code smell) |
+| `FakeCatalog`        | 🟩 classe (test) | implementador da interface SuperMarketCatalog usado para os testes                     | Simples                                                                     |
+| `SuperMarketTest`    | 🟩 classe (test) | testa o resultado da nota fiscal após os produtos serem processados por outras classes | Média complexidade e com apenas um teste de oferta implementado.            |
 
 **Passo 3:**
 
@@ -126,26 +126,26 @@ No algoritmo observado não existe um main e os testes concentram o que se pode 
 
 **Leitura aprofundada de cada classe e método** - O método mais complexo do algoritmo está na classe ShoppingCart que processa as ofertas, chamado de ShoppingCart.handleOffers, mas todas as classes foram avaliadas para verificar alguma inconsistência que posteriormente foi categorizada com base no Refactoring de Fowler.
 
-| **ID** | **Local** | **Achado** | **Categoria** | **Confirmar com** |
-|---|---|---|---|---|
-| L-01 | `Offer` double argument | `argument`: nome do atributo não deixa claro o que representa |  |  |
-| L-02 | `ShoppingCart.addItem` (linha 18) | Método específico para adicionar um produto com apenas uma unidade (não parece fácil identificar o que faz) |  |  |
-| L-03 | `ShoppingCart.addItemQuantity` (linha 26) | quantidade de produtos com primitiva em double tanto para unidade quanto para volume |  |  |
-| L-04 | `ShoppingCart.handleOffers` (linha 35) | Método longo com muitos if/else encadeados |  |  |
-| L-05 | `ShoppingCart.handleOffers` (linha 41) | casting da quantidade em double para int |  |  |
-| L-06 | `ShoppingCart.handleOffers` (linha 43) | atributo com nome genérico primitiva com o nome “x” |  |  |
-| L-07 | `ShoppingCart.handleOffers` (linha 44-45/55-56) | processamento da oferta THREE_FOR_TWO FIVE_FOR_AMOUNT de difícil leitura, aparentam não estar implementadas |  |  |
-| L-08 | `ShoppingCart.handleOffers` (linha 50) | atributo com nome argument é usado para determinar o total do valor dos produtos |  |  |
-| L-09 | `ShoppingCart.handleOffers` (linha 50) | `quantityAsInt` / `x`: nomes de atributos não deixam claro o que representam |  |  |
-| L-10 | `ShoppingCart.handleOffers` (linha 52) | pelo modo de concatenação percebe-se que o atributo argument parece ser um valor fixo passado na oferta |  |  |
-| L-11 | `ShoppingCart.handleOffers` (linha 52) | Atributo com nome genérico numberOfXs |  |  |
-| L-12 | `ShoppingCart.handleOffers` (linha 70) | Se o desconto não for nulo a nota fiscal recebe a informação sobre o desconto se não ela recebe um objeto nulo? |  |  |
-| L-13 | `Product` e `ProductQuantity` | Não parece fazer sentido esses dois records para a mesma coisa |  |  |
-| L-14 | `Receipt` (linha 9) | Porque a classe de objetos que representa os produtos na nota fiscal se chama ReceiptItem ao invés de Product? |  |  |
-| L-15 | `Receipt.getTotalPrice()` (linha 12-15) | Porque o preço total é o resultado da soma de todos os produtos “mais” a soma de todos os descontos? O desconto é um valor negativo? |  |  |
-| L-16 | `Receipt.addProduct()` (linha 17-19) | O método recebe muitos atributos que são convertidos para criar um novo objeto da classe não seria mais fácil receber um ReceitpItem? |  |  |
-| L-17 | `ReceiptItem` | importe desnecessário |  |  |
-| L-18 | `Teller.addSpecialOffer` (linhas 16-17) | A caixa tem que receber a informação de que existe uma oferta de um produto, mas isso não deveria ser parte do catálogo, porque assim cada caixa tem que receber todas as ofertas uma a uma. |  |  |
+| **ID** | **Local**                                       | **Achado**                                                                                                                                                                                   | **Categoria**             | **Confirmar com**                                                   |
+| ------ | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------- |
+| L-01   | `Offer` double argument                         | `argument`: nome do atributo não deixa claro o que representa                                                                                                                                | Nome Misterioso           | Rename Variable, RenameField                                        |
+| L-02   | `ShoppingCart.addItem` (linha 18)               | Método específico para adicionar um produto com apenas uma unidade (não parece fácil identificar o que faz)                                                                                  | Generalidade Especulativa | Remove Dead Code                                                    |
+| L-03   | `ShoppingCart.addItemQuantity` (linha 26)       | quantidade de produtos com primitiva em double tanto para unidade quanto para volume                                                                                                         | Obsessão por Primitivos   | Replace Primitive with Object                                       |
+| L-04   | `ShoppingCart.handleOffers` (linha 35)          | Método longo com muitos if/else encadeados                                                                                                                                                   | Função Longa              | Extract Function, Decompose Conditional, Replace Loop with Pipeline |
+| L-05   | `ShoppingCart.handleOffers` (linha 41)          | casting da quantidade em double para int                                                                                                                                                     | Obsessão por Primitivos   | Replace Primitive with Object                                       |
+| L-06   | `ShoppingCart.handleOffers` (linha 43)          | atributo com nome genérico primitiva com o nome “x”                                                                                                                                          | Nome Misterioso           | Rename Variable, RenameField                                        |
+| L-07   | `ShoppingCart.handleOffers` (linha 44-45/55-56) | processamento da oferta THREE_FOR_TWO FIVE_FOR_AMOUNT de difícil leitura, aparentam não estar implementadas                                                                                  |                           |                                                                     |
+| L-08   | `ShoppingCart.handleOffers` (linha 50)          | atributo com nome argument é usado para determinar o total do valor dos produtos                                                                                                             | Nome Misterioso           | Rename Variable, RenameField                                        |
+| L-09   | `ShoppingCart.handleOffers` (linha 50)          | `quantityAsInt` / `x`: nomes de atributos não deixam claro o que representam                                                                                                                 | Nome Misterioso           | Rename Variable, RenameField                                        |
+| L-10   | `ShoppingCart.handleOffers` (linha 52)          | pelo modo de concatenação percebe-se que o atributo argument parece ser um valor fixo passado na oferta                                                                                      |                           |                                                                     |
+| L-11   | `ShoppingCart.handleOffers` (linha 52)          | Atributo com nome genérico numberOfXs                                                                                                                                                        |                           |                                                                     |
+| L-12   | `ShoppingCart.handleOffers` (linha 70)          | Se o desconto não for nulo a nota fiscal recebe a informação sobre o desconto se não ela recebe um objeto nulo?                                                                              |                           |                                                                     |
+| L-13   | `Product` e `ProductQuantity`                   | Não parece fazer sentido esses dois records para a mesma coisa                                                                                                                               |                           |                                                                     |
+| L-14   | `Receipt` (linha 9)                             | Porque a classe de objetos que representa os produtos na nota fiscal se chama ReceiptItem ao invés de Product?                                                                               |                           |                                                                     |
+| L-15   | `Receipt.getTotalPrice()` (linha 12-15)         | Porque o preço total é o resultado da soma de todos os produtos “mais” a soma de todos os descontos? O desconto é um valor negativo?                                                         |                           |                                                                     |
+| L-16   | `Receipt.addProduct()` (linha 17-19)            | O método recebe muitos atributos que são convertidos para criar um novo objeto da classe não seria mais fácil receber um ReceitpItem?                                                        |                           |                                                                     |
+| L-17   | `ReceiptItem`                                   | importe desnecessário                                                                                                                                                                        |                           |                                                                     |
+| L-18   | `Teller.addSpecialOffer` (linhas 16-17)         | A caixa tem que receber a informação de que existe uma oferta de um produto, mas isso não deveria ser parte do catálogo, porque assim cada caixa tem que receber todas as ofertas uma a uma. |                           |                                                                     |
 
 #### 3.2 Recuperação de arquitetura por modelos
 
@@ -161,62 +161,62 @@ Embora a técnica tenha sido criada para projetar sistemas, ela pode ser usada n
 
 Ao olhar para cada cartão você enxerga visualmente o problema arquitetural sem precisar ler o código: ShoppingCart tem colaboradores demais e responsabilidades visivelmente misturadas, enquanto Offer não tem responsabilidade nenhuma.
 
-| **Teller - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Armazena ofertas especiais cadastradas | Offer, Product |
-| Armazena o catálogo de produtos do supermercado | SupermarketCatalog |
+| **Teller - Responsabilidades**                                        | **Colaboradores**                         |
+| --------------------------------------------------------------------- | ----------------------------------------- |
+| Armazena ofertas especiais cadastradas                                | Offer, Product                            |
+| Armazena o catálogo de produtos do supermercado                       | SupermarketCatalog                        |
 | Orquestra o processo de checkout de um carrinho e gera um nota fiscal | SupermarketCatalog, ShoppingCart, Receipt |
 
 | **Discount - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Estrutura dados de descontos | Product |
+| -------------------------------- | ----------------- |
+| Estrutura dados de descontos     | Product           |
 
-| **Offer - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Estrutura dados de ofertas | SpecialOfferType, Product |
+| **Offer - Responsabilidades** | **Colaboradores**         |
+| ----------------------------- | ------------------------- |
+| Estrutura dados de ofertas    | SpecialOfferType, Product |
 
 | **Product - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Estrutura dados de produtos | ProductUnit |
+| ------------------------------- | ----------------- |
+| Estrutura dados de produtos     | ProductUnit       |
 
-| **ProductQuantity - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Estrutura dados de quantidade de produtos | Product |
+| **ProductQuantity - Responsabilidades**   | **Colaboradores** |
+| ----------------------------------------- | ----------------- |
+| Estrutura dados de quantidade de produtos | Product           |
 
-| **ProductUnit - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Classifica dados de unidades de produtos | Nenhum |
+| **ProductUnit - Responsabilidades**      | **Colaboradores** |
+| ---------------------------------------- | ----------------- |
+| Classifica dados de unidades de produtos | Nenhum            |
 
-| **Receipt - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Armazena lista de descontos | Discount |
-| Armazena lista de produtos da nota fiscal | ReceiptItem |
+| **Receipt - Responsabilidades**                                            | **Colaboradores**     |
+| -------------------------------------------------------------------------- | --------------------- |
+| Armazena lista de descontos                                                | Discount              |
+| Armazena lista de produtos da nota fiscal                                  | ReceiptItem           |
 | Calcula a soma de preços de produtos e descontos e retorna o total da nota | ReceiptItem, Discount |
 
-| **ReceiptItem - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Estrutura os dados de produtos da nota fiscal | Product |
+| **ReceiptItem - Responsabilidades**           | **Colaboradores** |
+| --------------------------------------------- | ----------------- |
+| Estrutura os dados de produtos da nota fiscal | Product           |
 
-| **ShoppingCart - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Armazena lista com quantidade de produtos | ProductQuantity |
-| Armazena lista de produtos e suas quantidades | Product |
+| **ShoppingCart - Responsabilidades**                   | **Colaboradores**                                                |
+| ------------------------------------------------------ | ---------------------------------------------------------------- |
+| Armazena lista com quantidade de produtos              | ProductQuantity                                                  |
+| Armazena lista de produtos e suas quantidades          | Product                                                          |
 | Possui a regra de negócio para a aplicação das ofertas | Receipt, SupermarketCatalog, SpecialOfferType, Discount, Product |
 
 | **SpecialOfferType - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Classifica tipos de ofertas | Nenhum |
+| ---------------------------------------- | ----------------- |
+| Classifica tipos de ofertas              | Nenhum            |
 
-| **SupermarketCatalog - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Define a interface para uma estrutura de catálogo de produtos | Nenhum |
+| **SupermarketCatalog - Responsabilidades**                    | **Colaboradores** |
+| ------------------------------------------------------------- | ----------------- |
+| Define a interface para uma estrutura de catálogo de produtos | Nenhum            |
 
-| **ReceiptPrinter - Responsabilidades** | **Colaboradores** |
-|---|---|
-| Imprime a nota fiscal | Receipt, Discount, ReceiptItem, ProductUnit |
-| Imprime um produto | ReceiptItem |
-| Imprime o desconto | Discount |
-| Imprime o total da nota | Receipt |
+| **ReceiptPrinter - Responsabilidades** | **Colaboradores**                           |
+| -------------------------------------- | ------------------------------------------- |
+| Imprime a nota fiscal                  | Receipt, Discount, ReceiptItem, ProductUnit |
+| Imprime um produto                     | ReceiptItem                                 |
+| Imprime o desconto                     | Discount                                    |
+| Imprime o total da nota                | Receipt                                     |
 
 ## Etapa 3: Refatoração Prática e Evolução Aplicada (Obrigatória) (Peso: 3,0 pontos)
 
@@ -247,15 +247,15 @@ Ao olhar para cada cartão você enxerga visualmente o problema arquitetural sem
 
 A nota final será calculada estritamente com base nos seguintes critérios:
 
-| **Critério de Avaliação** | **Foco Principal** | **Pontuação Máxima** |
-|---|---|---|
-| Escolha e Análise do Sistema | Contextualização e Justificativa do Legado | 1,0 |
-| Engenharia Reversa e Diagnóstico | Identificação de Problemas Estruturais - Analise de requisitos do sistema legado | 2,0 |
-| Refatoração Obrigatória e Evolução | Qualidade, Execução Prática e Registro de Contribuição no GitHub por todos os membros | 3,0 |
-| Viabilidade e Análise Crítica | Visão de Negócio, Prazo, Riscos | 1,0 |
-| Relatório Técnico | Rigor Acadêmico (ABNT), escrita e estrutura (Mín. 8 Páginas) - Mostrando o que foi alterado e melhorado | 2,0 |
-| Apresentação e Demonstração | Postura, Clareza, Gestão de Tempo e Demonstração Prática | 1,0 |
-| **TOTAL** |  | **10,0** |
+| **Critério de Avaliação**          | **Foco Principal**                                                                                      | **Pontuação Máxima** |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------- |
+| Escolha e Análise do Sistema       | Contextualização e Justificativa do Legado                                                              | 1,0                  |
+| Engenharia Reversa e Diagnóstico   | Identificação de Problemas Estruturais - Analise de requisitos do sistema legado                        | 2,0                  |
+| Refatoração Obrigatória e Evolução | Qualidade, Execução Prática e Registro de Contribuição no GitHub por todos os membros                   | 3,0                  |
+| Viabilidade e Análise Crítica      | Visão de Negócio, Prazo, Riscos                                                                         | 1,0                  |
+| Relatório Técnico                  | Rigor Acadêmico (ABNT), escrita e estrutura (Mín. 8 Páginas) - Mostrando o que foi alterado e melhorado | 2,0                  |
+| Apresentação e Demonstração        | Postura, Clareza, Gestão de Tempo e Demonstração Prática                                                | 1,0                  |
+| **TOTAL**                          |                                                                                                         | **10,0**             |
 
 ## Referências (sugestão)
 
