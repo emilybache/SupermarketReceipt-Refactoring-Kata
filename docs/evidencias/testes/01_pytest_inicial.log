@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.6, pytest-9.2.0, pluggy-1.7.0 -- /home/ramon/development/cimatec/qualidade_software/SupermarketReceipt-Refactoring-Kata/python_pytest/.venv/bin/python
+rootdir: /home/ramon/development/cimatec/qualidade_software/kata-inicial/python_pytest
+configfile: pytest.ini
+testpaths: tests
+plugins: approvaltests-20.0.1, approvaltests-0.2.4
+collecting ... collected 1 item
+
+tests/test_supermarket.py::test_ten_percent_discount PASSED              [100%]
+
+============================== 1 passed in 0.01s ===============================
