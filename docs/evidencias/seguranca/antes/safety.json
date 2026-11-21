@@ -1,0 +1,441 @@
+{
+  "meta": {
+    "scan_type": "scan",
+    "stage": "development",
+    "scan_locations": [
+      "/home/ramon/development/cimatec/qualidade_software/SupermarketReceipt-Refactoring-Kata/python_pytest"
+    ],
+    "authenticated": true,
+    "authentication_method": "token",
+    "timestamp": "2026-11-21T15:21:41.597090",
+    "telemetry": {
+      "os_type": "Linux",
+      "os_release": "6.18.33.1-microsoft-standard-WSL2",
+      "os_description": "Linux-6.18.33.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+      "python_version": "3.14.6",
+      "safety_command": "scan",
+      "safety_options": {
+        "target": {
+          "--target": 1
+        },
+        "output": {
+          "--output": 1
+        }
+      },
+      "safety_version": "3.8.1",
+      "safety_source": "cli"
+    },
+    "schema_version": "3.0"
+  },
+  "scan_results": {
+    "files": [],
+    "projects": [
+      {
+        "id": "supermarketreceipt-refactoring-kata",
+        "upload_request_id": null,
+        "location": "/home/ramon/development/cimatec/qualidade_software/SupermarketReceipt-Refactoring-Kata/python_pytest",
+        "policy": {
+          "id": "9aff3268-0fde-4c3b-944e-0a7d84e03937",
+          "path": null,
+          "source": "cloud"
+        },
+        "git": {
+          "branch": "",
+          "tag": "legado-baseline",
+          "commit": "58df7324c824b3f3a498819090d3ba6b41b4f29c",
+          "dirty": false,
+          "origin": "https://github.com/LucasChoucate/SupermarketReceipt-Refactoring-Kata"
+        },
+        "files": [
+          {
+            "location": "/home/ramon/development/cimatec/qualidade_software/SupermarketReceipt-Refactoring-Kata/python_pytest/requirements.txt",
+            "type": "requirements.txt",
+            "categories": [
+              "python"
+            ],
+            "results": {
+              "dependencies": [
+                {
+                  "name": "pytest",
+                  "specifications": [
+                    {
+                      "raw": "pytest",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [
+                          {
+                            "id": "SFTY-20260122-20373",
+                            "ignored": {
+                              "code": "unpinned-specification",
+                              "reason": "This vulnerability is being ignored due to the 'ignore-unpinned-requirements' flag (default True). To change this, set 'ignore-unpinned-requirements' to False under 'security' in your policy file. See https://docs.pyup.io/docs/safety-20-policy-file for more information.",
+                              "expires": null
+                            },
+                            "vulnerable_spec": "<9.0.3"
+                          }
+                        ],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "approvaltests",
+                  "specifications": [
+                    {
+                      "raw": "approvaltests",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pytest-approvaltests",
+                  "specifications": [
+                    {
+                      "raw": "pytest-approvaltests",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "coverage",
+                  "specifications": [
+                    {
+                      "raw": "coverage",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "location": "/home/ramon/development/cimatec/qualidade_software/SupermarketReceipt-Refactoring-Kata/python_pytest/.venv/pyvenv.cfg",
+            "type": "pyvenv.cfg",
+            "categories": [
+              "python"
+            ],
+            "results": {
+              "dependencies": [
+                {
+                  "name": "empty_files",
+                  "specifications": [
+                    {
+                      "raw": "empty_files==0.0.9",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pytest",
+                  "specifications": [
+                    {
+                      "raw": "pytest==9.2.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pyperclip",
+                  "specifications": [
+                    {
+                      "raw": "pyperclip==1.11.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pluggy",
+                  "specifications": [
+                    {
+                      "raw": "pluggy==1.7.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "typing_extensions",
+                  "specifications": [
+                    {
+                      "raw": "typing_extensions==4.16.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "coverage",
+                  "specifications": [
+                    {
+                      "raw": "coverage==7.17.4",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "beautifulsoup4",
+                  "specifications": [
+                    {
+                      "raw": "beautifulsoup4==4.15.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "approval_utilities",
+                  "specifications": [
+                    {
+                      "raw": "approval_utilities==20.0.1",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "approvaltests",
+                  "specifications": [
+                    {
+                      "raw": "approvaltests==20.0.1",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "packaging",
+                  "specifications": [
+                    {
+                      "raw": "packaging==26.3",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pygments",
+                  "specifications": [
+                    {
+                      "raw": "pygments==2.21.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pip",
+                  "specifications": [
+                    {
+                      "raw": "pip==26.1.2",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [
+                          {
+                            "id": "SFTY-20261020-17374",
+                            "ignored": {
+                              "code": "environment-dependency",
+                              "reason": "Ignored environment by rule in policy file.",
+                              "expires": null
+                            },
+                            "vulnerable_spec": ">=19.1,<26.2.2"
+                          },
+                          {
+                            "id": "SFTY-20260729-70233",
+                            "ignored": {
+                              "code": "environment-dependency",
+                              "reason": "Ignored environment by rule in policy file.",
+                              "expires": null
+                            },
+                            "vulnerable_spec": ">=6.0,<26.2"
+                          }
+                        ],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "allpairspy",
+                  "specifications": [
+                    {
+                      "raw": "allpairspy==2.5.1",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "testfixtures",
+                  "specifications": [
+                    {
+                      "raw": "testfixtures==11.0.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "charset_normalizer",
+                  "specifications": [
+                    {
+                      "raw": "charset_normalizer==3.5.2",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "psutil",
+                  "specifications": [
+                    {
+                      "raw": "psutil==7.2.2",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "certifi",
+                  "specifications": [
+                    {
+                      "raw": "certifi==2026.11.20",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pytest_approvaltests",
+                  "specifications": [
+                    {
+                      "raw": "pytest_approvaltests==0.2.4",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "urllib3",
+                  "specifications": [
+                    {
+                      "raw": "urllib3==2.8.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "mock",
+                  "specifications": [
+                    {
+                      "raw": "mock==5.2.0",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "requests",
+                  "specifications": [
+                    {
+                      "raw": "requests==2.34.2",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "iniconfig",
+                  "specifications": [
+                    {
+                      "raw": "iniconfig==2.3.1",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "idna",
+                  "specifications": [
+                    {
+                      "raw": "idna==3.20",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "soupsieve",
+                  "specifications": [
+                    {
+                      "raw": "soupsieve==4.1.3",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
