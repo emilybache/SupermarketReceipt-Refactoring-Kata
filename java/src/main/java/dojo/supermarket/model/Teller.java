@@ -13,22 +13,29 @@ public class Teller {
         this.catalog = catalog;
     }
 
-    public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
-        offers.put(product, new Offer(offerType, product, argument));
+    public void addSpecialOffer(SpecialOfferType offerType, Product product, double fixedValueOrQuantity) {
+        offers.put(product, new Offer(offerType, product, fixedValueOrQuantity));
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
         Receipt receipt = new Receipt();
         List<ProductQuantity> productQuantities = theCart.getItems();
-        for (ProductQuantity pq: productQuantities) {
-            Product p = pq.product();
-            double quantity = pq.quantity();
-            double unitPrice = catalog.getUnitPrice(p);
-            double price = quantity * unitPrice;
-            receipt.addProduct(p, quantity, unitPrice, price);
-        }
+        
+        addItensToReceipt(theCart, productQuantities, receipt);
         theCart.handleOffers(receipt, offers, catalog);
 
         return receipt;
+    }
+    
+    private void addItensToReceipt(ShoppingCart theCart, List<ProductQuantity> productQuantities, Receipt receipt) {
+        for (ProductQuantity productQtd: productQuantities) {
+            Product currentProduct = productQtd.product();
+            
+            double quantity = productQtd.quantity();
+            double unitPrice = catalog.getUnitPrice(currentProduct);
+            double price = quantity * unitPrice;
+            
+            receipt.addProduct(currentProduct, quantity, unitPrice, price);
+        }
     }
 }
