@@ -21,13 +21,13 @@ public class Teller {
         Receipt receipt = new Receipt();
         List<ProductQuantity> productQuantities = theCart.getItems();
         
-        addItensToReceipt(theCart, productQuantities, receipt);
+        addItensToReceipt(productQuantities, receipt);
         theCart.handleOffers(receipt, offers, catalog);
 
         return receipt;
     }
     
-    private void addItensToReceipt(ShoppingCart theCart, List<ProductQuantity> productQuantities, Receipt receipt) {
+    private void addItensToReceipt(List<ProductQuantity> productQuantities, Receipt receipt) {
         for (ProductQuantity productQtd: productQuantities) {
             Product currentProduct = productQtd.product();
             
