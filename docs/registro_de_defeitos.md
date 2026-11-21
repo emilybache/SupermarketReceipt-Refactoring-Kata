@@ -235,8 +235,8 @@ Os pontos abaixo foram analisados e mantidos como estão. Cada um tem a justific
 
 ## 7. Rastreabilidade
 
-| Defeito | Requisito relacionado | Risco do plano de contingência | Teste | Commit |
+| Defeito | Requisito relacionado | Risco do [plano de contingência](plano_contingencia.md#4-riscos) | Teste | Commit |
 |---|---|---|---|---|
-| DEF-01 | RF05 (descontos condicionados à quantidade): novo RF do "2 por valor" | (3) Aplicação incorreta dos descontos | `test_dois_por_valor_com_quantidade_impar_cobra_sobra_a_preco_cheio` | 4.7 |
-| DEF-02 | RF03 (valor = preço × quantidade) e RF05: novo RF da fração nas ofertas por grupo | (2) Cálculo incorreto dos valores; (3) aplicação incorreta dos descontos | `test_promocao_por_grupo_cobra_a_fracao_restante`, `test_recibo_impresso_com_todas_as_modalidades_de_oferta` | 4.8 |
-| DEF-03 | RNF01 (manutenção sem dependências desnecessárias); interface `Teller.product_with_name` | Compatibilidade das interfaces | `test_product_with_name_funciona_com_qualquer_catalogo_do_contrato`, `test_product_with_name_devolve_o_produto_ou_none` | 4.9 |
+| DEF-01 | RF05 (ofertas por grupo): critério [DEF-01] do "2 por valor" | R03 (aplicação incorreta dos descontos); R10 (correção além do previsto) | `test_dois_por_valor_com_quantidade_impar_cobra_sobra_a_preco_cheio` | 4.7 |
+| DEF-02 | RF03 (valor = preço × quantidade) e RF05: critério [DEF-02] da fração nas ofertas por grupo | R02 (cálculo incorreto dos valores); R03 (aplicação incorreta dos descontos); R10 (correção além do previsto) | `test_promocao_por_grupo_cobra_a_fracao_restante`, `test_recibo_impresso_com_todas_as_modalidades_de_oferta` | 4.8 |
+| DEF-03 | RNF01 (manutenção sem dependências desnecessárias): critério [DEF-03]; interface `Teller.product_with_name` | R10 (correção além do previsto); R13 (quebra de interface) | `test_product_with_name_funciona_com_qualquer_catalogo_do_contrato`, `test_product_with_name_devolve_o_produto_ou_none` | 4.9 |

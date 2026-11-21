@@ -181,54 +181,58 @@ Estas decisões devem constar no plano de contingência e no README.
 
 ### 1.1 Diagnóstico técnico
 
-- [ ] **Incluir uma seção de Duplicação:** as três fórmulas de oferta por grupo em `shopping_cart.py` (linhas 45, 54–55 e 63–64) seguem o mesmo padrão. Mostrar o **trecho de código**, não só o número das linhas.
-- [ ] **Incluir uma seção de Defeitos encontrados**, resumindo e apontando para o [registro de defeitos](registro_de_defeitos.md):
+- [x] **Incluir uma seção de Duplicação:** as três fórmulas de oferta por grupo em `shopping_cart.py` (linhas 45, 54–55 e 63–64) seguem o mesmo padrão. Mostrar o **trecho de código**, não só o número das linhas.
+- [x] **Incluir uma seção de Defeitos encontrados**, resumindo e apontando para o [registro de defeitos](registro_de_defeitos.md):
   - DEF-01: "2 por valor" com quantidade ímpar (`/` em vez de `//`, linha 45);
   - DEF-02: fração gratuita nas ofertas por grupo (linhas 45, 54–55 e 63–64);
   - DEF-03: `Teller.product_with_name` acessa `catalog.products`, que não faz parte do contrato (linhas 28–29 de `teller.py`).
-- [ ] **Incluir os smells que faltam:**
-  - [ ] lógica do "3 por 2" partida em dois blocos (linhas 39–40 e 53–56);
-  - [ ] nomes pouco expressivos (`x`, `p`, `discount_n`, `number_of_x`);
-  - [ ] números mágicos (2, 3, 5, 100);
-  - [ ] Feature Envy no `handle_offers`, que usa mais dados do catálogo, da oferta e do recibo do que do próprio carrinho;
-  - [ ] `float` para valores monetários;
-  - [ ] `ShoppingCart.items` expondo a lista interna. A síntese cita esse ponto, mas o corpo do texto não o analisa.
-- [ ] **Corrigir a numeração** (há duas seções 7) e os erros de digitação ("catélogo", "susbtituição", "foram identificados foram registrados").
+- [x] **Incluir os smells que faltam:**
+  - [x] lógica do "3 por 2" partida em dois blocos (linhas 39–40 e 53–56);
+  - [x] nomes pouco expressivos (`x`, `p`, `discount_n`, `number_of_x`);
+  - [x] números mágicos (2, 3, 5, 100);
+  - [x] Feature Envy no `handle_offers`, que usa mais dados do catálogo, da oferta e do recibo do que do próprio carrinho;
+  - [x] `float` para valores monetários;
+  - [x] `ShoppingCart.items` expondo a lista interna. A síntese cita esse ponto, mas o corpo do texto não o analisa.
+- [x] **Corrigir a numeração** (há duas seções 7) e os erros de digitação ("catélogo", "susbtituição", "foram identificados foram registrados").
 
 ### 1.2 Requisitos
 
-- [ ] **RF01:** corrigir a descrição. O preço vem do catálogo no momento do checkout e não é registrado no carrinho.
-- [ ] **Quebrar RF04 e RF05 em um requisito por oferta**, com critérios numéricos:
-  - [ ] 3 por 2 (por exemplo, 7 unidades a R$ 10 custam R$ 50);
-  - [ ] desconto percentual (por exemplo, 3 unidades a R$ 10 com 20% dão R$ 6 de desconto);
-  - [ ] 2 por valor (por exemplo, 4 unidades a R$ 10 em "2 por 15" custam R$ 30);
-  - [ ] 5 por valor (por exemplo, 12 unidades a R$ 10 em "5 por 40" custam R$ 100).
-- [ ] **RF07:** manter os 10% sobre os combos completos. O percentual pode ser parâmetro, desde que o padrão seja 10%.
-- [ ] **RF16:** reescrever como "Se combo e oferta individual disputarem as mesmas unidades, aplicar a ordem (combos primeiro ou ofertas primeiro) que resultar no menor total, comparado em centavos; em empate, prevalecem as ofertas individuais."
-- [ ] **Novo RF:** combos que disputam o mesmo produto são resolvidos pela ordem de cadastro (D6).
-- [ ] **Novo RF (DEF-01):** o "2 por valor" com quantidade ímpar cobra a unidade restante a preço cheio. Critério: 3 unidades a R$ 10 em "2 por 15" custam R$ 25.
-- [ ] **Novo RF (DEF-02):** nas ofertas por grupo, toda a sobra (unidades e fração) é cobrada a preço cheio. Critério: 3,5 kg a R$ 2,00 em "3 por 2" custam R$ 5,00.
-- [ ] **Novo RNF (DEF-03):** o `Teller` funciona com qualquer catálogo que cumpra o contrato de `SupermarketCatalog`, incluindo a busca de produto por nome.
-- [ ] **Remover RF15, RF17 e RF18:**
+> **Feito em [`requisitos.md`](requisitos.md).** Para não criar requisitos desnecessários, os itens marcados como "novo RF/RNF" e a quebra do RF04/RF05 foram atendidos como **critérios de aceitação** dos requisitos existentes: o percentual no RF04, os critérios das ofertas por grupo e de DEF-01/DEF-02 no RF05, D6 no RF11 e DEF-03 no RNF01. A rastreabilidade já tem os testes de caracterização e segue sendo preenchida nas Fases 4 a 6.
+
+- [x] **RF01:** corrigir a descrição. O preço vem do catálogo no momento do checkout e não é registrado no carrinho.
+- [x] **Quebrar RF04 e RF05 em um requisito por oferta**, com critérios numéricos:
+  - [x] 3 por 2 (por exemplo, 7 unidades a R$ 10 custam R$ 50);
+  - [x] desconto percentual (por exemplo, 3 unidades a R$ 10 com 20% dão R$ 6 de desconto);
+  - [x] 2 por valor (por exemplo, 4 unidades a R$ 10 em "2 por 15" custam R$ 30);
+  - [x] 5 por valor (por exemplo, 12 unidades a R$ 10 em "5 por 40" custam R$ 100).
+- [x] **RF07:** manter os 10% sobre os combos completos. O percentual pode ser parâmetro, desde que o padrão seja 10%.
+- [x] **RF16:** reescrever como "Se combo e oferta individual disputarem as mesmas unidades, aplicar a ordem (combos primeiro ou ofertas primeiro) que resultar no menor total, comparado em centavos; em empate, prevalecem as ofertas individuais."
+- [x] **Novo RF:** combos que disputam o mesmo produto são resolvidos pela ordem de cadastro (D6).
+- [x] **Novo RF (DEF-01):** o "2 por valor" com quantidade ímpar cobra a unidade restante a preço cheio. Critério: 3 unidades a R$ 10 em "2 por 15" custam R$ 25.
+- [x] **Novo RF (DEF-02):** nas ofertas por grupo, toda a sobra (unidades e fração) é cobrada a preço cheio. Critério: 3,5 kg a R$ 2,00 em "3 por 2" custam R$ 5,00.
+- [x] **Novo RNF (DEF-03):** o `Teller` funciona com qualquer catálogo que cumpra o contrato de `SupermarketCatalog`, incluindo a busca de produto por nome.
+- [x] **Remover RF15, RF17 e RF18:**
   - RF15 e RF18 vão para uma seção "Fora de escopo", com justificativa.
   - RF17 já é comportamento do legado e vira critério de aceitação do RF14.
-- [ ] **Incluir a coluna de rastreabilidade:** RF → arquivo ou classe → nome do teste → evidência. Preencher ao longo das Fases 4 a 6.
+- [x] **Incluir a coluna de rastreabilidade:** RF → arquivo ou classe → nome do teste → evidência. Preencher ao longo das Fases 4 a 6.
 
 ### 1.3 Plano de contingência
 
-- [ ] **Tabela de interfaces:**
-  - [ ] corrigir `Teller.checkout_articles_from_cart` para **`Teller.checks_out_articles_from`**;
-  - [ ] incluir `Teller.product_with_name`, `Teller.offers`, `ShoppingCart.items`, `ShoppingCart.product_quantities` e `Receipt.add_product`.
-- [ ] **Invariantes:**
-  - [ ] trocar "no máximo um desconto por produto" por **"no máximo um desconto por unidade"**;
-  - [ ] marcar as invariantes do "2 por valor" e da fração como **comportamento corrigido** (DEF-01 e DEF-02), explicando que até a Fase 4.6 vale o comportamento legado e a partir das Fases 4.7 e 4.8 vale o corrigido;
-  - [ ] incluir **"cadastrar um combo nunca encarece um carrinho"**.
-- [ ] **Seção 2.2:** substituir o "algoritmo de otimização" e a "proporcionalidade mínima" pela política descrita neste documento.
-- [ ] **Preencher a tabela "Ordem das alterações"**, que hoje tem a linha 3 escrita "pensar" e as linhas 4 a 7 vazias, com as Fases 3 a 7 deste plano.
-- [ ] **Consertar a tabela de critérios de aceitação**, que está com células deslocadas. A "Preservação das funcionalidades" deve apontar para o RNF03.
-- [ ] **Risco (1):** retirar a mitigação "implementar validações na inclusão de produtos". Ela mudaria o comportamento do legado e não é pedida.
-- [ ] **Incluir a seção "Decisões registradas"** com D1 a D6.
-- [ ] **Estratégia de reversão:** citar a tag `legado-baseline` e o fluxo de branches e PRs para a `develop`.
+> **Feito em [`plano_contingencia.md`](plano_contingencia.md).** Além dos itens abaixo, a seção 2.1 perdeu a referência à proporcionalidade mínima, os riscos ligados aos requisitos removidos foram ajustados (o R10 passou a tratar das correções de defeitos, e foi incluído o R13, de quebra de comportamento ou de interface na refatoração), e a estratégia de reversão incorporou o fluxo de branches e PRs para a `develop` sugerido nos comentários do documento.
+
+- [x] **Tabela de interfaces:**
+  - [x] corrigir `Teller.checkout_articles_from_cart` para **`Teller.checks_out_articles_from`**;
+  - [x] incluir `Teller.product_with_name`, `Teller.offers`, `ShoppingCart.items`, `ShoppingCart.product_quantities` e `Receipt.add_product`.
+- [x] **Invariantes:**
+  - [x] trocar "no máximo um desconto por produto" por **"no máximo um desconto por unidade"**;
+  - [x] marcar as invariantes do "2 por valor" e da fração como **comportamento corrigido** (DEF-01 e DEF-02), explicando que até a Fase 4.6 vale o comportamento legado e a partir das Fases 4.7 e 4.8 vale o corrigido;
+  - [x] incluir **"cadastrar um combo nunca encarece um carrinho"**.
+- [x] **Seção 2.2:** substituir o "algoritmo de otimização" e a "proporcionalidade mínima" pela política descrita neste documento.
+- [x] **Preencher a tabela "Ordem das alterações"**, que hoje tem a linha 3 escrita "pensar" e as linhas 4 a 7 vazias, com as Fases 3 a 7 deste plano.
+- [x] **Consertar a tabela de critérios de aceitação**, que está com células deslocadas. A "Preservação das funcionalidades" deve apontar para o RNF03.
+- [x] **Risco (1):** retirar a mitigação "implementar validações na inclusão de produtos". Ela mudaria o comportamento do legado e não é pedida.
+- [x] **Incluir a seção "Decisões registradas"** com D1 a D6.
+- [x] **Estratégia de reversão:** citar a tag `legado-baseline` e o fluxo de branches e PRs para a `develop`.
 
 **Pronto quando:** os três documentos estão revisados pelo grupo e estão em `docs/`.
 
