@@ -1,0 +1,22 @@
+WARNING:pip_audit._cli:--no-deps is supported, but users are encouraged to fully hash their pinned dependencies
+WARNING:pip_audit._cli:Consider using a tool like `pip-compile`: https://pip-tools.readthedocs.io/en/latest/#using-hashes
+Found 16 known vulnerabilities in 1 package
+ERROR conda.cli.main_run:execute(148): `conda run python -m pip_audit -r docs/seguranca/base_pip_freeze.txt --no-deps` failed. (See above for error)
+Name    Version ID              Fix Versions
+------- ------- --------------- -------------
+urllib3 2.0.6   PYSEC-2026-1995 1.26.19,2.2.2
+urllib3 2.0.6   PYSEC-2023-212  1.26.18,2.0.7
+urllib3 2.0.6   PYSEC-2023-212  1.26.18,2.0.7
+urllib3 2.0.6   PYSEC-2026-1999 2.5.0
+urllib3 2.0.6   PYSEC-2026-1998 2.6.0
+urllib3 2.0.6   PYSEC-2026-1994 2.6.0
+urllib3 2.0.6   PYSEC-2026-1996 2.6.3
+urllib3 2.0.6   PYSEC-2026-141  2.7.0
+urllib3 2.0.6   PYSEC-2026-141  2.7.0
+urllib3 2.0.6   PYSEC-2026-1999 2.5.0
+urllib3 2.0.6   PYSEC-2026-1998 2.6.0
+urllib3 2.0.6   PYSEC-2026-1995 1.26.19,2.2.2
+urllib3 2.0.6   PYSEC-2026-1994 2.6.0
+urllib3 2.0.6   PYSEC-2026-1996 2.6.3
+urllib3 2.0.6   PYSEC-2026-4177 2.8.0
+urllib3 2.0.6   PYSEC-2026-4175 2.8.0

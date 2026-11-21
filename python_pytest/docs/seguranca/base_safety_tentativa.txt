@@ -1,0 +1,13 @@
+/home/beatriz/miniconda3/envs/supermarket-sec/lib/python3.12/site-packages/safety/auth/main.py:5: AuthlibDeprecationWarning: authlib.jose module is deprecated, please use joserfc instead.
+It will be compatible before version 2.0.0.
+  from authlib.jose.errors import ExpiredTokenError
+/home/beatriz/miniconda3/envs/supermarket-sec/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.
+  from ._compat import httpx2
+Unhandled exception happened: EOF when reading a line
+ERROR conda.cli.main_run:execute(148): `conda run python -m safety scan` failed. (See above for error)
+
+Please login or register Safety CLI (free forever) to scan and secure your 
+projects with Safety
+
+(R)egister for a free account in 30 seconds, or (L)ogin with an existing account
+to continue (R/L): 

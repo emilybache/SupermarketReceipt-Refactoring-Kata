@@ -1,0 +1,29 @@
+/home/beatriz/miniconda3/envs/supermarket-sec/lib/python3.12/site-packages/safety/auth/main.py:5: AuthlibDeprecationWarning: authlib.jose module is deprecated, please use joserfc instead.
+It will be compatible before version 2.0.0.
+  from authlib.jose.errors import ExpiredTokenError
+/home/beatriz/miniconda3/envs/supermarket-sec/lib/python3.12/site-packages/authlib/integrations/httpx_client/assertion_client.py:5: AuthlibDeprecationWarning: The httpx module is deprecated; please use httpx2 instead.
+  from ._compat import httpx2
+Safety 3.8.1 scanning 
+/home/beatriz/Documents/arquivos_faculdade/SupermarketReceipt-Refactoring-Kata/p
+ython_pytest
+2026-11-21 16:41:35 UTC
+
+Account: bea, beatrizestevez29@gmail.com 
+Project: python-pytest
+ Git branch: feature/clean-archtecture-aplication
+ Environment: Stage.development
+ Scan policy: fetched from Safety Platform, ignoring any local Safety CLI policy
+files
+
+Python detected. Found 1 Python requirement file
+
+✅ requirements.txt: No issues found.
+
+Tested 4 dependencies for security issues using policy fetched from Safety 
+Platform
+1 vulnerability found, 1 ignored due to policy.
+0 fixes suggested, resolving 0 vulnerabilities.
+
+Project dashboard: 
+https://platform.safetycli.com/codebases/python-pytest/findings?branch=feature/c
+lean-archtecture-aplication

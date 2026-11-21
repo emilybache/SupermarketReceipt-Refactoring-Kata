@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "scan_type": "scan",
+    "stage": "development",
+    "scan_locations": [
+      "/home/beatriz/Documents/arquivos_faculdade/SupermarketReceipt-Refactoring-Kata/python_pytest"
+    ],
+    "authenticated": true,
+    "authentication_method": "token",
+    "timestamp": "2026-11-21T13:42:55.735707",
+    "telemetry": {
+      "os_type": "Linux",
+      "os_release": "7.0.0-34-generic",
+      "os_description": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
+      "python_version": "3.12.16",
+      "safety_command": "scan",
+      "safety_options": {
+        "output": {
+          "--output": 1
+        }
+      },
+      "safety_version": "3.8.1",
+      "safety_source": "cli"
+    },
+    "schema_version": "3.0"
+  },
+  "scan_results": {
+    "files": [],
+    "projects": [
+      {
+        "id": "python-pytest",
+        "upload_request_id": null,
+        "location": "/home/beatriz/Documents/arquivos_faculdade/SupermarketReceipt-Refactoring-Kata/python_pytest",
+        "policy": {
+          "id": "77e8ce82-5fb2-4ef6-9ddf-1d6a77964176",
+          "path": null,
+          "source": "cloud"
+        },
+        "git": {
+          "branch": "feature/clean-archtecture-aplication",
+          "tag": "",
+          "commit": "6f7c327e0ae0912e0dbb80906c0063ee2ffb2d0f",
+          "dirty": false,
+          "origin": "https://github.com/Leofter/SupermarketReceipt-Refactoring-Kata.git"
+        },
+        "files": [
+          {
+            "location": "/home/beatriz/Documents/arquivos_faculdade/SupermarketReceipt-Refactoring-Kata/python_pytest/requirements.txt",
+            "type": "requirements.txt",
+            "categories": [
+              "python"
+            ],
+            "results": {
+              "dependencies": [
+                {
+                  "name": "pytest",
+                  "specifications": [
+                    {
+                      "raw": "pytest",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [
+                          {
+                            "id": "SFTY-20260122-20373",
+                            "ignored": {
+                              "code": "unpinned-specification",
+                              "reason": "This vulnerability is being ignored due to the 'ignore-unpinned-requirements' flag (default True). To change this, set 'ignore-unpinned-requirements' to False under 'security' in your policy file. See https://docs.pyup.io/docs/safety-20-policy-file for more information.",
+                              "expires": null
+                            },
+                            "vulnerable_spec": "<9.0.3"
+                          }
+                        ],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "approvaltests",
+                  "specifications": [
+                    {
+                      "raw": "approvaltests",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "pytest-approvaltests",
+                  "specifications": [
+                    {
+                      "raw": "pytest-approvaltests",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "coverage",
+                  "specifications": [
+                    {
+                      "raw": "coverage",
+                      "vulnerabilities": {
+                        "known_vulnerabilities": [],
+                        "remediation": null
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

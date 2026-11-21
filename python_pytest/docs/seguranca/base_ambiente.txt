@@ -1,0 +1,17 @@
+Ambiente de Linha de Base de Segurança
+=======================================
+Data/Hora (UTC): 2026-11-21 16:20:44 UTC
+Sistema Operacional: Linux 7.0.0-34-generic (#34~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 15:38:29 UTC 2)
+Arquitetura: x86_64
+Proxy Configurado: Falso
+Commit Git: 6f7c327e0ae0912e0dbb80906c0063ee2ffb2d0f
+Estado do Git: Modificações locais detectadas
+
+Versões das Ferramentas:
+- Conda: conda 26.7.1
+- Python: Python 3.12.16
+- pip: pip 26.2.2 from /home/beatriz/miniconda3/envs/supermarket-sec/lib/python3.12/site-packages/pip (python 3.12)
+- Bandit: __main__.py 1.9.4
+  python version = 3.12.16 | packaged by Anaconda, Inc. | (main, Oct 26 2026, 20:21:38) [GCC 14.3.0]
+- pip-audit: pip-audit 2.10.1
+- Safety: safety, version 3.8.1

@@ -1,0 +1,90 @@
+Run started:2026-11-21 16:21:27.475971+00:00
+
+Test results:
+>> Issue: [B101:assert_used] Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html
+   Location: tests/test_supermarket.py:24:4
+23	
+24	    assert 4.975 == pytest.approx(receipt.total_price(), 0.01)
+25	    assert [] == receipt.discounts
+
+--------------------------------------------------
+>> Issue: [B101:assert_used] Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html
+   Location: tests/test_supermarket.py:25:4
+24	    assert 4.975 == pytest.approx(receipt.total_price(), 0.01)
+25	    assert [] == receipt.discounts
+26	    assert 1 == len(receipt.items)
+
+--------------------------------------------------
+>> Issue: [B101:assert_used] Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html
+   Location: tests/test_supermarket.py:26:4
+25	    assert [] == receipt.discounts
+26	    assert 1 == len(receipt.items)
+27	    receipt_item = receipt.items[0]
+
+--------------------------------------------------
+>> Issue: [B101:assert_used] Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html
+   Location: tests/test_supermarket.py:28:4
+27	    receipt_item = receipt.items[0]
+28	    assert apples == receipt_item.product
+29	    assert 1.99 == receipt_item.price
+
+--------------------------------------------------
+>> Issue: [B101:assert_used] Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html
+   Location: tests/test_supermarket.py:29:4
+28	    assert apples == receipt_item.product
+29	    assert 1.99 == receipt_item.price
+30	    assert 2.5 * 1.99 == pytest.approx(receipt_item.total_price, 0.01)
+
+--------------------------------------------------
+>> Issue: [B101:assert_used] Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html
+   Location: tests/test_supermarket.py:30:4
+29	    assert 1.99 == receipt_item.price
+30	    assert 2.5 * 1.99 == pytest.approx(receipt_item.total_price, 0.01)
+31	    assert 2.5 == receipt_item.quantity
+
+--------------------------------------------------
+>> Issue: [B101:assert_used] Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+   Severity: Low   Confidence: High
+   CWE: CWE-703 (https://cwe.mitre.org/data/definitions/703.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b101_assert_used.html
+   Location: tests/test_supermarket.py:31:4
+30	    assert 2.5 * 1.99 == pytest.approx(receipt_item.total_price, 0.01)
+31	    assert 2.5 == receipt_item.quantity
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 212
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 7
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 7
+Files skipped (0):
